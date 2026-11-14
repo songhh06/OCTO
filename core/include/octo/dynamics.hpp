@@ -98,7 +98,7 @@ struct SolverSettings {
     double force_tolerance = 1e-6, relative_tolerance = 1e-7;
     double fd_epsilon = 1e-7;
     bool exact_hessian = true;
-    unsigned max_outer = 32;
+    unsigned max_outer = 64;
     double constraint_penalty = 1e5, contact_margin = 0.003;
     double constraint_tolerance = 2e-5, dual_tolerance = 0.002, pressure_tolerance = 0.01;
 };
