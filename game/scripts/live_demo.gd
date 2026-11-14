@@ -660,7 +660,7 @@ func _process(delta: float) -> void:
             await capture("live_box_contact")
         print("LIVE_GODOT_CONTACT_OK tick=%d contacts=%d motion_m=%.6f" % [current.tick,max_contacts,max_motion])
         if model_test:
-            if not fem_surface_built or fem_skin_mesh == null or max_bone_motion < 0.002:
+            if not fem_surface_built or fem_skin_mesh == null or fem_skin_mesh.get_blend_shape_count() != FEM_MORPH_COUNT or max_bone_motion < 0.002:
                 fail("GLB skin or FEM torso did not update during live contact")
                 return
             print("LIVE_MODEL_SKIN_OK bones=192 fem_triangles=8 pose_delta_m=%.6f fem_skin_delta=%.6f" % [max_bone_motion, max_fem_skin_motion])
