@@ -39,6 +39,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Native short regression failed' }
           ctest --test-dir build/release -R '^live\.protocol$' --output-on-failure --no-tests=error
           if ($LASTEXITCODE -ne 0) { throw 'Native interactive protocol regression failed' }
+          ctest --test-dir build/release -R '^live\.torso_protocol$' --output-on-failure --no-tests=error
+          if ($LASTEXITCODE -ne 0) { throw 'Native coupled FEM torso protocol regression failed' }
       - name: Install official Godot 4.6.2 release
         shell: pwsh
         run: |
@@ -57,3 +59,30 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
           python tests/integration/godot_live_smoke.py $env:OCTO_GODOT
           if ($LASTEXITCODE -ne 0) { throw 'Godot live integration regression failed' }
+      - name: Default Godot Play refuses missing GameReady GLB
+        shell: pwsh
+        run: |
+          if (Test-Path game/assets/Octopus_GameReady_v5.glb) { throw 'Unexpected model already installed before test' }
+          $project = Get-Content game/project.godot -Raw
+          if (-not $project.Contains('run/main_scene="res://scenes/live_demo.tscn"')) { throw 'Play scene still points at the obsolete bootstrap' }
+          $warningLog = & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game --quit-after 6 2>&1 | Out-String
+          Write-Host $warningLog
+          if (-not $warningLog.Contains('GAME_READY_MODEL_REQUIRED')) { throw 'Default Play silently fell back to the old model' }
+          if ($warningLog.Contains('LIVE_GODOT_READY')) { throw 'Default Play unexpectedly launched native physics without the required model' }
+      - name: Synthetic GLB skeleton import and Godot skinning exercise
+        shell: pwsh
+        run: |
+          # A synthetic 193-bone triangle rig validates the runtime code path.
+          # It does not validate the appearance of the user-supplied GLB.
+          python tests/integration/make_synthetic_octopus.py game/assets/Octopus_GameReady_v5.glb
+          if ($LASTEXITCODE -ne 0) { throw 'Synthetic GLB creation failed' }
+          python tools/check_octopus_model.py game/assets/Octopus_GameReady_v5.glb
+          if ($LASTEXITCODE -ne 0) { throw 'GLB structural validation failed' }
+          & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game --editor --quit
+          if ($LASTEXITCODE -ne 0) { throw 'Godot GLB import failed' }
+          $modelLog = & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game res://scenes/live_demo.tscn -- --live-model-test 2>&1 | Out-String
+          Write-Host $modelLog
+          if ($LASTEXITCODE -ne 0) { throw 'Godot skinned model smoke failed' }
+          foreach ($marker in @('LIVE_MODEL_LOADED', 'LIVE_FEM_SKIN_BIND_OK', 'LIVE_FEM_SURFACE_READY', 'LIVE_MODEL_SKIN_OK', 'LIVE_GODOT_CONTACT_OK')) {
+            if (-not $modelLog.Contains($marker)) { throw "Godot synthetic rig missing $marker" }
+          }

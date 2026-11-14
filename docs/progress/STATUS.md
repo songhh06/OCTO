@@ -1,5 +1,75 @@
 # STATUS
 
+## 2026-11-14 — User could still see old octopus: default launch / GLB install fix
+
+Reproduced *configuration cause* in the branch: the Godot `run/main_scene`
+still pointed to the old `bootstrap.tscn`, `run_preview.cmd` opened the
+old procedural scene, and the original GLB was never committed (it is
+distributed only in a separate ZIP). The previous live demo also silently
+fell back to procedural visuals when the asset was absent.
+
+Fixes on `feature/P2V-model-curved-contact-body`:
+- Godot default Play scene is now `res://scenes/live_demo.tscn`.
+- `run_preview.cmd` forwards to `run_live_demo.cmd`; old preview is
+  preserved under `run_legacy_preview.cmd`.
+- Interactive live scene refuses missing/unreadable GameReady GLB and shows
+  a visible error label. Procedural fallback is allowed **only** for explicit
+  headless regression flags / `--allow-procedural-fallback`.
+- `run_live_demo.cmd` checks the GLB *before* rebuilding native code,
+  structurally validates it, then imports it in Godot before launch.
+- A one-click ZIP installer with the original GLB can switch the chosen
+  local OCTO checkout to the correct feature branch, verify SHA256 and
+  install the asset without discarding tracked user modifications.
+- CI now asserts default Play startup rejects missing GLB rather than
+  silently loading the wrong octopus; legacy headless physics regressions
+  keep explicit test flags. Godot CI uses a synthetic rig, **not** the
+  user's original textured model.
+- **Not established**: user has run the installer or visually inspected
+  the original model on their machine. Do not mark art appearance accepted.
+
+## 2026-11-14 — PR #2: GameReady rig / dense contact / monolithic torso FEM
+
+**Work in progress; P2V full acceptance remains OPEN.**
+Branch `feature/P2V-model-curved-contact-body`, stacked draft PR #2.
+
+- Uploaded user GLB: glTF2, 8×24 arm bones, 193 total skin joints,
+  12,698 main skin vertices. Original 15,203,672-byte binary remains
+  **outside the Git branch**; must be copied to
+  `game/assets/Octopus_GameReady_v5.glb` from the user's installer ZIP.
+  Godot adapter maps reversed art/native arm winding, drives 192 bones from
+  native snapshots, hides the old procedural display and skips its mesh rebuild.
+  An experimental 18-channel GPU morph adapter now transfers the six FEM
+  boundary node translations to Root-weighted GLB body vertices (barycentric
+  production embedding and normal validation remain open).
+- Godot CI imported a **synthetic**, same-named 193-bone GLB, then passed
+  `LIVE_MODEL_LOADED`, `LIVE_FEM_SURFACE_READY`,
+  `LIVE_GODOT_CONTACT_OK` and `LIVE_MODEL_SKIN_OK`:
+  https://github.com/songhh06/OCTO/actions/runs/43593877339.
+  In a later synthetic-model run, the 18 GPU skin morphs were generated and
+  updated successfully (https://github.com/songhh06/OCTO/actions/runs/43594758175).
+  The actual supplied asset has NOT received render/skin acceptance.
+- C++ native FEM torso now owns seven mass-conserving shared-world vertices,
+  eight tetrahedra and a condensed volumetric Schur block. The rod root shares
+  a center degree of freedom; three compliant beak-to-mantle attachments
+  transmit rotational torque. A moving eight-triangle surface generates
+  barycentric box/plane/terrain contact, with bilateral rigid-box reaction.
+  Godot F3 displays native FEM boundary (debug view). Surface-contact/
+  torque tests were added after the initial passing FEM CI.
+- Reference 120-tick native FEM protocol and unit tests passed on Windows:
+  https://github.com/songhh06/OCTO/actions/runs/43591573923.
+- Previously failing curved 100k-triangle benchmark now **converges all
+  10 ticks** with original `dual_tolerance=0.002`, not loosened.
+  Latest confirmed run: https://github.com/songhh06/OCTO/actions/runs/43593872655.
+  p95 ~19,786 ms/tick: 120 Hz target 8.333 ms **NOT MET**.
+  Dense-terrain swept CCD, arbitrary contact endurance remain open.
+- **Not achieved:** actual user GLB GPU-render inspection; high-resolution
+  FEM body skin embedding; deformable arm cross sections and suction patches;
+  mantle internal chamber and beak clearance; V16–V21; V13 speed/BIO.
+  Numerical parameters are ASSUMED. See issues/004 and issues/007.
+- Run `.github/workflows/live-regression.yml` and
+  `.github/workflows/curved-contact.yml`; use latest GitHub CI run on
+  PR #2 before changing draft status.
+
 ## Live transport and reset hardening — Windows CI verified (scoped)
 
 Branch `feature/P0-live-process-recovery`; PR #1 (draft).

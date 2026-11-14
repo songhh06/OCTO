@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
     const bool curved = argc == 2 && std::string(argv[1]) == "--curved";
     try {
         System s;
-        s.solver.max_outer = 32;
+        s.solver.max_outer = 64;
         s.solver.max_newton = 20;
         s.solver.max_cg = 200;
         s.gravity = {0, -9.81, 0};
@@ -92,6 +92,7 @@ int main(int argc, char **argv) {
         bool success = true;
         std::string failure;
         for (unsigned tick = 0; tick < 10; ++tick) {
+            s.diagnostics = curved && tick >= 1 ? &std::cerr : nullptr;
             auto result = s.step();
             times.push_back(result.cpu_ms);
             max_contacts = std::max(max_contacts, result.contacts);

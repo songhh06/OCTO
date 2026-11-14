@@ -1,13 +1,13 @@
 config_version=5
 
 [application]
-config/name="OCTOPUS - P0 bootstrap"
-run/main_scene="res://scenes/bootstrap.tscn"
+config/name="OCTO | GameReady v5 live physics"
+run/main_scene="res://scenes/live_demo.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
 [display]
-window/size/viewport_width=960
-window/size/viewport_height=540
+window/size/viewport_width=1280
+window/size/viewport_height=800
 
 [physics]
 common/physics_ticks_per_second=120

@@ -73,9 +73,12 @@ bool System::solve_coupled(double h, StepResult &stats) {
             return false;
         }
         const auto bodies = incremented(state, x);
-        double dual_error = 0, violation = 0, pressure_error = 0;
+        double dual_error = 0, contact_dual = 0, cup_dual = 0, violation = 0, pressure_error = 0;
+        std::uint64_t worst_contact_key = 0;
+        std::array<unsigned, 16> kind_counts{};
         const double rho = penalty();
         for (auto &c : state.contacts) {
+            ++kind_counts[c.key >> 60];
             V3 d = contact_delta(c, bodies), center = -c.normal_fixed_point;
             for (unsigned k = 0; k < c.count; ++k)
                 center += point_at(bodies, c.normal_anchors[k]) * c.weights[k];
@@ -85,10 +88,14 @@ bool System::solve_coupled(double h, StepResult &stats) {
             double normal = std::max(0.0, c.normal_multiplier - rho * gap);
             V3 friction =
                 project_ball(c.tangent_multiplier - tangent * rho, c.friction * normal, c.normal);
-            dual_error = std::max(dual_error,
-                                  std::abs(normal - c.normal_multiplier) / std::max(1.0, normal));
-            dual_error = std::max(dual_error, norm(friction - c.tangent_multiplier) /
-                                                  std::max(1.0, norm(friction)));
+            const double change = std::max(
+                std::abs(normal - c.normal_multiplier) / std::max(1.0, normal),
+                norm(friction - c.tangent_multiplier) / std::max(1.0, norm(friction)));
+            if (change > contact_dual) {
+                contact_dual = change;
+                worst_contact_key = c.key;
+            }
+            dual_error = std::max(dual_error, change);
             c.normal_multiplier = normal;
             c.tangent_multiplier = friction;
             violation = std::max(violation, std::max(-gap, 0.0));
@@ -106,10 +113,11 @@ bool System::solve_coupled(double h, StepResult &stats) {
                 V3 friction =
                     project_ball(cup.tangent_multiplier - tangent * rho,
                                  cup.material.friction * (normal + cup.force_limit), cup.normal);
-                dual_error = std::max(dual_error, std::abs(normal - cup.normal_multiplier) /
-                                                      std::max(1.0, cup.force_limit));
-                dual_error = std::max(dual_error, norm(friction - cup.tangent_multiplier) /
-                                                      std::max(1.0, cup.force_limit));
+                cup_dual = std::max(cup_dual, std::abs(normal - cup.normal_multiplier) /
+                                                     std::max(1.0, cup.force_limit));
+                cup_dual = std::max(cup_dual, norm(friction - cup.tangent_multiplier) /
+                                                     std::max(1.0, cup.force_limit));
+                dual_error = std::max(dual_error, cup_dual);
                 cup.normal_multiplier = normal;
                 cup.tangent_multiplier = friction;
                 violation = std::max(violation, std::max(-gap, 0.0));
@@ -170,6 +178,12 @@ bool System::solve_coupled(double h, StepResult &stats) {
             (*diagnostics) << "outer=" << outer << " h=" << h
                            << " contacts=" << state.contacts.size() << " same=" << same
                            << " geometry=" << violation << " dual=" << dual_error
+                           << " contact_dual=" << contact_dual << " cup_dual=" << cup_dual
+                           << " worst_kind=" << (worst_contact_key >> 60)
+                           << " kinds_1_2_3_4_5_8_10="
+                           << kind_counts[1] << ',' << kind_counts[2] << ',' << kind_counts[3] << ','
+                           << kind_counts[4] << ',' << kind_counts[5] << ',' << kind_counts[8]
+                           << ',' << kind_counts[10]
                            << " pressure=" << pressure_error << std::endl;
         stats.pressure_error = pressure_error;
         stats.constraint_error = violation;

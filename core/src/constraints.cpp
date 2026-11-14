@@ -256,6 +256,37 @@ std::vector<ContactConstraint> System::build_contacts(const std::vector<double> 
                 }
         }
         if (!terrain.triangles().empty()) {
+            if (terrain.triangles().size() >= 10000) {
+                // The SAT for every overlapping tiny triangle can generate
+                // dozens of unrelated AL normals for one box against a
+                // smooth terrain patch. Use actual box support vertices and
+                // stable vertex IDs instead. Ground contact points and normals
+                // come directly from the closest physical triangle.
+                if (b[i].box) {
+                    for (unsigned corner = 0; corner < 8; ++corner) {
+                        V3 local{(corner & 1 ? 1 : -1) * b[i].half_extents.x,
+                                 (corner & 2 ? 1 : -1) * b[i].half_extents.y,
+                                 (corner & 4 ? 1 : -1) * b[i].half_extents.z};
+                        V3 pa = b[i].p + b[i].q.rotate(local);
+                        auto hit = terrain.closest(pa, solver.contact_margin + 0.02);
+                        if (!hit.found)
+                            continue;
+                        V3 n = hit.surface_normal;
+                        point_contact((3ull << 60) | (static_cast<std::uint64_t>(i) << 32) |
+                                          corner,
+                                      i, pa, n, world_id, hit.point, hit.friction);
+                    }
+                } else {
+                    auto hit =
+                        terrain.closest(b[i].p, b[i].radius + solver.contact_margin + 0.02);
+                    if (hit.found) {
+                        auto n = hit.surface_normal;
+                        point_contact((3ull << 60) | (static_cast<std::uint64_t>(i) << 32),
+                                      i, b[i].p - n * b[i].radius, n, world_id,
+                                      hit.point, hit.friction);
+                    }
+                }
+            } else {
             double r = b[i].box ? norm(b[i].half_extents) : b[i].radius;
             auto query = bounds(b[i].p, state.bodies[i].p, r + solver.contact_margin, 0);
             for (auto ti : terrain.query(query)) {
@@ -285,6 +316,90 @@ std::vector<ContactConstraint> System::build_contacts(const std::vector<double> 
                 point_contact((3ull << 60) | (static_cast<std::uint64_t>(i) << 32) | t.id, i,
                               b[i].p - n * support, n, world_id, cp, t.friction);
             }
+            }
+        }
+    }
+    // Explicit boundary triangles of the deforming tetrahedral torso.
+    // A surface sample must transfer its reaction to *all three* FEM vertex
+    // bodies, and (for a dynamic box) to the opposing rigid body as well.
+    // Vertex sphere contacts alone do not prevent box/plane penetration
+    // through the interior of a large triangular FEM boundary face.
+    if (!torso_mesh.elements.empty()) {
+        std::map<std::array<std::uint32_t, 3>, unsigned> face_counts;
+        for (const auto &tet : torso_mesh.elements)
+            for (unsigned omit = 0; omit < 4; ++omit) {
+                std::array<std::uint32_t, 3> face{};
+                unsigned k = 0;
+                for (unsigned j = 0; j < 4; ++j)
+                    if (j != omit)
+                        face[k++] = tet.nodes[j];
+                std::sort(face.begin(), face.end());
+                ++face_counts[face];
+            }
+        const std::array<std::array<double, 3>, 4> samples{{
+            {{1.0 / 3, 1.0 / 3, 1.0 / 3}},
+            {{0.5, 0.5, 0.0}},
+            {{0.5, 0.0, 0.5}},
+            {{0.0, 0.5, 0.5}},
+        }};
+        std::uint64_t face_id = 0;
+        for (const auto &[face, incidence] : face_counts) {
+            if (incidence != 1)
+                continue; // interior faces cannot collide
+            std::array<std::size_t, 3> ids{};
+            for (unsigned k = 0; k < 3; ++k)
+                ids[k] = torso_body_ids.at(face[k]);
+            for (unsigned sample = 0; sample < samples.size(); ++sample) {
+                const auto &w = samples[sample];
+                V3 pa{};
+                for (unsigned k = 0; k < 3; ++k)
+                    pa += b[ids[k]].p * w[k];
+                auto add_surface = [&](std::uint64_t target_id, V3 normal,
+                                       std::size_t target, V3 pb, double friction) {
+                    ContactConstraint c;
+                    // Type 14: a fixed, geometric FEM surface-sample ID.
+                    c.key = (14ull << 60) | (face_id << 45) |
+                            (std::uint64_t(sample) << 43) | target_id;
+                    c.count = target == world_id ? 3 : 4;
+                    c.normal = normal;
+                    c.friction = friction;
+                    for (unsigned k = 0; k < 3; ++k) {
+                        c.anchors[k] = {ids[k], {}, Q{}};
+                        c.weights[k] = w[k];
+                    }
+                    if (target == world_id)
+                        c.fixed_point = pb;
+                    else {
+                        c.anchors[3] = surface_anchor(b, target, pb);
+                        c.weights[3] = -1;
+                    }
+                    c.normal_anchors = c.anchors;
+                    c.normal_fixed_point = c.fixed_point;
+                    add(c);
+                };
+                for (std::size_t plane = 0; plane < planes.size(); ++plane) {
+                    const auto &p = planes[plane];
+                    const double gap = dot(pa, p.normal) - p.offset;
+                    if (gap <= solver.contact_margin)
+                        add_surface((1ull << 40) | plane, p.normal, world_id,
+                                    pa - p.normal * gap, p.friction);
+                }
+                if (!terrain.triangles().empty()) {
+                    auto hit = terrain.closest(pa, solver.contact_margin + 0.02);
+                    if (hit.found)
+                        add_surface((2ull << 40), hit.surface_normal, world_id,
+                                    hit.point, hit.friction);
+                }
+                for (std::size_t body = 0; body < nb; ++body) {
+                    if (!b[body].box)
+                        continue;
+                    const auto hit = box_surface(pa, b[body]);
+                    if (hit.gap <= solver.contact_margin)
+                        add_surface((3ull << 40) | body, hit.normal, body,
+                                    hit.point, b[body].friction);
+                }
+            }
+            ++face_id;
         }
     }
     for (std::size_t i = 0; i < ne; ++i) {
@@ -633,8 +748,67 @@ std::vector<ContactConstraint> System::build_contacts(const std::vector<double> 
             add(constraint);
         }
     }
-    std::sort(result.begin(), result.end(),
-              [](const auto &a, const auto &z) { return a.key < z.key; });
+    // Keep the exact original manifold on small/sculpted scenes, where
+    // separate triangle features can be essential for CCD edge coverage.
+    // The high-resolution 100k-triangle terrain uses patch conditioning.
+    if (terrain.triangles().size() < 10000) {
+        std::sort(result.begin(), result.end(),
+                  [](const auto &a, const auto &z) { return a.key < z.key; });
+        return result;
+    }
+    // Dense triangulations create many nearly identical constraints for one
+    // physical surface patch. Independent AL multipliers on individual tiny
+    // triangles oscillate when the closest triangle changes within a tick.
+    // Select the deepest member of each deterministic contact manifold while
+    // retaining separate capsule endpoints, box quadrants and normal sectors.
+    // This does not relax the contact/dual tolerances and leaves all nonterrain
+    // contacts untouched.
+    std::map<std::uint64_t, ContactConstraint> manifolds;
+    for (auto c : result) {
+        const std::uint64_t kind = c.key >> 60;
+        if (kind != 5) {
+            // Dense rigid-terrain contacts already have stable support-vertex IDs.
+            manifolds.emplace(c.key, c);
+            continue;
+        }
+        const std::uint64_t source = kind == 3 ? (c.key >> 32) & 0x0fffffffull
+                                               : (c.key >> 34) & 0x03ffffffull;
+        // Quantize normals into 9 bins per component. Small cone curvature
+        // remains in one sector; walls with different normals remain distinct.
+        auto quant = [](double v) {
+            return static_cast<std::uint64_t>(
+                std::clamp(std::lround((v + 1.0) * 4.0), 0l, 8l));
+        };
+        const std::uint64_t normal_bin =
+            81 * quant(c.normal.x) + 9 * quant(c.normal.y) + quant(c.normal.z);
+        std::uint64_t slot = kind == 5 ? c.key & 3ull : 0;
+        if (kind == 3 && b[source].box) {
+            const auto local =
+                b[source].q.conjugate().rotate(c.fixed_point - b[source].p);
+            // Retain a four-point support manifold under an oriented box.
+            slot = (local.x >= 0 ? 1ull : 0ull) | (local.z >= 0 ? 2ull : 0ull);
+        }
+        const std::uint64_t stable_key =
+            (kind << 60) | (source << 32) | (normal_bin << 8) | slot;
+        c.key = stable_key;
+        auto [it, inserted] = manifolds.emplace(stable_key, c);
+        if (!inserted &&
+            normal_gap(c, b) < normal_gap(it->second, b))
+            it->second = c;
+    }
+    result.clear();
+    result.reserve(manifolds.size());
+    for (auto &[key, c] : manifolds) {
+        auto prior = old.find(key);
+        if (prior != old.end() && dot(prior->second->normal, c.normal) > 0.99) {
+            c.normal_multiplier = prior->second->normal_multiplier;
+            c.tangent_multiplier =
+                prior->second->tangent_multiplier -
+                c.normal * dot(prior->second->tangent_multiplier, c.normal);
+            c.tangent_origin = prior->second->tangent_origin;
+        }
+        result.push_back(c);
+    }
     return result;
 }
 void System::sample_cup(Cup &cup, const std::vector<double> &x) const {

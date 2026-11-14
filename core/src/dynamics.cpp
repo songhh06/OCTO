@@ -475,6 +475,27 @@ double System::objective(const std::vector<double> &x, double h,
         }
         scatter(energy_e, e.a.body, e.b.body);
     }
+    // Eliminate the local pressure analytically from the mixed u-p tetra
+    // energy: p = K(J-1). The condensed energy/gradient remain conservative;
+    // the 13x13 element Hessian is Schur-complemented below. FEM and rod share
+    // the actual root body index, so reaction forces are assembled bilaterally.
+    for (const auto &tet : torso_mesh.elements) {
+        std::array<V3, 4> points;
+        for (unsigned j = 0; j < 4; ++j) {
+            const auto id = torso_body_ids[tet.nodes[j]];
+            points[j] = state.bodies[id].p + V3{x[6 * id], x[6 * id + 1], x[6 * id + 2]};
+        }
+        const double J = fem::determinant(fem::deformation(tet, points));
+        if (!(J > torso_material.min_J))
+            return std::numeric_limits<double>::infinity();
+        const auto e = fem::evaluate(tet, points, torso_material.bulk * (J - 1),
+                                     torso_material);
+        energy += e.energy;
+        if (gradient)
+            for (unsigned j = 0; j < 4; ++j)
+                for (unsigned k = 0; k < 3; ++k)
+                    (*gradient)[6 * torso_body_ids[tet.nodes[j]] + k] += e.gradient[3 * j + k];
+    }
     for (const auto &link : links) {
         auto a = anchor_pose(pose<D>(state.bodies.at(link.a.body), x, link.a.body, 0), link.a).p;
         auto b =
@@ -681,6 +702,33 @@ std::vector<System::HessianBlock> System::hessian_blocks(const std::vector<doubl
             }
             blocks.push_back(block);
         }
+    // Positive-definite condensed displacement block:
+    // H_uu - H_up H_pp^-1 H_pu, where H_pp = -V0/K.
+    for (const auto &tet : torso_mesh.elements) {
+        std::array<V3, 4> points;
+        for (unsigned j = 0; j < 4; ++j) {
+            const auto id = torso_body_ids[tet.nodes[j]];
+            points[j] = state.bodies[id].p + V3{x[6 * id], x[6 * id + 1], x[6 * id + 2]};
+        }
+        const double J = fem::determinant(fem::deformation(tet, points));
+        const auto e =
+            fem::evaluate(tet, points, torso_material.bulk * (J - 1), torso_material);
+        HessianBlock block;
+        block.count = 4;
+        for (unsigned j = 0; j < 4; ++j)
+            block.ids[j] = torso_body_ids[tet.nodes[j]];
+        for (unsigned j = 0; j < 4; ++j)
+            for (unsigned k = 0; k < 3; ++k)
+                for (unsigned r = 0; r < 4; ++r)
+                    for (unsigned c = 0; c < 3; ++c) {
+                        const unsigned row = 3 * j + k, col = 3 * r + c;
+                        block.matrix[(6 * j + k) * 24 + 6 * r + c] =
+                            e.tangent[row * 13 + col] +
+                            torso_material.bulk / tet.reference_volume *
+                                e.tangent[row * 13 + 12] * e.tangent[12 * 13 + col];
+                    }
+        blocks.push_back(block);
+    }
     for (const auto &e : state.elements)
         add({e.a.body, e.b.body}, [&](auto get) {
             auto a = get(e.a.body), b = get(e.b.body);

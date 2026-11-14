@@ -132,3 +132,71 @@ Add the original checkpoint and sixty unloaded continuation ticks as regression.
 Save diagnostics before responding to a failed client request; wide Windows
 argv preserves Korean paths. Existing generic error wording is replaced with
 actual failure stage. Exact current user action was not logged in the old demo.
+
+
+## D015 — condition dense curved terrain without weakening contact tolerance
+
+The original 100k-triangle conical contact setup stalls in multiplier
+convergence after one tick; diagnostics isolate dynamic OBB–terrain contacts
+rather than cup pressure. Preserve narrow-feature SAT and swept CCD for
+small terrains. On dense triangulations construct persistent signed-surface
+contacts at the real eight OBB corners, and merge capsule triangle multipliers
+by source and normal-sector. Bound maximum outer iterations at 64, **not**
+the allowed `0.002` dual residual threshold; retain state rollback.
+The old counterexample now converges 10 ticks, but p95 is ~19.8 s/tick;
+explicitly leave V13 speed and dense high-speed CCD open.
+See issues/004 and Actions curved-contact.yml.
+
+## D016 — stage monolithic torso FEM and skinned external model separately
+
+Use the existing independent `octo_fem` material model and a small
+seven-node, eight-tet solid as the first shared-world volume. Each FEM
+vertex owns one mass share, and the beak/rod root shares translation with
+the FEM center. Three compliant local beak-to-tissue attachment tethers
+transfer root torque; this is a model of tissue interfaces, **not**
+a second rod bending/torsion energy. Current per-tetra pressure is
+condensed by Schur complement, not a mesh-refinement-stable final
+mixed displacement-pressure formulation.
+
+Use native FEM triangle boundary contact with 3–4 body stencils for real
+two-way plane/box interaction. The user's 193-bone GLB remains visual:
+native Cosserat rod snapshots drive 192 arm bones; art arm numbering
+is counter-wound relative to the native IDs (native i => art 7-i),
+with a -22.5 degree yaw. The GLB torso's thousands of vertices remain
+Root-skinned, and are **not yet** bound to seven FEM nodes. Show an
+optional exact FEM diagnostic surface and keep final skin embedding as
+P2V.1 blocker. The raw user asset cannot be pushed by text-only GitHub
+file API in this session; preserve its SHA and separate install ZIP.
+Do not advertise the 8-tet toy as V16–V21 or full body physics approval.
+
+
+## D017 — use relative GPU morphs as interim mantle preview, not FEM acceptance
+
+Imported GameReady GLB has thousands of body vertices weighted to the Root
+skin joint, so native torso tetra deformation was invisible. Preserve the
+artist mesh, UV/materials and 192 arm bones; at scene load, create 18 sparse
+relative blend-shape displacement channels (6 FEM boundary nodes × XYZ).
+Each vertex is weighted by its Root skin influence and radial direction to
+approximate the deformed physical torso boundary. This is an intermediate
+visual mapping, **not** exact tetrahedral embedding or collision geometry.
+The genuine FEM boundary remains the separate diagnostic mesh. Synthetic
+193-joint Godot runtime CI confirms the morph path and live arm posing,
+but only the user's installed GameReady GLB can establish final visual quality.
+Full tetra skin binding and actual model collision/silhouette mismatch tests
+remain mandatory for V16–V21.
+
+
+## D018 — fail visibly when required GameReady asset is missing
+
+The user reported that the model looked unchanged after the earlier PR.
+Repository examination confirmed two obsolete entrypoints: the Godot Play
+project main_scene was still bootstrap, and the preview script still opened
+the old procedural octopus. Further, the 15.2 MB GLB is not in the public
+GitHub repo. Default Godot Play now launches the live GameReady adapter;
+preview.cmd aliases the live demo, legacy preview has a separate name.
+Refuse interactive startup with missing or failed-to-import GLB instead of
+quiet procedural substitution. Regression modes intentionally permit legacy
+comparison. The launcher checks/validates the original asset before build,
+and a one-click installer supplies it from the user-uploaded ZIP. The actual
+user workstation must still be verified; CI's synthetic 193-joint model is
+insufficient to declare original appearance correct.
