@@ -59,6 +59,16 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
           python tests/integration/godot_live_smoke.py $env:OCTO_GODOT
           if ($LASTEXITCODE -ne 0) { throw 'Godot live integration regression failed' }
+      - name: Default Godot Play refuses missing GameReady GLB
+        shell: pwsh
+        run: |
+          if (Test-Path game/assets/Octopus_GameReady_v5.glb) { throw 'Unexpected model already installed before test' }
+          $project = Get-Content game/project.godot -Raw
+          if (-not $project.Contains('run/main_scene="res://scenes/live_demo.tscn"')) { throw 'Play scene still points at the obsolete bootstrap' }
+          $warningLog = & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game --quit-after 6 2>&1 | Out-String
+          Write-Host $warningLog
+          if (-not $warningLog.Contains('GAME_READY_MODEL_REQUIRED')) { throw 'Default Play silently fell back to the old model' }
+          if ($warningLog.Contains('LIVE_GODOT_READY')) { throw 'Default Play unexpectedly launched native physics without the required model' }
       - name: Synthetic GLB skeleton import and Godot skinning exercise
         shell: pwsh
         run: |
