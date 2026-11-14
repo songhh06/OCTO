@@ -196,7 +196,12 @@ func start_native() -> void:
     sent_at = 0
     received_at = 0
     var executable := ProjectSettings.globalize_path("res://../build/release/octo_live.exe")
-    child = OS.execute_with_pipe(executable, PackedStringArray(["--diagnostics", ProjectSettings.globalize_path("res://../work")]), false)
+    var command_args := PackedStringArray(["--diagnostics", ProjectSettings.globalize_path("res://../work")])
+    # The uploaded rig opts into the experimental C++ tetra torso. With the
+    # legacy visual prototype only, retain the established rigid comparison.
+    if rig_skeleton != null:
+        command_args.append("--torso-fem")
+    child = OS.execute_with_pipe(executable, command_args, false)
     if child.is_empty():
         fail("Cannot launch native solver. Run tools/build-live-demo.ps1.")
         return
