@@ -1,5 +1,6 @@
 #pragma once
 #include "octo/contact.hpp"
+#include "octo/fem.hpp"
 #include "octo/math.hpp"
 #include "octo/world.hpp"
 #include <array>
@@ -124,6 +125,11 @@ class System {
     std::ostream *diagnostics = nullptr; // Optional runtime log sink, never serialized.
     Material material;
     SolverSettings solver;
+    // The tetrahedral torso shares its central translational DOF with the
+    // rod-root body. All FEM nodal masses are assigned exactly once.
+    fem::Material torso_material{};
+    fem::TetMesh torso_mesh{};
+    std::vector<std::uint32_t> torso_body_ids{};
     State state;
     std::vector<Link> links;
     std::vector<Plane> planes;
@@ -134,6 +140,10 @@ class System {
     bool self_contact = false;
     bool coupled_constraints = true;
     std::size_t add_body(Body body);
+    // Minimal mixed-material torso prototype: eight positive octahedral tets,
+    // 6 deformable surface vertices, one shared rod/root vertex.
+    void add_volumetric_torso(std::size_t root, double radial = 0.14,
+                              double vertical = 0.11, double density = 1050);
     std::vector<std::size_t> add_rod(Anchor root, Q frame, double length = 1,
                                      double proximal_radius = 0.075, double distal_radius = 0.012,
                                      unsigned segments = 24, int arm = 0);
