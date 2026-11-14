@@ -132,3 +132,39 @@ Add the original checkpoint and sixty unloaded continuation ticks as regression.
 Save diagnostics before responding to a failed client request; wide Windows
 argv preserves Korean paths. Existing generic error wording is replaced with
 actual failure stage. Exact current user action was not logged in the old demo.
+
+
+## D015 — condition dense curved terrain without weakening contact tolerance
+
+The original 100k-triangle conical contact setup stalls in multiplier
+convergence after one tick; diagnostics isolate dynamic OBB–terrain contacts
+rather than cup pressure. Preserve narrow-feature SAT and swept CCD for
+small terrains. On dense triangulations construct persistent signed-surface
+contacts at the real eight OBB corners, and merge capsule triangle multipliers
+by source and normal-sector. Bound maximum outer iterations at 64, **not**
+the allowed `0.002` dual residual threshold; retain state rollback.
+The old counterexample now converges 10 ticks, but p95 is ~19.8 s/tick;
+explicitly leave V13 speed and dense high-speed CCD open.
+See issues/004 and Actions curved-contact.yml.
+
+## D016 — stage monolithic torso FEM and skinned external model separately
+
+Use the existing independent `octo_fem` material model and a small
+seven-node, eight-tet solid as the first shared-world volume. Each FEM
+vertex owns one mass share, and the beak/rod root shares translation with
+the FEM center. Three compliant local beak-to-tissue attachment tethers
+transfer root torque; this is a model of tissue interfaces, **not**
+a second rod bending/torsion energy. Current per-tetra pressure is
+condensed by Schur complement, not a mesh-refinement-stable final
+mixed displacement-pressure formulation.
+
+Use native FEM triangle boundary contact with 3–4 body stencils for real
+two-way plane/box interaction. The user's 193-bone GLB remains visual:
+native Cosserat rod snapshots drive 192 arm bones; art arm numbering
+is counter-wound relative to the native IDs (native i => art 7-i),
+with a -22.5 degree yaw. The GLB torso's thousands of vertices remain
+Root-skinned, and are **not yet** bound to seven FEM nodes. Show an
+optional exact FEM diagnostic surface and keep final skin embedding as
+P2V.1 blocker. The raw user asset cannot be pushed by text-only GitHub
+file API in this session; preserve its SHA and separate install ZIP.
+Do not advertise the 8-tet toy as V16–V21 or full body physics approval.
