@@ -1,43 +1,58 @@
-# 006 - Restart a terminated live native process
+# 006 - Live RPC recovery and reproducible Windows verification
 
-Status: implementation committed; Godot runtime regression **not executed in this environment**.
+Status: targeted live native/transport recovery implemented on branch
+`feature/P0-live-process-recovery`. A GitHub Actions Windows run for
+commit `f09fcf1` passed 28/28 short CTests, the 360-tick live transport
+test, and the Godot 4.6.2 child-death/stalled-request reset smokes.
+The later integrated contact smoke and build-launcher changes require
+their own run result; check the latest workflow before accepting.
 
-## Problem
+## Reproduced defects and changes
 
-The live Godot client treats an exited `octo_live.exe` as a fatal stop and tells the player to close the whole demo. Pressing R previously wrote `reset` to the defunct child pipe, so it could not recover.
+1. **Dead native child:** R/Reset previously attempted to write `reset`
+   to a pipe whose process had exited. It now creates a new child,
+   clears pending replies and old snapshots, and waits for a new tick 0.
+2. **Unresponsive native child:** a timeout set `stopped=true` but kept
+   `in_flight=true`, so R/Reset deferred indefinitely. A reset of a
+   stopped, in-flight child now terminates and replaces it.
+3. **Malformed live commands:** invalid JSON, unknown operations, bad
+   target dimensions and wrong field types previously threw out of the
+   native command loop and terminated the process. The native server now
+   returns `ok=false` without advancing the tick, and accepts a
+   subsequent valid step/reset.
+4. **Stale native .exe on launch:** `run_live_demo.cmd` previously skipped
+   building when a tracked `build/release/octo_live.exe` existed.
+   It now invokes an incremental build every time.
+5. **Machine-specific checked-in build cache:** the native build helper
+   rejects `CMakeCache.txt` originating from a different checkout path.
+   CI explicitly deletes machine-specific release cache before configure.
 
-This issue is distinct from a solver failure that returns `ok=false` while the child remains alive. Such failures retain the existing `reset` RPC path, diagnostic capture, and numerical tolerances.
+A native solver failure that returns `ok=false` is **not** hidden or
+automatically discarded. Its diagnostic checkpoint and command remain
+available in `work/`; R/Reset requests a fresh world from the live child.
+Unexpected death still requires manual R/Reset outside test mode.
 
-## Change
+## Regression coverage
 
-- Extract native process startup and transport initialization into `start_native()`.
-- On R/Reset, check the child PID; launch a fresh process if the old one is dead, otherwise preserve the existing in-process `reset` command.
-- Discard old buffered bytes, snapshots, in-flight state, and streams on restart, avoiding cross-process protocol contamination.
-- Preserve manual recovery for unexpected process exit; do not silently erase the failed simulation state.
-- Add a headless `--live-restart-test` mode: receive at least two ticks, kill the child, relaunch it, require a fresh tick-zero snapshot, print `LIVE_GODOT_RESTART_OK`, and quit.
+- `live.invalid_request_recovery`: malformed JSON, wrong operation,
+  invalid target, invalid drive flag, overlong message, followed by
+  valid step, reset and quit without child termination.
+- `live.protocol`: paired 360-tick no-contact and box-contact trials.
+- `physics.live_wrap_regression`: previous CCD/resting-normal
+  counterexample and sixty continuation ticks.
+- Godot headless modes `--live-restart-test`,
+  `--live-stall-reset-test` and `--live-test`. The first two
+  completed on Windows Actions at commit `f09fcf1`. The third mode
+  was added after that run and requires a fresh check.
 
-## Verification required (Windows)
+Hosted workflow: `.github/workflows/live-regression.yml`.
+Manual runner: `python tests/integration/godot_live_smoke.py <godot-executable>`.
+The visual screenshot and actual interactive desktop play remain separate
+from headless test acceptance.
 
-The existing local toolchain and `build/release/octo_live.exe` are required:
+## Not resolved
 
-```powershell
-.\tools\build-live-demo.ps1
-& 'C:\Tools\Godot\godot.exe' --headless --path game --single-threaded-scene --render-thread safe res://scenes/live_demo.tscn -- --live-restart-test
-```
-
-Required: exit code 0 and `LIVE_GODOT_RESTART_OK`. Also manually run
-`run_live_demo.cmd`, terminate the child from Task Manager, then press R:
-the demo should relaunch a new world, and normal box/arm contact should remain operational.
-
-No Godot runtime, Windows executable, or native solver was available to execute this
-regression in the patch authoring environment. The new test has **not passed yet**.
-
-## Not fixed here
-
-- Numerical Newton-CG or contact multiplier convergence, including the curved-contact
-  workload in issue 004.
-- Performance acceptance, volumetric FEM coupling, compiled GDExtension, or BIO
-  validation.
-
-The native solver's error response still stops the live demo and should write the
-diagnostic checkpoint and command to `work/`. The user can press R to reset.
+Numerical curvature/high-contact convergence (issue 004), V13 throughput
+and 120 Hz performance acceptance, 10-minute stability, volumetric FEM,
+compiled GDExtension, and biological validation remain open. Do not label
+these as fixed because of the passing live transport suite.
