@@ -56,11 +56,33 @@ func _ready() -> void:
     super._ready()
     capture_mode = false
     install_uploaded_model()
-    model_test = "--live-model-test" in OS.get_cmdline_user_args()
-    if model_test and rig_skeleton == null:
-        push_error("Model test requires game/assets/Octopus_GameReady_v5.glb with 192 arm bones")
-        get_tree().quit(2)
-        return
+    var cli := OS.get_cmdline_user_args()
+    model_test = "--live-model-test" in cli
+    var explicit_legacy := "--allow-procedural-fallback" in cli or "--live-test" in cli or "--live-restart-test" in cli or "--live-stall-reset-test" in cli
+    if rig_skeleton == null:
+        if model_test:
+            push_error("Model test requires game/assets/Octopus_GameReady_v5.glb with 192 arm bones")
+            get_tree().quit(2)
+            return
+        if not explicit_legacy:
+            # Never silently show the old procedural octopus when the user
+            # requested the installed GameReady model. Make the missing asset
+            # and required checkout path unmistakable in the actual viewport.
+            animal.visible = false
+            var warning_layer := CanvasLayer.new()
+            add_child(warning_layer)
+            var missing_panel := PanelContainer.new()
+            missing_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+            missing_panel.custom_minimum_size = Vector2(850, 240)
+            warning_layer.add_child(missing_panel)
+            var notice := Label.new()
+            notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+            notice.add_theme_font_size_override("font_size", 22)
+            notice.text = "GAME READY V5 MODEL NOT INSTALLED / NOT LOADED\n\nExpected: game/assets/Octopus_GameReady_v5.glb\nThis build intentionally does NOT fall back to the old octopus.\nExtract the model installer into OCTO root and launch run_live_demo.cmd."
+            missing_panel.add_child(notice)
+            push_warning("GAME_READY_MODEL_REQUIRED at " + ProjectSettings.globalize_path(MODEL_PATH))
+            set_process(false)
+            return
     DisplayServer.window_set_title("OCTOPUS | LIVE native physics | Move the box")
     live_test = "--live-test" in OS.get_cmdline_user_args() or model_test
     restart_test = "--live-restart-test" in OS.get_cmdline_user_args()
@@ -87,7 +109,7 @@ func _ready() -> void:
     panel.add_child(column)
     column.add_child(ui_label("LIVE INPUT -> NATIVE SOLVER", 18, Color("9fd3d5")))
     column.add_child(ui_label("Move the blue box into an arm.\nGold ghost cube = your requested target.\nBlue solid cube = actual physical box.", 13, Color("adc4ce")))
-    info = ui_label("Starting native solver...", 14, Color("fff0db"))
+    info = ui_label("Starting native solver... | MODE: " + ("GAME READY V5 / FEM" if rig_skeleton != null else "LEGACY COMPARISON"), 14, Color("fff0db"))
     info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     info.custom_minimum_size.x = 320
     column.add_child(info)
