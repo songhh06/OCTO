@@ -50,6 +50,22 @@ void System::add_volumetric_torso(std::size_t root, double radial, double vertic
                         fem::make_tet(torso_mesh.reference, ids, torso_material));
                 }
             }
+    // A single shared center node transfers translation but not root torque.
+    // Three compliant attachment fibers connect the anatomical core/beak
+    // orientation to distinct surface nodes. These links transmit equal and
+    // opposite forces and moments in the SAME native solve. They model only
+    // the local root-to-mantle interface, not extra rod bending stiffness.
+    // The interface stiffness is an uncalibrated engineering placeholder.
+    for (unsigned vertex : {1u, 3u, 5u}) {
+        Link tether;
+        tether.a = {root, state.bodies[root].q.conjugate().rotate(
+                             torso_mesh.reference[vertex] - center), Q{}};
+        tether.b = {torso_body_ids[vertex], {}, Q{}};
+        tether.rest = 0;
+        tether.stiffness = 120; // N/m, candidate core connective tissue
+        tether.capacity = 1e30;
+        links.push_back(tether);
+    }
     const auto masses = fem::nodal_masses(torso_mesh, density);
     for (std::size_t j = 0; j < masses.size(); ++j) {
         auto &b = state.bodies[torso_body_ids[j]];
