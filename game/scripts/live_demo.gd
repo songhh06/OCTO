@@ -72,7 +72,7 @@ func _ready() -> void:
             var warning_layer := CanvasLayer.new()
             add_child(warning_layer)
             var missing_panel := PanelContainer.new()
-            missing_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+            missing_panel.position = Vector2(65, 55)
             missing_panel.custom_minimum_size = Vector2(850, 240)
             warning_layer.add_child(missing_panel)
             var notice := Label.new()
@@ -80,6 +80,7 @@ func _ready() -> void:
             notice.add_theme_font_size_override("font_size", 22)
             notice.text = "GAME READY V5 MODEL NOT INSTALLED / NOT LOADED\n\nExpected: game/assets/Octopus_GameReady_v5.glb\nThis build intentionally does NOT fall back to the old octopus.\nExtract the model installer into OCTO root and launch run_live_demo.cmd."
             missing_panel.add_child(notice)
+            print("GAME_READY_MODEL_REQUIRED at " + ProjectSettings.globalize_path(MODEL_PATH))
             push_warning("GAME_READY_MODEL_REQUIRED at " + ProjectSettings.globalize_path(MODEL_PATH))
             set_process(false)
             return
