@@ -19,6 +19,10 @@ var response_ms := 16.0
 var sent_at := 0
 var info: Label
 var live_test := false
+var restart_test := false
+var restart_killed := false
+var stall_reset_test := false
+var stall_reset_started := false
 var captured := false
 var input_checked := false
 var max_motion := 0.0
@@ -33,6 +37,8 @@ func _ready() -> void:
     capture_mode = false
     DisplayServer.window_set_title("OCTOPUS | LIVE native physics | Move the box")
     live_test = "--live-test" in OS.get_cmdline_user_args()
+    restart_test = "--live-restart-test" in OS.get_cmdline_user_args()
+    stall_reset_test = "--live-stall-reset-test" in OS.get_cmdline_user_args()
     distance = 8.8
     yaw = 0.6
     pitch = 0.85
@@ -73,6 +79,28 @@ func _ready() -> void:
     mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
     mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
     goal_marker = mesh_node(wire, mat)
+    test_start = Time.get_ticks_msec()
+    start_native()
+
+func start_native() -> void:
+    # A dead or unresponsive child cannot receive a reset command. Replace its
+    # pipes and discard partial replies before accepting a fresh snapshot.
+    if child.has("pid") and OS.is_process_running(child.pid):
+        OS.kill(child.pid)
+    if pipe != null:
+        pipe.close()
+    if errors != null:
+        errors.close()
+    pipe = null
+    errors = null
+    child = {}
+    buffer = PackedByteArray()
+    previous = {}
+    current = {}
+    latest = {}
+    in_flight = false
+    sent_at = 0
+    received_at = 0
     var executable := ProjectSettings.globalize_path("res://../build/release/octo_live.exe")
     child = OS.execute_with_pipe(executable, PackedStringArray(["--diagnostics", ProjectSettings.globalize_path("res://../work")]), false)
     if child.is_empty():
@@ -80,8 +108,8 @@ func _ready() -> void:
         return
     pipe = child.stdio
     errors = child.stderr
-    test_start = Time.get_ticks_msec()
-    last_receive = test_start
+    stopped = false
+    last_receive = Time.get_ticks_msec()
     print("LIVE_GODOT_PROCESS_STARTED pid=%s" % child.pid)
 
 func read_vec(values: Array) -> Vector3:
@@ -98,28 +126,40 @@ func send(command: Dictionary) -> void:
     sent_at = Time.get_ticks_msec()
 
 func reset_world() -> void:
-    if in_flight:
+    var process_dead := child.is_empty() or not child.has("pid") or not OS.is_process_running(child.pid)
+    if in_flight and not stopped and not process_dead:
+        # Allow an ordinary outstanding step to finish before issuing reset.
         reset_pending = true
         return
+    # A timed-out request must not keep reset_pending forever. Stop the
+    # unresponsive child and create an entirely new transport instead.
+    var force_restart := process_dead or (stopped and in_flight)
+    in_flight = false
     stopped = false
     last_receive = Time.get_ticks_msec()
     reset_pending = false
     target = Vector3(1.45,0,.8)
     max_motion = 0
     max_contacts = 0
-    send({"op":"reset"})
+    if force_restart:
+        start_native()
+    else:
+        send({"op":"reset"})
 
 func fail(message: String) -> void:
     stopped = true
-    info.text = "STOPPED: " + message + "\nR / Reset world to restart. Failure saved in work/."
+    info.text = "STOPPED: " + message + "\nR / Reset world to restart. Check work/ for diagnostics."
     push_error(message)
-    if live_test: get_tree().quit(2)
+    if live_test or restart_test or stall_reset_test: get_tree().quit(2)
 
 func poll_native() -> void:
     if pipe == null or (stopped and not in_flight): return
     if child.has("pid") and not OS.is_process_running(child.pid):
         in_flight = false
-        fail("Native process exited; close and reopen this demo.")
+        if restart_test and restart_killed:
+            reset_world()
+        else:
+            fail("Native process exited; use R / Reset world to relaunch it.")
         return
     var available := pipe.get_length()
     if available > 0:
@@ -272,6 +312,30 @@ func _process(delta: float) -> void:
         reset_world()
         return
     if stopped or current.is_empty(): return
+    if stall_reset_test:
+        if not stall_reset_started and int(current.tick) >= 2 and not in_flight:
+            stall_reset_started = true
+            stopped = true
+            in_flight = true
+            # Model a timed-out in-flight request without waiting ten seconds.
+            reset_world()
+            return
+        if stall_reset_started:
+            if int(current.tick) == 0 and not in_flight:
+                print("LIVE_GODOT_STALL_RESET_OK")
+                get_tree().quit(0)
+            return
+    if restart_test:
+        if not restart_killed and int(current.tick) >= 2 and not in_flight:
+            # Regression: kill the native process to exercise automatic relaunch.
+            restart_killed = true
+            OS.kill(child.pid)
+            return
+        if restart_killed:
+            if int(current.tick) == 0 and not in_flight:
+                print("LIVE_GODOT_RESTART_OK")
+                get_tree().quit(0)
+            return
     var x := float(Input.is_physical_key_pressed(KEY_D) or Input.is_physical_key_pressed(KEY_RIGHT))-float(Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT))
     var z := float(Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN))-float(Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP))
     var y := float(Input.is_physical_key_pressed(KEY_E))-float(Input.is_physical_key_pressed(KEY_Q))
@@ -290,8 +354,10 @@ func _process(delta: float) -> void:
         captured = true
         paused = true
         assert(max_contacts>0 and max_motion>.005)
-        await get_tree().process_frame
-        await capture("live_box_contact")
+        # Headless runs must validate contact without waiting for a GPU frame.
+        if DisplayServer.get_name() != "headless":
+            await get_tree().process_frame
+            await capture("live_box_contact")
         print("LIVE_GODOT_CONTACT_OK tick=%d contacts=%d motion_m=%.6f" % [current.tick,max_contacts,max_motion])
         reset_world()
     if live_test and captured and int(current.tick) == 0 and not in_flight:

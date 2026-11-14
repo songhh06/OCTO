@@ -65,3 +65,41 @@ Godot에서는 드래그 목표 변경, Space 정지, 상자 자동 밀기, nati
 다시 계산 실패가 발생하면 마지막 정상 상태에서 정지하고 R/Reset으로 초기화한다.
 실패 상태/입력/세부 잔차는 화면에 오류를 보내기 전에 work/live-failure.octostate와
 work/live-failure.json에 저장한다. 증거/한계: issues/005-live-contact-ccd-normal-cycle.md.
+
+
+## 네이티브 프로세스 종료 후 복구 (구현, 실행 검증 대기)
+
+네이티브 프로세스 자체가 종료된 경우에는 기존 `reset` 명령을 전송할 수 없다.
+R 또는 Reset world를 누르면 PID를 확인하고, 죽은 프로세스 대신 새 프로세스를
+실행한 뒤 입력/출력 스트림과 이전 스냅샷·버퍼를 초기화한다. 정상 실행 중인
+프로세스의 reset RPC는 기존대로 유지한다.
+
+Windows 회귀 실행 명령 (먼저 `tools/build-live-demo.ps1`로 실행 파일 준비):
+
+```powershell
+& 'C:\Tools\Godot\godot.exe' --headless --path game --single-threaded-scene --render-thread safe res://scenes/live_demo.tscn -- --live-restart-test
+```
+
+이 모드는 네이티브 틱 2회 이상 수신 후 자식 프로세스를 강제 종료하고,
+새 프로세스의 tick=0 응답을 받으면 `LIVE_GODOT_RESTART_OK`로 종료한다.
+**현재 이 회귀의 실제 Godot 실행 결과는 확보되지 않았다.**
+접촉 solver 비수렴 자체는 고치지 않았고 기존 실패 저장과 수동 reset을 유지한다.
+세부 범위: `docs/issues/006-live-process-restart.md`.
+
+## 추가 복구 및 빌드 안정화 (PR #1)
+
+- `run_live_demo.cmd`는 존재하는 `octo_live.exe`가 오래되었을 수 있으므로,
+  시작할 때마다 증분 네이티브 빌드를 실행한다.
+- 다른 폴더에서 복사해 온 `build/release/CMakeCache.txt`는 현재 프로젝트 경로와
+  일치하지 않으면 삭제하고 다시 구성한다.
+- 비정상 종료한 프로세스는 R/Reset으로 재시작한다. 10초 응답 정지 후에도
+  R/Reset을 누르면 기다리던 요청을 폐기하고 프로세스를 강제로 교체한다.
+- 잘못된 JSON/명령을 보내면 native는 `ok=false`로 응답하되 종료하지 않고,
+  뒤이은 정상 step/reset을 허용한다. 클라이언트는 오류 표시 후 수동 reset을 기다린다.
+- CI는 Windows C++ 컴파일, CTest, Godot 4.6.2 headless 실행에서
+  재시작/타임아웃 복구/실시간 접촉을 각각 테스트한다. 실행 결과는 GitHub Actions
+  `.github/workflows/live-regression.yml`을 확인한다.
+
+**수치 solver 자체의 수렴 실패가 전부 해결된 것은 아니다.** 특히
+`docs/issues/004-curved-contact-convergence.md`의 다중 곡면 접촉 실패는
+미해결로 유지한다. 실시간 120Hz 성능 및 생체 검증도 별도 수용 기준이다.

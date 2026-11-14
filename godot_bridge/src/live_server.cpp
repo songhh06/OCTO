@@ -137,10 +137,27 @@ int main(int argc, char **argv) {
         };
         send(true, "");
         while (std::getline(std::cin, line)) {
-            if (line.size() > 65536)
-                throw std::invalid_argument("live message too large");
-            auto command = octo::json::Parser(line).parse();
-            auto op = command.at("op").string();
+            // Reject malformed client messages without killing the native child.
+            // This leaves the reset RPC available after a protocol error.
+            octo::json::Value command;
+            std::string op;
+            V3 target{};
+            bool active = false;
+            try {
+                if (line.size() > 65536)
+                    throw std::invalid_argument("live message too large");
+                command = octo::json::Parser(line).parse();
+                op = command.at("op").string();
+                if (op == "step") {
+                    target = read_vec(command.at("target"));
+                    active = command.flag("drive", true);
+                } else if (op != "quit" && op != "reset")
+                    throw std::invalid_argument("unknown live operation");
+            } catch (const std::exception &e) {
+                last = {};
+                send(false, std::string("Invalid live request: ") + e.what());
+                continue;
+            }
             if (op == "quit")
                 break;
             if (op == "reset") {
@@ -151,13 +168,9 @@ int main(int argc, char **argv) {
                 send(true, "");
                 continue;
             }
-            if (op != "step")
-                throw std::invalid_argument("unknown live operation");
-            V3 target = read_vec(command.at("target"));
             target.x = std::clamp(target.x, -1.6, 1.6);
             target.y = std::clamp(target.y, -.15, .7);
             target.z = std::clamp(target.z, -1.6, 1.6);
-            bool active = command.flag("drive", true);
             auto &box = s.state.bodies[box_id];
             box.force = active ? (target - box.p) * 30.0 - box.v * 10.0
                                : V3{}; // SI mouse joint: 30 N/m, 10 N*s/m.
