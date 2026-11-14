@@ -59,3 +59,20 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
           python tests/integration/godot_live_smoke.py $env:OCTO_GODOT
           if ($LASTEXITCODE -ne 0) { throw 'Godot live integration regression failed' }
+      - name: Synthetic GLB skeleton import and Godot skinning exercise
+        shell: pwsh
+        run: |
+          # A synthetic 193-bone triangle rig validates the runtime code path.
+          # It does not validate the appearance of the user-supplied GLB.
+          python tests/integration/make_synthetic_octopus.py game/assets/Octopus_GameReady_v5.glb
+          if ($LASTEXITCODE -ne 0) { throw 'Synthetic GLB creation failed' }
+          python tools/check_octopus_model.py game/assets/Octopus_GameReady_v5.glb
+          if ($LASTEXITCODE -ne 0) { throw 'GLB structural validation failed' }
+          & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game --editor --quit
+          if ($LASTEXITCODE -ne 0) { throw 'Godot GLB import failed' }
+          $modelLog = & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game res://scenes/live_demo.tscn -- --live-model-test 2>&1 | Out-String
+          Write-Host $modelLog
+          if ($LASTEXITCODE -ne 0) { throw 'Godot skinned model smoke failed' }
+          foreach ($marker in @('LIVE_MODEL_LOADED', 'LIVE_FEM_SURFACE_READY', 'LIVE_MODEL_SKIN_OK', 'LIVE_GODOT_CONTACT_OK')) {
+            if (-not $modelLog.Contains($marker)) { throw "Godot synthetic rig missing $marker" }
+          }
