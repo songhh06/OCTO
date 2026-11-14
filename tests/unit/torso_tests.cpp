@@ -105,6 +105,22 @@ int main() {
         if (triangle_plane == 0 || triangle_box == 0)
             throw std::runtime_error("torso boundary did not generate plane and box contacts");
 
+        // Rotating the root alone must produce a *torque* and a restoring
+        // reaction in the tetrahedral torso, not just change the rod origin.
+        System torque_world;
+        Body rigid_core;
+        rigid_core.fixed = true;
+        rigid_core.mass = .35;
+        torque_world.add_body(rigid_core);
+        torque_world.add_volumetric_torso(0);
+        torque_world.state.bodies[0].q = exp(V3{0, 0.1, 0});
+        std::vector<double> gradient;
+        auto zero = std::vector<double>(6 * torque_world.state.bodies.size(), 0.0);
+        const double twist_energy = torque_world.objective(zero, 0, &gradient);
+        const V3 core_torque{gradient[3], gradient[4], gradient[5]};
+        if (!(twist_energy > 1e-6) || norm(core_torque) < 1e-5)
+            throw std::runtime_error("FEM core interface fails to transfer root torque");
+
         std::cout << "P2V_TORSO_FEM_OK nodes=7 tets=8 total_mass_kg=" << total
                   << " max_displacement_m=" << greatest
                   << " after_release_m=" << norm(s.state.bodies[top].p - rest) << "\n";
