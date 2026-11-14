@@ -109,6 +109,7 @@ func _ready() -> void:
     column.add_theme_constant_override("separation", 12)
     panel.add_child(column)
     column.add_child(ui_label("LIVE INPUT -> NATIVE SOLVER", 18, Color("9fd3d5")))
+    column.add_child(ui_label("MODEL: GAME READY V5 (193 bones)" if rig_skeleton != null else "MODEL: LEGACY TEST COMPARISON", 16, Color("6dffb7") if rig_skeleton != null else Color("edb494")))
     column.add_child(ui_label("Move the blue box into an arm.\nGold ghost cube = your requested target.\nBlue solid cube = actual physical box.", 13, Color("adc4ce")))
     info = ui_label("Starting native solver... | MODE: " + ("GAME READY V5 / FEM" if rig_skeleton != null else "LEGACY COMPARISON"), 14, Color("fff0db"))
     info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -672,7 +673,7 @@ func _process(delta: float) -> void:
         check_controls()
     goal_marker.position = target*DRAW_SCALE+Vector3(0,.63,0)
     info.text = "%s  tick %d / %.2f simulated s\nSolver %.1f ms / response %.1f ms\nContacts: %d (peak %d)\nArm displacement: %.1f mm\nPenetration: %.4f mm\nTarget: %.2f, %.2f, %.2f m" % ["PAUSED" if paused else "LIVE",current.tick,current.tick/120.0,latest.solver_ms,response_ms,latest.contacts,max_contacts,max_motion*1000,latest.penetration*1000,target.x,target.y,target.z]
-    count_label.text = "LIVE C++ / 8 PHYSICAL ARMS / ASYNCHRONOUS INPUT / NO RECORDED TRACE"
+    count_label.text = ("GAME READY V5 / 192 SKINNED ARM BONES / FEM TORSO" if rig_skeleton != null else "LEGACY COMPARISON / 8 NATIVE PHYSICAL ARMS") + " / ASYNCHRONOUS INPUT"
     if live_test and current.tick >= 360 and not captured:
         captured = true
         paused = true
