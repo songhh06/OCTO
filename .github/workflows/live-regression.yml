@@ -20,6 +20,9 @@ jobs:
         shell: pwsh
         run: |
           . ./tools/dev-shell.ps1
+          # Earlier commits accidentally include machine-specific CMake build caches.
+          # A GitHub-hosted runner must never reuse those absolute Windows paths.
+          if (Test-Path 'build/release') { Remove-Item -LiteralPath 'build/release' -Recurse -Force }
           cmake --preset release
           if ($LASTEXITCODE -ne 0) { throw 'CMake configure failed' }
           cmake --build --preset release --parallel 4
