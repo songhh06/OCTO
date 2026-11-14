@@ -168,3 +168,19 @@ optional exact FEM diagnostic surface and keep final skin embedding as
 P2V.1 blocker. The raw user asset cannot be pushed by text-only GitHub
 file API in this session; preserve its SHA and separate install ZIP.
 Do not advertise the 8-tet toy as V16–V21 or full body physics approval.
+
+
+## D017 — use relative GPU morphs as interim mantle preview, not FEM acceptance
+
+Imported GameReady GLB has thousands of body vertices weighted to the Root
+skin joint, so native torso tetra deformation was invisible. Preserve the
+artist mesh, UV/materials and 192 arm bones; at scene load, create 18 sparse
+relative blend-shape displacement channels (6 FEM boundary nodes × XYZ).
+Each vertex is weighted by its Root skin influence and radial direction to
+approximate the deformed physical torso boundary. This is an intermediate
+visual mapping, **not** exact tetrahedral embedding or collision geometry.
+The genuine FEM boundary remains the separate diagnostic mesh. Synthetic
+193-joint Godot runtime CI confirms the morph path and live arm posing,
+but only the user's installed GameReady GLB can establish final visual quality.
+Full tetra skin binding and actual model collision/silhouette mismatch tests
+remain mandatory for V16–V21.
