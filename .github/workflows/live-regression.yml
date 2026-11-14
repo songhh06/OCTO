@@ -37,8 +37,46 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Schema dependency installation failed' }
           ctest --test-dir build/release -LE long --output-on-failure --no-tests=error
           if ($LASTEXITCODE -ne 0) { throw 'Native short regression failed' }
-          ctest --test-dir build/release -R '^live\.protocol$' --output-on-failure --no-tests=error
+          ctest --test-dir build/release -R '^live\.protocol      - name: Install official Godot 4.6.2 release
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $archive = Join-Path $env:RUNNER_TEMP 'godot.zip'
+          Invoke-WebRequest 'https://github.com/godotengine/godot/releases/download/4.6.2-stable/Godot_v4.6.2-stable_win64.exe.zip' -OutFile $archive
+          $destination = Join-Path $env:RUNNER_TEMP 'godot-4.6.2'
+          Expand-Archive -LiteralPath $archive -DestinationPath $destination
+          $binary = (Get-ChildItem -Path $destination -Filter '*.exe' | Select-Object -First 1).FullName
+          if (-not $binary) { throw 'Godot executable missing' }
+          "OCTO_GODOT=$binary" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Godot headless import, live contact and recovery tests
+        shell: pwsh
+        run: |
+          & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game --editor --quit
+          if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
+          python tests/integration/godot_live_smoke.py $env:OCTO_GODOT
+          if ($LASTEXITCODE -ne 0) { throw 'Godot live integration regression failed' }
+ --output-on-failure --no-tests=error
           if ($LASTEXITCODE -ne 0) { throw 'Native interactive protocol regression failed' }
+          ctest --test-dir build/release -R '^live\.torso_protocol      - name: Install official Godot 4.6.2 release
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $archive = Join-Path $env:RUNNER_TEMP 'godot.zip'
+          Invoke-WebRequest 'https://github.com/godotengine/godot/releases/download/4.6.2-stable/Godot_v4.6.2-stable_win64.exe.zip' -OutFile $archive
+          $destination = Join-Path $env:RUNNER_TEMP 'godot-4.6.2'
+          Expand-Archive -LiteralPath $archive -DestinationPath $destination
+          $binary = (Get-ChildItem -Path $destination -Filter '*.exe' | Select-Object -First 1).FullName
+          if (-not $binary) { throw 'Godot executable missing' }
+          "OCTO_GODOT=$binary" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Godot headless import, live contact and recovery tests
+        shell: pwsh
+        run: |
+          & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game --editor --quit
+          if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
+          python tests/integration/godot_live_smoke.py $env:OCTO_GODOT
+          if ($LASTEXITCODE -ne 0) { throw 'Godot live integration regression failed' }
+ --output-on-failure --no-tests=error
+          if ($LASTEXITCODE -ne 0) { throw 'Native coupled FEM torso protocol regression failed' }
       - name: Install official Godot 4.6.2 release
         shell: pwsh
         run: |
