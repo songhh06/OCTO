@@ -19,6 +19,8 @@ var response_ms := 16.0
 var sent_at := 0
 var info: Label
 var live_test := false
+var restart_test := false
+var restart_killed := false
 var captured := false
 var input_checked := false
 var max_motion := 0.0
@@ -33,6 +35,7 @@ func _ready() -> void:
     capture_mode = false
     DisplayServer.window_set_title("OCTOPUS | LIVE native physics | Move the box")
     live_test = "--live-test" in OS.get_cmdline_user_args()
+    restart_test = "--live-restart-test" in OS.get_cmdline_user_args()
     distance = 8.8
     yaw = 0.6
     pitch = 0.85
@@ -73,6 +76,26 @@ func _ready() -> void:
     mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
     mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
     goal_marker = mesh_node(wire, mat)
+    test_start = Time.get_ticks_msec()
+    start_native()
+
+func start_native() -> void:
+    # A dead native process cannot receive a reset command. Replace its pipes
+    # and discard any partial reply before accepting a new world snapshot.
+    if pipe != null:
+        pipe.close()
+    if errors != null:
+        errors.close()
+    pipe = null
+    errors = null
+    child = {}
+    buffer = PackedByteArray()
+    previous = {}
+    current = {}
+    latest = {}
+    in_flight = false
+    sent_at = 0
+    received_at = 0
     var executable := ProjectSettings.globalize_path("res://../build/release/octo_live.exe")
     child = OS.execute_with_pipe(executable, PackedStringArray(["--diagnostics", ProjectSettings.globalize_path("res://../work")]), false)
     if child.is_empty():
@@ -80,8 +103,8 @@ func _ready() -> void:
         return
     pipe = child.stdio
     errors = child.stderr
-    test_start = Time.get_ticks_msec()
-    last_receive = test_start
+    stopped = false
+    last_receive = Time.get_ticks_msec()
     print("LIVE_GODOT_PROCESS_STARTED pid=%s" % child.pid)
 
 func read_vec(values: Array) -> Vector3:
@@ -107,19 +130,26 @@ func reset_world() -> void:
     target = Vector3(1.45,0,.8)
     max_motion = 0
     max_contacts = 0
-    send({"op":"reset"})
+    if child.is_empty() or not child.has("pid") or not OS.is_process_running(child.pid):
+        # A terminated child cannot process reset; launch a fresh world.
+        start_native()
+    else:
+        send({"op":"reset"})
 
 func fail(message: String) -> void:
     stopped = true
-    info.text = "STOPPED: " + message + "\nR / Reset world to restart. Failure saved in work/."
+    info.text = "STOPPED: " + message + "\nR / Reset world to restart. Check work/ for diagnostics."
     push_error(message)
-    if live_test: get_tree().quit(2)
+    if live_test or restart_test: get_tree().quit(2)
 
 func poll_native() -> void:
     if pipe == null or (stopped and not in_flight): return
     if child.has("pid") and not OS.is_process_running(child.pid):
         in_flight = false
-        fail("Native process exited; close and reopen this demo.")
+        if restart_test and restart_killed:
+            reset_world()
+        else:
+            fail("Native process exited; use R / Reset world to relaunch it.")
         return
     var available := pipe.get_length()
     if available > 0:
@@ -272,6 +302,17 @@ func _process(delta: float) -> void:
         reset_world()
         return
     if stopped or current.is_empty(): return
+    if restart_test:
+        if not restart_killed and int(current.tick) >= 2 and not in_flight:
+            # Regression: kill the native process to exercise automatic relaunch.
+            restart_killed = true
+            OS.kill(child.pid)
+            return
+        if restart_killed:
+            if int(current.tick) == 0 and not in_flight:
+                print("LIVE_GODOT_RESTART_OK")
+                get_tree().quit(0)
+            return
     var x := float(Input.is_physical_key_pressed(KEY_D) or Input.is_physical_key_pressed(KEY_RIGHT))-float(Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT))
     var z := float(Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN))-float(Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP))
     var y := float(Input.is_physical_key_pressed(KEY_E))-float(Input.is_physical_key_pressed(KEY_Q))
