@@ -38,14 +38,24 @@ const MODEL_STAGE_SCALE := 1.35
 var rig_scene: Node3D
 var rig_skeleton: Skeleton3D
 var rig_baseline: Array = []
+var fem_surface: MeshInstance3D
+var fem_surface_built := false
+var fem_surface_debug := false
+var model_test := false
+var max_bone_motion := 0.0
 
 func _ready() -> void:
     Engine.max_fps = 60
     super._ready()
     capture_mode = false
     install_uploaded_model()
+    model_test = "--live-model-test" in OS.get_cmdline_user_args()
+    if model_test and rig_skeleton == null:
+        push_error("Model test requires game/assets/Octopus_GameReady_v5.glb with 192 arm bones")
+        get_tree().quit(2)
+        return
     DisplayServer.window_set_title("OCTOPUS | LIVE native physics | Move the box")
-    live_test = "--live-test" in OS.get_cmdline_user_args()
+    live_test = "--live-test" in OS.get_cmdline_user_args() or model_test
     restart_test = "--live-restart-test" in OS.get_cmdline_user_args()
     stall_reset_test = "--live-stall-reset-test" in OS.get_cmdline_user_args()
     distance = 8.8
@@ -81,13 +91,24 @@ func _ready() -> void:
         if title == "Reset world": button.pressed.connect(reset_world)
         else: button.pressed.connect(func(): paused = not paused)
         column.add_child(button)
-    column.add_child(ui_label("8 physical arms / 12 elements each\nZero-gravity contact test with fluid drag.\nTorso shell is illustrative.\nRigid torso comparison model.\nVolumetric FEM is NOT complete.\nPhysics may run slower than wall time.\nNo replay file is used.", 13, Color("edb494")))
+    column.add_child(ui_label("8 Cosserat arms / 12 elements per arm\n" + ("Experimental 8-tet FEM torso (not yet full model skin)" if rig_skeleton != null else "Rigid torso comparison model") + "\nF3: show actual FEM surface / Hide wire cage\nRender mesh is not the physics collision surface.\nPhysics may run slower than wall time.", 13, Color("edb494")))
     var wire := BoxMesh.new()
     wire.size = Vector3.ONE * 0.32 * DRAW_SCALE
     var mat := material(Color(1,0.8,0.2,0.13))
     mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
     mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
     goal_marker = mesh_node(wire, mat)
+    fem_surface = MeshInstance3D.new()
+    fem_surface.name = "NativeFEMTorsoSurface"
+    var fem_mat := StandardMaterial3D.new()
+    fem_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+    fem_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+    fem_mat.no_depth_test = true
+    fem_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+    fem_mat.albedo_color = Color(0.2, 0.94, 0.7, 0.38)
+    fem_surface.material_override = fem_mat
+    fem_surface.visible = false
+    animal.add_child(fem_surface)
     test_start = Time.get_ticks_msec()
     start_native()
 
@@ -167,6 +188,7 @@ func animate_rigged_model(a: Dictionary, b: Dictionary, alpha: float) -> void:
             var id := rig_skeleton.find_bone("A%d_%02d" % [arm_id, j])
             var rest := rig_skeleton.get_bone_global_rest(id)
             var delta_position: Vector3 = (points[j] - initial[j]) * DRAW_SCALE / MODEL_STAGE_SCALE
+            max_bone_motion = maxf(max_bone_motion, delta_position.length())
             var j2 := mini(j + 1, 23)
             var j0 := maxi(j - 1, 0)
             var original_tangent: Vector3 = (initial[j2] - initial[j0]).normalized()
@@ -179,6 +201,47 @@ func animate_rigged_model(a: Dictionary, b: Dictionary, alpha: float) -> void:
             var parent_global: Transform3D = target_globals.get(parent, rig_skeleton.get_bone_global_rest(parent) if parent >= 0 else Transform3D.IDENTITY)
             rig_skeleton.set_bone_pose(id, parent_global.affine_inverse() * desired)
             target_globals[id] = desired
+
+func update_fem_surface(a: Dictionary, b: Dictionary, alpha: float,
+                        body_p: Vector3, body_q: Quaternion) -> void:
+    if fem_surface == null or not a.has("torso_nodes") or not b.has("torso_nodes"):
+        return
+    if a.torso_nodes.size() != 7 or b.torso_nodes.size() != 7:
+        return
+    var positions := PackedVector3Array()
+    for k in range(7):
+        var p0 := read_vec(a.torso_nodes[k])
+        var p1 := read_vec(b.torso_nodes[k])
+        positions.append(body_q.inverse() * (p0.lerp(p1, alpha) - body_p) * DRAW_SCALE + Vector3(0, 0.63, 0))
+    var vertices := PackedVector3Array()
+    var normals := PackedVector3Array()
+    # These eight faces are the boundary of the same 8-tet octahedral FEM
+    # topology used in core/src/torso.cpp.
+    for ix in [1, 2]:
+        for iy in [3, 4]:
+            for iz in [5, 6]:
+                var pa: Vector3 = positions[ix]
+                var pb: Vector3 = positions[iy]
+                var pc: Vector3 = positions[iz]
+                var n: Vector3 = (pb - pa).cross(pc - pa).normalized()
+                if n.dot((pa + pb + pc) / 3.0 - positions[0]) < 0:
+                    var tmp := pb
+                    pb = pc
+                    pc = tmp
+                    n = -n
+                for p in [pa, pb, pc]:
+                    vertices.append(p)
+                    normals.append(n)
+    var arrays := []
+    arrays.resize(Mesh.ARRAY_MAX)
+    arrays[Mesh.ARRAY_VERTEX] = vertices
+    arrays[Mesh.ARRAY_NORMAL] = normals
+    var mesh := ArrayMesh.new()
+    mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+    fem_surface.mesh = mesh
+    if not fem_surface_built:
+        fem_surface_built = true
+        print("LIVE_FEM_SURFACE_READY nodes=7 triangles=8")
 
 func start_native() -> void:
     # A dead or unresponsive child cannot receive a reset command. Replace its
@@ -197,6 +260,8 @@ func start_native() -> void:
     current = {}
     latest = {}
     rig_baseline.clear()
+    max_bone_motion = 0.0
+    fem_surface_built = false
     in_flight = false
     sent_at = 0
     received_at = 0
@@ -317,7 +382,7 @@ func update_arms() -> void:
         for cup in cups[arm_id]:
             # Native trace currently has no rim geometry: hide decorative cups.
             cup.visible = false
-        if not shown:
+        if not shown or rig_skeleton != null:
             continue
         var nodes_a: Array = a.arms[arm_id].nodes
         var nodes_b: Array = b.arms[arm_id].nodes
@@ -352,6 +417,7 @@ func update_arms() -> void:
         arms[arm_id].mesh = tube
     if rig_skeleton != null and not a.arms.is_empty() and not b.arms.is_empty():
         animate_rigged_model(a, b, alpha)
+    update_fem_surface(a, b, alpha, body_p, body_q)
     for j in range(rigids.size()):
         var pos := read_vec(a.rigids[j].p).lerp(read_vec(b.rigids[j].p), alpha)
         # Native coordinate positions plus the same artistic display offset.
@@ -366,6 +432,10 @@ func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventKey and event.pressed and not event.echo:
         if event.keycode == KEY_R:
             reset_world()
+            return
+        if event.keycode == KEY_F3 and fem_surface != null:
+            fem_surface_debug = not fem_surface_debug
+            fem_surface.visible = fem_surface_debug
             return
     if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
         if event.pressed and not current.is_empty():
@@ -465,6 +535,11 @@ func _process(delta: float) -> void:
             await get_tree().process_frame
             await capture("live_box_contact")
         print("LIVE_GODOT_CONTACT_OK tick=%d contacts=%d motion_m=%.6f" % [current.tick,max_contacts,max_motion])
+        if model_test:
+            if not fem_surface_built or max_bone_motion < 0.002:
+                fail("GLB skin or FEM torso did not update during live contact")
+                return
+            print("LIVE_MODEL_SKIN_OK bones=192 fem_triangles=8 pose_delta_m=%.6f" % max_bone_motion)
         reset_world()
     if live_test and captured and int(current.tick) == 0 and not in_flight:
         print("LIVE_GODOT_RESET_OK")
