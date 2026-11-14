@@ -128,6 +128,11 @@ func install_uploaded_model() -> void:
         rig_scene = null
         rig_skeleton = null
         return
+    # Disable placeholder body/eye meshes. Native rod tubes and decorative
+    # cups are already suppressed in update_arms while the uploaded rig is used.
+    for piece in animal.get_children():
+        if piece != rig_scene and piece is MeshInstance3D:
+            piece.visible = false
     print("LIVE_MODEL_LOADED skeleton_bones=%d arm_bones=192 asset=%s" % [rig_skeleton.get_bone_count(), MODEL_PATH])
 
 func interpolate_node(nodes: Array, u: float) -> Vector3:
