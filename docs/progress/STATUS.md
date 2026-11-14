@@ -11,10 +11,15 @@ Branch `feature/P2V-model-curved-contact-body`, stacked draft PR #2.
   `game/assets/Octopus_GameReady_v5.glb` from the user's installer ZIP.
   Godot adapter maps reversed art/native arm winding, drives 192 bones from
   native snapshots, hides the old procedural display and skips its mesh rebuild.
+  An experimental 18-channel GPU morph adapter now transfers the six FEM
+  boundary node translations to Root-weighted GLB body vertices (barycentric
+  production embedding and normal validation remain open).
 - Godot CI imported a **synthetic**, same-named 193-bone GLB, then passed
   `LIVE_MODEL_LOADED`, `LIVE_FEM_SURFACE_READY`,
   `LIVE_GODOT_CONTACT_OK` and `LIVE_MODEL_SKIN_OK`:
   https://github.com/songhh06/OCTO/actions/runs/43593877339.
+  In a later synthetic-model run, the 18 GPU skin morphs were generated and
+  updated successfully (https://github.com/songhh06/OCTO/actions/runs/43594758175).
   The actual supplied asset has NOT received render/skin acceptance.
 - C++ native FEM torso now owns seven mass-conserving shared-world vertices,
   eight tetrahedra and a condensed volumetric Schur block. The rod root shares
