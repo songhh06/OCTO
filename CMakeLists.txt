@@ -72,6 +72,8 @@ add_test(NAME live.protocol COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/te
 set_tests_properties(live.protocol PROPERTIES WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}" TIMEOUT 240 LABELS "long")
 add_test(NAME live.invalid_request_recovery COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/integration/live_invalid_protocol_tests.py $<TARGET_FILE:octo_live>)
 set_tests_properties(live.invalid_request_recovery PROPERTIES WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}" TIMEOUT 60)
+add_test(NAME live.torso_protocol COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/integration/torso_live_protocol_tests.py $<TARGET_FILE:octo_live>)
+set_tests_properties(live.torso_protocol PROPERTIES WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}" TIMEOUT 300 LABELS "long")
 add_test(NAME FEM.P1V1 COMMAND octo_fem_tests)
 add_test(NAME FEM.torso_monolithic COMMAND octo_torso_tests)
 set_tests_properties(FEM.torso_monolithic PROPERTIES TIMEOUT 120)
