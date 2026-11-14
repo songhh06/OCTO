@@ -73,7 +73,7 @@ bool System::solve_coupled(double h, StepResult &stats) {
             return false;
         }
         const auto bodies = incremented(state, x);
-        double dual_error = 0, violation = 0, pressure_error = 0;
+        double dual_error = 0, contact_dual = 0, cup_dual = 0, violation = 0, pressure_error = 0;
         const double rho = penalty();
         for (auto &c : state.contacts) {
             V3 d = contact_delta(c, bodies), center = -c.normal_fixed_point;
@@ -93,6 +93,7 @@ bool System::solve_coupled(double h, StepResult &stats) {
             c.tangent_multiplier = friction;
             violation = std::max(violation, std::max(-gap, 0.0));
         }
+        contact_dual = dual_error;
         for (std::size_t j = 0; j < state.cups.size(); ++j) {
             auto &cup = state.cups[j];
             auto predicted = start_cups[j];
@@ -106,10 +107,11 @@ bool System::solve_coupled(double h, StepResult &stats) {
                 V3 friction =
                     project_ball(cup.tangent_multiplier - tangent * rho,
                                  cup.material.friction * (normal + cup.force_limit), cup.normal);
-                dual_error = std::max(dual_error, std::abs(normal - cup.normal_multiplier) /
-                                                      std::max(1.0, cup.force_limit));
-                dual_error = std::max(dual_error, norm(friction - cup.tangent_multiplier) /
-                                                      std::max(1.0, cup.force_limit));
+                cup_dual = std::max(cup_dual, std::abs(normal - cup.normal_multiplier) /
+                                                     std::max(1.0, cup.force_limit));
+                cup_dual = std::max(cup_dual, norm(friction - cup.tangent_multiplier) /
+                                                     std::max(1.0, cup.force_limit));
+                dual_error = std::max(dual_error, cup_dual);
                 cup.normal_multiplier = normal;
                 cup.tangent_multiplier = friction;
                 violation = std::max(violation, std::max(-gap, 0.0));
@@ -170,6 +172,7 @@ bool System::solve_coupled(double h, StepResult &stats) {
             (*diagnostics) << "outer=" << outer << " h=" << h
                            << " contacts=" << state.contacts.size() << " same=" << same
                            << " geometry=" << violation << " dual=" << dual_error
+                           << " contact_dual=" << contact_dual << " cup_dual=" << cup_dual
                            << " pressure=" << pressure_error << std::endl;
         stats.pressure_error = pressure_error;
         stats.constraint_error = violation;
