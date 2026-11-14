@@ -30,11 +30,20 @@ var max_contacts := 0
 var last_receive := 0
 var test_start := 0
 const DRAW_SCALE := 2.3
+const MODEL_PATH := "res://assets/Octopus_GameReady_v5.glb"
+# SI native coordinates use a 2.3x debug-stage scale. The uploaded model
+# is already authored in meters, with ~1.9 m arms, whereas the demo rods
+# have length 0.9 m. This scales the artistic asset into the scene.
+const MODEL_STAGE_SCALE := 1.35
+var rig_scene: Node3D
+var rig_skeleton: Skeleton3D
+var rig_baseline: Array = []
 
 func _ready() -> void:
     Engine.max_fps = 60
     super._ready()
     capture_mode = false
+    install_uploaded_model()
     DisplayServer.window_set_title("OCTOPUS | LIVE native physics | Move the box")
     live_test = "--live-test" in OS.get_cmdline_user_args()
     restart_test = "--live-restart-test" in OS.get_cmdline_user_args()
@@ -82,6 +91,90 @@ func _ready() -> void:
     test_start = Time.get_ticks_msec()
     start_native()
 
+func install_uploaded_model() -> void:
+    if not ResourceLoader.exists(MODEL_PATH):
+        print("LIVE_MODEL_MISSING: copy Octopus_GameReady_v5.glb to game/assets/")
+        return
+    var scene = load(MODEL_PATH) as PackedScene
+    if scene == null:
+        push_warning("The uploaded GLB did not import as a PackedScene")
+        return
+    var instance = scene.instantiate()
+    if not instance is Node3D:
+        push_warning("GLB root is not a Node3D")
+        instance.queue_free()
+        return
+    rig_scene = instance as Node3D
+    rig_scene.name = "UploadedSkinnedOctopus"
+    animal.add_child(rig_scene)
+    rig_scene.scale = Vector3.ONE * MODEL_STAGE_SCALE
+    rig_scene.position = Vector3(0, 0.63, 0) - Vector3(0, 0.15, 0.1) * MODEL_STAGE_SCALE
+    for node in rig_scene.find_children("*", "Skeleton3D", true, false):
+        rig_skeleton = node as Skeleton3D
+        break
+    if rig_skeleton == null:
+        push_warning("Uploaded GLB has no Skeleton3D; using procedural display")
+        rig_scene.queue_free()
+        rig_scene = null
+        return
+    var missing := 0
+    for arm_id in range(ARM_COUNT):
+        for j in range(24):
+            if rig_skeleton.find_bone("A%d_%02d" % [arm_id, j]) < 0:
+                missing += 1
+    if missing > 0:
+        push_warning("Uploaded rig is missing %d arm bones; using procedural display" % missing)
+        rig_scene.queue_free()
+        rig_scene = null
+        rig_skeleton = null
+        return
+    print("LIVE_MODEL_LOADED skeleton_bones=%d arm_bones=192 asset=%s" % [rig_skeleton.get_bone_count(), MODEL_PATH])
+
+func interpolate_node(nodes: Array, u: float) -> Vector3:
+    var cursor := clampf(u, 0.0, 1.0) * (nodes.size() - 1)
+    var lo := floori(cursor)
+    var hi := mini(lo + 1, nodes.size() - 1)
+    return read_vec(nodes[lo]).lerp(read_vec(nodes[hi]), cursor - lo)
+
+func animate_rigged_model(a: Dictionary, b: Dictionary, alpha: float) -> void:
+    if rig_skeleton == null:
+        return
+    var base_p := read_vec(b.body.p)
+    var base_q := read_quat(b.body.q)
+    if rig_baseline.is_empty():
+        for arm_id in range(ARM_COUNT):
+            var initial: Array = []
+            for j in range(24):
+                var p0 := interpolate_node(a.arms[arm_id].nodes, float(j) / 23.0)
+                initial.append(base_q.inverse() * (p0 - base_p))
+            rig_baseline.append(initial)
+    for arm_id in range(ARM_COUNT):
+        var initial: Array = rig_baseline[arm_id]
+        var points: Array = []
+        for j in range(24):
+            var u := float(j) / 23.0
+            var p0 := interpolate_node(a.arms[arm_id].nodes, u)
+            var p1 := interpolate_node(b.arms[arm_id].nodes, u)
+            var p := p0.lerp(p1, alpha)
+            points.append(base_q.inverse() * (p - base_p))
+        var target_globals: Dictionary = {}
+        for j in range(24):
+            var id := rig_skeleton.find_bone("A%d_%02d" % [arm_id, j])
+            var rest := rig_skeleton.get_bone_global_rest(id)
+            var delta_position: Vector3 = (points[j] - initial[j]) * DRAW_SCALE / MODEL_STAGE_SCALE
+            var j2 := mini(j + 1, 23)
+            var j0 := maxi(j - 1, 0)
+            var original_tangent: Vector3 = (initial[j2] - initial[j0]).normalized()
+            var current_tangent: Vector3 = (points[j2] - points[j0]).normalized()
+            var swing := Quaternion.IDENTITY
+            if original_tangent.length_squared() > 0.000001 and current_tangent.length_squared() > 0.000001:
+                swing = Quaternion(original_tangent, current_tangent)
+            var desired := Transform3D(Basis(swing) * rest.basis, rest.origin + delta_position)
+            var parent := rig_skeleton.get_bone_parent(id)
+            var parent_global: Transform3D = target_globals.get(parent, rig_skeleton.get_bone_global_rest(parent) if parent >= 0 else Transform3D.IDENTITY)
+            rig_skeleton.set_bone_pose(id, parent_global.affine_inverse() * desired)
+            target_globals[id] = desired
+
 func start_native() -> void:
     # A dead or unresponsive child cannot receive a reset command. Replace its
     # pipes and discard partial replies before accepting a fresh snapshot.
@@ -98,6 +191,7 @@ func start_native() -> void:
     previous = {}
     current = {}
     latest = {}
+    rig_baseline.clear()
     in_flight = false
     sent_at = 0
     received_at = 0
@@ -209,7 +303,7 @@ func update_arms() -> void:
     animal.quaternion = body_q
     for arm_id in range(ARM_COUNT):
         var shown: bool = arm_id < a.arms.size()
-        arms[arm_id].visible = shown
+        arms[arm_id].visible = shown and rig_skeleton == null
         for cup in cups[arm_id]:
             # Native trace currently has no rim geometry: hide decorative cups.
             cup.visible = false
@@ -246,6 +340,8 @@ func update_arms() -> void:
         var tube := ArrayMesh.new()
         tube.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
         arms[arm_id].mesh = tube
+    if rig_skeleton != null and not a.arms.is_empty() and not b.arms.is_empty():
+        animate_rigged_model(a, b, alpha)
     for j in range(rigids.size()):
         var pos := read_vec(a.rigids[j].p).lerp(read_vec(b.rigids[j].p), alpha)
         # Native coordinate positions plus the same artistic display offset.
