@@ -319,6 +319,89 @@ std::vector<ContactConstraint> System::build_contacts(const std::vector<double> 
             }
         }
     }
+    // Explicit boundary triangles of the deforming tetrahedral torso.
+    // A surface sample must transfer its reaction to *all three* FEM vertex
+    // bodies, and (for a dynamic box) to the opposing rigid body as well.
+    // Vertex sphere contacts alone do not prevent box/plane penetration
+    // through the interior of a large triangular FEM boundary face.
+    if (!torso_mesh.elements.empty()) {
+        std::map<std::array<std::uint32_t, 3>, unsigned> face_counts;
+        for (const auto &tet : torso_mesh.elements)
+            for (unsigned omit = 0; omit < 4; ++omit) {
+                std::array<std::uint32_t, 3> face{};
+                unsigned k = 0;
+                for (unsigned j = 0; j < 4; ++j)
+                    if (j != omit)
+                        face[k++] = tet.nodes[j];
+                std::sort(face.begin(), face.end());
+                ++face_counts[face];
+            }
+        const std::array<std::array<double, 3>, 4> samples{{
+            {{1.0 / 3, 1.0 / 3, 1.0 / 3}},
+            {{0.5, 0.5, 0.0}},
+            {{0.5, 0.0, 0.5}},
+            {{0.0, 0.5, 0.5}},
+        }};
+        std::uint64_t face_id = 0;
+        for (const auto &[face, incidence] : face_counts) {
+            if (incidence != 1)
+                continue; // interior faces cannot collide
+            std::array<std::size_t, 3> ids{};
+            for (unsigned k = 0; k < 3; ++k)
+                ids[k] = torso_body_ids.at(face[k]);
+            for (unsigned sample = 0; sample < samples.size(); ++sample) {
+                const auto &w = samples[sample];
+                V3 pa{};
+                for (unsigned k = 0; k < 3; ++k)
+                    pa += b[ids[k]].p * w[k];
+                auto add_surface = [&](std::uint64_t target_id, V3 normal,
+                                       std::size_t target, V3 pb, double friction) {
+                    ContactConstraint c;
+                    // Type 14: a fixed, geometric FEM surface-sample ID.
+                    c.key = (14ull << 60) | (face_id << 45) |
+                            (std::uint64_t(sample) << 43) | target_id;
+                    c.count = target == world_id ? 3 : 4;
+                    c.normal = normal;
+                    c.friction = friction;
+                    for (unsigned k = 0; k < 3; ++k) {
+                        c.anchors[k] = {ids[k], {}, Q{}};
+                        c.weights[k] = w[k];
+                    }
+                    if (target == world_id)
+                        c.fixed_point = pb;
+                    else {
+                        c.anchors[3] = surface_anchor(b, target, pb);
+                        c.weights[3] = -1;
+                    }
+                    c.normal_anchors = c.anchors;
+                    c.normal_fixed_point = c.fixed_point;
+                    add(c);
+                };
+                for (std::size_t plane = 0; plane < planes.size(); ++plane) {
+                    const auto &p = planes[plane];
+                    const double gap = dot(pa, p.normal) - p.offset;
+                    if (gap <= solver.contact_margin)
+                        add_surface((1ull << 40) | plane, p.normal, world_id,
+                                    pa - p.normal * gap, p.friction);
+                }
+                if (!terrain.triangles().empty()) {
+                    auto hit = terrain.closest(pa, solver.contact_margin + 0.02);
+                    if (hit.found)
+                        add_surface((2ull << 40), hit.surface_normal, world_id,
+                                    hit.point, hit.friction);
+                }
+                for (std::size_t body = 0; body < nb; ++body) {
+                    if (!b[body].box)
+                        continue;
+                    const auto hit = box_surface(pa, b[body]);
+                    if (hit.gap <= solver.contact_margin)
+                        add_surface((3ull << 40) | body, hit.normal, body,
+                                    hit.point, b[body].friction);
+                }
+            }
+            ++face_id;
+        }
+    }
     for (std::size_t i = 0; i < ne; ++i) {
         const auto &e = state.elements[i];
         const V3 a = at(b, e.a), z = at(b, e.b);
