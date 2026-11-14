@@ -256,6 +256,37 @@ std::vector<ContactConstraint> System::build_contacts(const std::vector<double> 
                 }
         }
         if (!terrain.triangles().empty()) {
+            if (terrain.triangles().size() >= 10000) {
+                // The SAT for every overlapping tiny triangle can generate
+                // dozens of unrelated AL normals for one box against a
+                // smooth terrain patch. Use actual box support vertices and
+                // stable vertex IDs instead. Ground contact points and normals
+                // come directly from the closest physical triangle.
+                if (b[i].box) {
+                    for (unsigned corner = 0; corner < 8; ++corner) {
+                        V3 local{(corner & 1 ? 1 : -1) * b[i].half_extents.x,
+                                 (corner & 2 ? 1 : -1) * b[i].half_extents.y,
+                                 (corner & 4 ? 1 : -1) * b[i].half_extents.z};
+                        V3 pa = b[i].p + b[i].q.rotate(local);
+                        auto hit = terrain.closest(pa, solver.contact_margin + 0.02);
+                        if (!hit.found)
+                            continue;
+                        V3 n = hit.surface_normal;
+                        point_contact((3ull << 60) | (static_cast<std::uint64_t>(i) << 32) |
+                                          corner,
+                                      i, pa, n, world_id, hit.point, hit.friction);
+                    }
+                } else {
+                    auto hit =
+                        terrain.closest(b[i].p, b[i].radius + solver.contact_margin + 0.02);
+                    if (hit.found) {
+                        auto n = hit.surface_normal;
+                        point_contact((3ull << 60) | (static_cast<std::uint64_t>(i) << 32),
+                                      i, b[i].p - n * b[i].radius, n, world_id,
+                                      hit.point, hit.friction);
+                    }
+                }
+            } else {
             double r = b[i].box ? norm(b[i].half_extents) : b[i].radius;
             auto query = bounds(b[i].p, state.bodies[i].p, r + solver.contact_margin, 0);
             for (auto ti : terrain.query(query)) {
@@ -284,6 +315,7 @@ std::vector<ContactConstraint> System::build_contacts(const std::vector<double> 
                 }
                 point_contact((3ull << 60) | (static_cast<std::uint64_t>(i) << 32) | t.id, i,
                               b[i].p - n * support, n, world_id, cp, t.friction);
+            }
             }
         }
     }
@@ -651,7 +683,8 @@ std::vector<ContactConstraint> System::build_contacts(const std::vector<double> 
     std::map<std::uint64_t, ContactConstraint> manifolds;
     for (auto c : result) {
         const std::uint64_t kind = c.key >> 60;
-        if (kind != 3 && kind != 5) {
+        if (kind != 5) {
+            // Dense rigid-terrain contacts already have stable support-vertex IDs.
             manifolds.emplace(c.key, c);
             continue;
         }
