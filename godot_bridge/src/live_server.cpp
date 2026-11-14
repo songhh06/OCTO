@@ -113,9 +113,9 @@ int main(int argc, char **argv) {
     try {
         std::filesystem::path diagnostic_dir = std::filesystem::absolute("work");
 #ifdef _WIN32
-        const bool has_diagnostics = argc == 3 && std::wstring(argv[1]) == L"--diagnostics";
+        const bool has_diagnostics = (argc == 3 || argc == 4) && std::wstring(argv[1]) == L"--diagnostics";
 #else
-        const bool has_diagnostics = argc == 3 && std::string(argv[1]) == "--diagnostics";
+        const bool has_diagnostics = (argc == 3 || argc == 4) && std::string(argv[1]) == "--diagnostics";
 #endif
         if (has_diagnostics)
             diagnostic_dir = std::filesystem::path(argv[2]);
