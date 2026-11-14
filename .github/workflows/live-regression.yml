@@ -30,6 +30,8 @@ jobs:
       - name: Native unit and RPC regressions
         shell: pwsh
         run: |
+          python -m pip install 'jsonschema==4.25.0'
+          if ($LASTEXITCODE -ne 0) { throw 'Schema dependency installation failed' }
           ctest --test-dir build/release -LE long --output-on-failure --no-tests=error
           if ($LASTEXITCODE -ne 0) { throw 'Native short regression failed' }
           ctest --test-dir build/release -R '^live\.protocol$' --output-on-failure --no-tests=error
