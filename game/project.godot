@@ -1,8 +1,8 @@
 config_version=5
 
 [application]
-config/name="OCTOPUS - P0 bootstrap"
-run/main_scene="res://scenes/bootstrap.tscn"
+config/name="OCTO | GameReady v5 live physics"
+run/main_scene="res://scenes/live_demo.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
 [display]
