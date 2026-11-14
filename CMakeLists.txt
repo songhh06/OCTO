@@ -67,6 +67,8 @@ add_test(NAME physics.live_wrap_regression COMMAND octo_contact_regression "${CM
 set_tests_properties(physics.live_wrap_regression PROPERTIES TIMEOUT 600)
 add_test(NAME live.protocol COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/integration/live_bridge_tests.py $<TARGET_FILE:octo_live>)
 set_tests_properties(live.protocol PROPERTIES WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}" TIMEOUT 240 LABELS "long")
+add_test(NAME live.invalid_request_recovery COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tests/integration/live_invalid_protocol_tests.py $<TARGET_FILE:octo_live>)
+set_tests_properties(live.invalid_request_recovery PROPERTIES WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}" TIMEOUT 60)
 add_test(NAME FEM.P1V1 COMMAND octo_fem_tests)
 add_executable(octo_p2_tests tests/unit/p2_tests.cpp)
 target_link_libraries(octo_p2_tests PRIVATE octo_core)
