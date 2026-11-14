@@ -70,7 +70,7 @@ def write_fixture(dest):
     data += b' ' * (-len(data) % 4)
     glb = struct.pack("<4sII", b"glTF", 2, 12 + 8 + len(data) + 8 + len(binary))
     glb += struct.pack("<I4s", len(data), b"JSON") + data
-    glb += struct.pack("<I4s", len(binary), b"BIN\\x00") + binary
+    glb += struct.pack("<I4s", len(binary), b"BIN\x00") + binary
     path = Path(dest)
     path.parent.mkdir(exist_ok=True, parents=True)
     path.write_bytes(glb)
