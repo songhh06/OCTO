@@ -1,5 +1,32 @@
 # STATUS
 
+## 2026-11-14 — User could still see old octopus: default launch / GLB install fix
+
+Reproduced *configuration cause* in the branch: the Godot `run/main_scene`
+still pointed to the old `bootstrap.tscn`, `run_preview.cmd` opened the
+old procedural scene, and the original GLB was never committed (it is
+distributed only in a separate ZIP). The previous live demo also silently
+fell back to procedural visuals when the asset was absent.
+
+Fixes on `feature/P2V-model-curved-contact-body`:
+- Godot default Play scene is now `res://scenes/live_demo.tscn`.
+- `run_preview.cmd` forwards to `run_live_demo.cmd`; old preview is
+  preserved under `run_legacy_preview.cmd`.
+- Interactive live scene refuses missing/unreadable GameReady GLB and shows
+  a visible error label. Procedural fallback is allowed **only** for explicit
+  headless regression flags / `--allow-procedural-fallback`.
+- `run_live_demo.cmd` checks the GLB *before* rebuilding native code,
+  structurally validates it, then imports it in Godot before launch.
+- A one-click ZIP installer with the original GLB can switch the chosen
+  local OCTO checkout to the correct feature branch, verify SHA256 and
+  install the asset without discarding tracked user modifications.
+- CI now asserts default Play startup rejects missing GLB rather than
+  silently loading the wrong octopus; legacy headless physics regressions
+  keep explicit test flags. Godot CI uses a synthetic rig, **not** the
+  user's original textured model.
+- **Not established**: user has run the installer or visually inspected
+  the original model on their machine. Do not mark art appearance accepted.
+
 ## 2026-11-14 — PR #2: GameReady rig / dense contact / monolithic torso FEM
 
 **Work in progress; P2V full acceptance remains OPEN.**
