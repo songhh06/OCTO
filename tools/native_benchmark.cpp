@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
     const bool curved = argc == 2 && std::string(argv[1]) == "--curved";
     try {
         System s;
-        s.solver.max_outer = 32;
+        s.solver.max_outer = 64;
         s.solver.max_newton = 20;
         s.solver.max_cg = 200;
         s.gravity = {0, -9.81, 0};
