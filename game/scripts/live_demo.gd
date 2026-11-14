@@ -354,8 +354,10 @@ func _process(delta: float) -> void:
         captured = true
         paused = true
         assert(max_contacts>0 and max_motion>.005)
-        await get_tree().process_frame
-        await capture("live_box_contact")
+        # Headless runs must validate contact without waiting for a GPU frame.
+        if DisplayServer.get_name() != "headless":
+            await get_tree().process_frame
+            await capture("live_box_contact")
         print("LIVE_GODOT_CONTACT_OK tick=%d contacts=%d motion_m=%.6f" % [current.tick,max_contacts,max_motion])
         reset_world()
     if live_test and captured and int(current.tick) == 0 and not in_flight:
