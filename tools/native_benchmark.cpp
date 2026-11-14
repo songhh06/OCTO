@@ -92,6 +92,7 @@ int main(int argc, char **argv) {
         bool success = true;
         std::string failure;
         for (unsigned tick = 0; tick < 10; ++tick) {
+            s.diagnostics = curved && tick >= 1 ? &std::cerr : nullptr;
             auto result = s.step();
             times.push_back(result.cpu_ms);
             max_contacts = std::max(max_contacts, result.contacts);
