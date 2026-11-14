@@ -49,7 +49,7 @@ int main() {
                 std::array<V3, 4> vertices;
                 for (unsigned k = 0; k < 4; ++k)
                     vertices[k] = s.state.bodies[body_ids[tet.nodes[k]]].p;
-                const auto J = fem::determinant(fem::deformation(tet, vertices));
+                const auto J = octo::fem::determinant(octo::fem::deformation(tet, vertices));
                 if (!(J > s.torso_material.min_J))
                     throw std::runtime_error("inverted torso tetrahedron");
             }
