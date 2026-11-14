@@ -21,6 +21,8 @@ var info: Label
 var live_test := false
 var restart_test := false
 var restart_killed := false
+var stall_reset_test := false
+var stall_reset_started := false
 var captured := false
 var input_checked := false
 var max_motion := 0.0
@@ -36,6 +38,7 @@ func _ready() -> void:
     DisplayServer.window_set_title("OCTOPUS | LIVE native physics | Move the box")
     live_test = "--live-test" in OS.get_cmdline_user_args()
     restart_test = "--live-restart-test" in OS.get_cmdline_user_args()
+    stall_reset_test = "--live-stall-reset-test" in OS.get_cmdline_user_args()
     distance = 8.8
     yaw = 0.6
     pitch = 0.85
@@ -80,8 +83,10 @@ func _ready() -> void:
     start_native()
 
 func start_native() -> void:
-    # A dead native process cannot receive a reset command. Replace its pipes
-    # and discard any partial reply before accepting a new world snapshot.
+    # A dead or unresponsive child cannot receive a reset command. Replace its
+    # pipes and discard partial replies before accepting a fresh snapshot.
+    if child.has("pid") and OS.is_process_running(child.pid):
+        OS.kill(child.pid)
     if pipe != null:
         pipe.close()
     if errors != null:
@@ -121,17 +126,22 @@ func send(command: Dictionary) -> void:
     sent_at = Time.get_ticks_msec()
 
 func reset_world() -> void:
-    if in_flight:
+    var process_dead := child.is_empty() or not child.has("pid") or not OS.is_process_running(child.pid)
+    if in_flight and not stopped and not process_dead:
+        # Allow an ordinary outstanding step to finish before issuing reset.
         reset_pending = true
         return
+    # A timed-out request must not keep reset_pending forever. Stop the
+    # unresponsive child and create an entirely new transport instead.
+    var force_restart := process_dead or (stopped and in_flight)
+    in_flight = false
     stopped = false
     last_receive = Time.get_ticks_msec()
     reset_pending = false
     target = Vector3(1.45,0,.8)
     max_motion = 0
     max_contacts = 0
-    if child.is_empty() or not child.has("pid") or not OS.is_process_running(child.pid):
-        # A terminated child cannot process reset; launch a fresh world.
+    if force_restart:
         start_native()
     else:
         send({"op":"reset"})
@@ -140,7 +150,7 @@ func fail(message: String) -> void:
     stopped = true
     info.text = "STOPPED: " + message + "\nR / Reset world to restart. Check work/ for diagnostics."
     push_error(message)
-    if live_test or restart_test: get_tree().quit(2)
+    if live_test or restart_test or stall_reset_test: get_tree().quit(2)
 
 func poll_native() -> void:
     if pipe == null or (stopped and not in_flight): return
@@ -302,6 +312,19 @@ func _process(delta: float) -> void:
         reset_world()
         return
     if stopped or current.is_empty(): return
+    if stall_reset_test:
+        if not stall_reset_started and int(current.tick) >= 2 and not in_flight:
+            stall_reset_started = true
+            stopped = true
+            in_flight = true
+            # Model a timed-out in-flight request without waiting ten seconds.
+            reset_world()
+            return
+        if stall_reset_started:
+            if int(current.tick) == 0 and not in_flight:
+                print("LIVE_GODOT_STALL_RESET_OK")
+                get_tree().quit(0)
+            return
     if restart_test:
         if not restart_killed and int(current.tick) >= 2 and not in_flight:
             # Regression: kill the native process to exercise automatic relaunch.
