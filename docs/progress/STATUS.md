@@ -1,12 +1,18 @@
 # STATUS
 
-## Live native process restart — implemented, runtime verification pending
+## Live transport and reset hardening — Windows CI verified (scoped)
 
-Branch: `feature/P0-live-process-recovery`. Godot now attempts a fresh native child
-when R/Reset is requested after the previous child terminated, and clears stale
-pipe/snapshot state. `--live-restart-test` adds a deterministic child-kill and
-relaunch smoke test. **Not yet run in Godot on Windows**; no native solver or
-numerical convergence acceptance is claimed. Instructions/limits: issues/006.
+Branch `feature/P0-live-process-recovery`; PR #1 (draft).
+Native child death and stopped/in-flight reset are recoverable from R/Reset;
+malformed live RPC now returns a structured error without killing the solver.
+`run_live_demo.cmd` rebuilds native changes rather than reusing an old executable.
+Stale checked-in CMake caches are discarded when the checkout path changes.
+At commit `f09fcf1`, Windows Actions passed 28/28 short CTests,
+1/1 360-tick native live protocol test, and Godot 4.6.2 child-death and
+stalled-request restart smokes (no engine/script errors). Subsequent
+launch-script and full Godot contact changes are awaiting their own latest CI
+result. See issues/006 and .github/workflows/live-regression.yml.
+**Issue 004 curved-contact nonconvergence and V13 performance are still open.**
 
 ## Live contact convergence fix — verified
 Saved tick-319 wrapping failure reproduced: CCD/resting normal alternation caused
