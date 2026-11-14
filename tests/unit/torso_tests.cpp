@@ -56,6 +56,55 @@ int main() {
         }
         if (greatest < 1e-6)
             throw std::runtime_error("torso did not physically deform");
+
+        // Contact manifold must use the *deforming surface triangle*, not
+        // a single spherical surrogate at the torso center. Test both
+        // static terrain-plane and bilateral dynamic box Jacobian stencils.
+        System contact_world;
+        Body origin;
+        origin.fixed = true;
+        origin.mass = .35;
+        origin.radius = .075;
+        contact_world.add_body(origin);
+        contact_world.add_volumetric_torso(0);
+        Plane floor;
+        floor.offset = 0;
+        contact_world.planes.push_back(floor);
+        Body obstacle;
+        obstacle.box = true;
+        obstacle.p = {0, 0.06, 0};
+        obstacle.half_extents = {0.12, 0.07, 0.12};
+        obstacle.radius = norm(obstacle.half_extents);
+        obstacle.mass = 1;
+        obstacle.inertia = {.001, .001, .001};
+        const auto box_id = contact_world.add_body(obstacle);
+        const auto stencil =
+            contact_world.build_contacts(std::vector<double>(6 * contact_world.state.bodies.size(), 0),
+                                         octo::fixed_dt);
+        unsigned triangle_plane = 0, triangle_box = 0;
+        for (const auto &c : stencil) {
+            if ((c.key >> 60) != 14)
+                continue;
+            if (c.count != 3 && c.count != 4)
+                throw std::runtime_error("invalid FEM surface contact stencil");
+            double sum = 0;
+            for (unsigned k = 0; k < c.count; ++k) {
+                if (k < 3 && c.weights[k] < 0)
+                    throw std::runtime_error("negative deformable barycentric weight");
+                if (k == 3 && (c.anchors[k].body != box_id || c.weights[k] != -1))
+                    throw std::runtime_error("box reaction not assembled bilaterally");
+                sum += c.weights[k];
+            }
+            if (std::abs(sum - (c.count == 3 ? 1.0 : 0.0)) > 1e-8)
+                throw std::runtime_error("invalid FEM surface contact partition of unity");
+            if (c.count == 3)
+                ++triangle_plane;
+            else
+                ++triangle_box;
+        }
+        if (triangle_plane == 0 || triangle_box == 0)
+            throw std::runtime_error("torso boundary did not generate plane and box contacts");
+
         std::cout << "P2V_TORSO_FEM_OK nodes=7 tets=8 total_mass_kg=" << total
                   << " max_displacement_m=" << greatest
                   << " after_release_m=" << norm(s.state.bodies[top].p - rest) << "\n";
