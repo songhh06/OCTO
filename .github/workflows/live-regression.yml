@@ -47,12 +47,10 @@ jobs:
           $binary = (Get-ChildItem -Path $destination -Filter '*.exe' | Select-Object -First 1).FullName
           if (-not $binary) { throw 'Godot executable missing' }
           "OCTO_GODOT=$binary" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-      - name: Godot headless import, child-death and timed-out reset tests
+      - name: Godot headless import, live contact and recovery tests
         shell: pwsh
         run: |
           & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game --editor --quit
           if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
-          & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game res://scenes/live_demo.tscn -- --live-restart-test
-          if ($LASTEXITCODE -ne 0) { throw 'Godot child-death recovery failed' }
-          & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game res://scenes/live_demo.tscn -- --live-stall-reset-test
-          if ($LASTEXITCODE -ne 0) { throw 'Godot stalled-request reset failed' }
+          python tests/integration/godot_live_smoke.py $env:OCTO_GODOT
+          if ($LASTEXITCODE -ne 0) { throw 'Godot live integration regression failed' }
