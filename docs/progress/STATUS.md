@@ -1,5 +1,13 @@
 # STATUS
 
+## Live native process restart — implemented, runtime verification pending
+
+Branch: `feature/P0-live-process-recovery`. Godot now attempts a fresh native child
+when R/Reset is requested after the previous child terminated, and clears stale
+pipe/snapshot state. `--live-restart-test` adds a deterministic child-kill and
+relaunch smoke test. **Not yet run in Godot on Windows**; no native solver or
+numerical convergence acceptance is claimed. Instructions/limits: issues/006.
+
 ## Live contact convergence fix — verified
 Saved tick-319 wrapping failure reproduced: CCD/resting normal alternation caused
 a dual two-cycle, not a failed Newton residual. Fix keeps current geometric normals
