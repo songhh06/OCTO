@@ -1,5 +1,43 @@
 # STATUS
 
+## 2026-11-14 — PR #2: GameReady rig / dense contact / monolithic torso FEM
+
+**Work in progress; P2V full acceptance remains OPEN.**
+Branch `feature/P2V-model-curved-contact-body`, stacked draft PR #2.
+
+- Uploaded user GLB: glTF2, 8×24 arm bones, 193 total skin joints,
+  12,698 main skin vertices. Original 15,203,672-byte binary remains
+  **outside the Git branch**; must be copied to
+  `game/assets/Octopus_GameReady_v5.glb` from the user's installer ZIP.
+  Godot adapter maps reversed art/native arm winding, drives 192 bones from
+  native snapshots, hides the old procedural display and skips its mesh rebuild.
+- Godot CI imported a **synthetic**, same-named 193-bone GLB, then passed
+  `LIVE_MODEL_LOADED`, `LIVE_FEM_SURFACE_READY`,
+  `LIVE_GODOT_CONTACT_OK` and `LIVE_MODEL_SKIN_OK`:
+  https://github.com/songhh06/OCTO/actions/runs/43593877339.
+  The actual supplied asset has NOT received render/skin acceptance.
+- C++ native FEM torso now owns seven mass-conserving shared-world vertices,
+  eight tetrahedra and a condensed volumetric Schur block. The rod root shares
+  a center degree of freedom; three compliant beak-to-mantle attachments
+  transmit rotational torque. A moving eight-triangle surface generates
+  barycentric box/plane/terrain contact, with bilateral rigid-box reaction.
+  Godot F3 displays native FEM boundary (debug view). Surface-contact/
+  torque tests were added after the initial passing FEM CI.
+- Reference 120-tick native FEM protocol and unit tests passed on Windows:
+  https://github.com/songhh06/OCTO/actions/runs/43591573923.
+- Previously failing curved 100k-triangle benchmark now **converges all
+  10 ticks** with original `dual_tolerance=0.002`, not loosened.
+  Latest confirmed run: https://github.com/songhh06/OCTO/actions/runs/43593872655.
+  p95 ~19,786 ms/tick: 120 Hz target 8.333 ms **NOT MET**.
+  Dense-terrain swept CCD, arbitrary contact endurance remain open.
+- **Not achieved:** actual user GLB GPU-render inspection; high-resolution
+  FEM body skin embedding; deformable arm cross sections and suction patches;
+  mantle internal chamber and beak clearance; V16–V21; V13 speed/BIO.
+  Numerical parameters are ASSUMED. See issues/004 and issues/007.
+- Run `.github/workflows/live-regression.yml` and
+  `.github/workflows/curved-contact.yml`; use latest GitHub CI run on
+  PR #2 before changing draft status.
+
 ## Live transport and reset hardening — Windows CI verified (scoped)
 
 Branch `feature/P0-live-process-recovery`; PR #1 (draft).
