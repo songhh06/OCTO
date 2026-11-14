@@ -65,3 +65,23 @@ Godot에서는 드래그 목표 변경, Space 정지, 상자 자동 밀기, nati
 다시 계산 실패가 발생하면 마지막 정상 상태에서 정지하고 R/Reset으로 초기화한다.
 실패 상태/입력/세부 잔차는 화면에 오류를 보내기 전에 work/live-failure.octostate와
 work/live-failure.json에 저장한다. 증거/한계: issues/005-live-contact-ccd-normal-cycle.md.
+
+
+## 네이티브 프로세스 종료 후 복구 (구현, 실행 검증 대기)
+
+네이티브 프로세스 자체가 종료된 경우에는 기존 `reset` 명령을 전송할 수 없다.
+R 또는 Reset world를 누르면 PID를 확인하고, 죽은 프로세스 대신 새 프로세스를
+실행한 뒤 입력/출력 스트림과 이전 스냅샷·버퍼를 초기화한다. 정상 실행 중인
+프로세스의 reset RPC는 기존대로 유지한다.
+
+Windows 회귀 실행 명령 (먼저 `tools/build-live-demo.ps1`로 실행 파일 준비):
+
+```powershell
+& 'C:\Tools\Godot\godot.exe' --headless --path game --single-threaded-scene --render-thread safe res://scenes/live_demo.tscn -- --live-restart-test
+```
+
+이 모드는 네이티브 틱 2회 이상 수신 후 자식 프로세스를 강제 종료하고,
+새 프로세스의 tick=0 응답을 받으면 `LIVE_GODOT_RESTART_OK`로 종료한다.
+**현재 이 회귀의 실제 Godot 실행 결과는 확보되지 않았다.**
+접촉 solver 비수렴 자체는 고치지 않았고 기존 실패 저장과 수동 reset을 유지한다.
+세부 범위: `docs/issues/006-live-process-restart.md`.
