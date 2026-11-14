@@ -1,5 +1,42 @@
 # OCTOPUS
 
+## Start the current GameReady v5 octopus (feature/P2V)
+
+**This experimental model is NOT on `main` yet.** The live Godot project
+now launches `res://scenes/live_demo.tscn` by default, but the original
+15.2 MB `Octopus_GameReady_v5.glb` is distributed separately. Unzip the
+user-provided model installer into the project root, or run its
+`INSTALL_AND_RUN.cmd` script to select the correct checkout, fetch and
+switch branch, copy/verify the binary, and launch.
+
+The running GameReady model is identified by console lines
+`LIVE_MODEL_LOADED skeleton_bones=193` and
+`LIVE_FEM_SKIN_BIND_OK ... morphs=18`. The GameReady model must be in
+`game/assets/Octopus_GameReady_v5.glb`. If absent, the **interactive
+default scene shows a MODEL NOT INSTALLED message**, not the old art.
+
+- `run_live_demo.cmd`: validated original GameReady model + native torso
+  C++ rebuild + Godot live physics, with F3 diagnostic FEM body surface.
+- `run_preview.cmd`: alias to the same new live demo, so the old
+  procedural preview is not mistaken for the active model.
+- `run_legacy_preview.cmd`: separate old procedural visual experiment.
+- `run_p2_demo.cmd`: separate recorded P2 preview, *not* the new GLB.
+
+```powershell
+git fetch origin
+git switch feature/P2V-model-curved-contact-body
+git pull --ff-only
+# Extract the model ZIP here or use its INSTALL_AND_RUN.cmd
+python tools/check_octopus_model.py game/assets/Octopus_GameReady_v5.glb
+.\run_live_demo.cmd
+```
+
+The model-to-torso binding uses **7-node, 8-tetra prototype FEM with
+18 directional morph channels**. The original curved 100k-triangle
+multicontact case now converges, but fails real-time performance acceptance.
+See `docs/issues/004-curved-contact-convergence.md` and
+`docs/issues/007-volumetric-torso-model.md`.
+
 **Live box-contact demo:** double-click `run_live_demo.cmd`. Drag the blue box
 or use WASD/arrows to push real native arms. See [docs/LIVE_DEMO.md](docs/LIVE_DEMO.md).
 This is live asynchronous input/solver state, separate from recorded playback.
@@ -18,11 +55,12 @@ replay are implemented. Final V06-V12 acceptance and known limitations are in
 [the P2 report](docs/progress/P2_COMPLETION.md). P0/P1 live engine integration
 remains open. The native viewer is labelled OFFLINE PLAYBACK.
 
-**Visual octopus preview:** double-click `run_preview.cmd` (installed Godot 4.6.2).
+**Legacy visual octopus preview:** double-click `run_legacy_preview.cmd` (installed Godot 4.6.2).
 This separate scene has eight animated arms, 128 suckers and an orbit camera.
 It is a visual prototype, not completed physics. See [docs/PREVIEW.md](docs/PREVIEW.md)
 for controls, exact commands and actual rendered screenshots. The original P0
-startup scene and independent C++ work are preserved.
+bootstrap scene remains available directly as `res://scenes/bootstrap.tscn`;
+its old default startup assignment has been changed on this branch.
 
 Fully 3D octopus physics game in development. **P0 is incomplete.** The native model is
 experimental and not BIO validated; live playable game integration is pending. Read docs/ROADMAP.md and
