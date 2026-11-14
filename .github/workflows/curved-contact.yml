@@ -1,0 +1,48 @@
+name: Curved contact nonconvergence regression
+
+on:
+  push:
+    branches:
+      - feature/P2V-model-curved-contact-body
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  curved-contact:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build native benchmark from clean checkout
+        shell: pwsh
+        run: |
+          . ./tools/dev-shell.ps1
+          if (Test-Path 'build/release') { Remove-Item 'build/release' -Recurse -Force }
+          cmake --preset release
+          if ($LASTEXITCODE -ne 0) { throw 'configure failed' }
+          cmake --build --preset release --target octo_benchmark octo_p2_tests octo_contact_regression --parallel 4
+          if ($LASTEXITCODE -ne 0) { throw 'build failed' }
+      - name: Existing CCD and capsule regressions
+        shell: pwsh
+        run: |
+          ctest --test-dir build/release -R 'physics.live_wrap_regression|P2.ccd|P2.capsules' --output-on-failure
+          if ($LASTEXITCODE -ne 0) { throw 'contact regression failed' }
+      - name: Reproduce former curved 100k triangle failure
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force work | Out-Null
+          ./build/release/octo_benchmark.exe --curved
+          if ($LASTEXITCODE -ne 0) { throw 'curved benchmark nonconvergence' }
+          $report = Get-Content 'docs/progress/physics/V13-curved-workload.json' -Raw | ConvertFrom-Json
+          if (-not $report.success -or $report.completed_ticks -ne 10) { throw 'curved benchmark incomplete' }
+          Write-Host "CURVED_10_TICKS_OK p95_ms=$($report.p95_ms)"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: curved-contact-diagnostics
+          path: |
+            docs/progress/physics/V13-curved-workload.json
+            work/V13-failure.octostate
+          if-no-files-found: ignore
