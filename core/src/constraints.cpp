@@ -633,6 +633,14 @@ std::vector<ContactConstraint> System::build_contacts(const std::vector<double> 
             add(constraint);
         }
     }
+    // Keep the exact original manifold on small/sculpted scenes, where
+    // separate triangle features can be essential for CCD edge coverage.
+    // The high-resolution 100k-triangle terrain uses patch conditioning.
+    if (terrain.triangles().size() < 10000) {
+        std::sort(result.begin(), result.end(),
+                  [](const auto &a, const auto &z) { return a.key < z.key; });
+        return result;
+    }
     // Dense triangulations create many nearly identical constraints for one
     // physical surface patch. Independent AL multipliers on individual tiny
     // triangles oscillate when the closest triangle changes within a tick.
