@@ -184,3 +184,19 @@ The genuine FEM boundary remains the separate diagnostic mesh. Synthetic
 but only the user's installed GameReady GLB can establish final visual quality.
 Full tetra skin binding and actual model collision/silhouette mismatch tests
 remain mandatory for V16–V21.
+
+
+## D018 — fail visibly when required GameReady asset is missing
+
+The user reported that the model looked unchanged after the earlier PR.
+Repository examination confirmed two obsolete entrypoints: the Godot Play
+project main_scene was still bootstrap, and the preview script still opened
+the old procedural octopus. Further, the 15.2 MB GLB is not in the public
+GitHub repo. Default Godot Play now launches the live GameReady adapter;
+preview.cmd aliases the live demo, legacy preview has a separate name.
+Refuse interactive startup with missing or failed-to-import GLB instead of
+quiet procedural substitution. Regression modes intentionally permit legacy
+comparison. The launcher checks/validates the original asset before build,
+and a one-click installer supplies it from the user-uploaded ZIP. The actual
+user workstation must still be verified; CI's synthetic 193-joint model is
+insufficient to declare original appearance correct.
