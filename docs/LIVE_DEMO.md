@@ -85,3 +85,21 @@ Windows 회귀 실행 명령 (먼저 `tools/build-live-demo.ps1`로 실행 파�
 **현재 이 회귀의 실제 Godot 실행 결과는 확보되지 않았다.**
 접촉 solver 비수렴 자체는 고치지 않았고 기존 실패 저장과 수동 reset을 유지한다.
 세부 범위: `docs/issues/006-live-process-restart.md`.
+
+## 추가 복구 및 빌드 안정화 (PR #1)
+
+- `run_live_demo.cmd`는 존재하는 `octo_live.exe`가 오래되었을 수 있으므로,
+  시작할 때마다 증분 네이티브 빌드를 실행한다.
+- 다른 폴더에서 복사해 온 `build/release/CMakeCache.txt`는 현재 프로젝트 경로와
+  일치하지 않으면 삭제하고 다시 구성한다.
+- 비정상 종료한 프로세스는 R/Reset으로 재시작한다. 10초 응답 정지 후에도
+  R/Reset을 누르면 기다리던 요청을 폐기하고 프로세스를 강제로 교체한다.
+- 잘못된 JSON/명령을 보내면 native는 `ok=false`로 응답하되 종료하지 않고,
+  뒤이은 정상 step/reset을 허용한다. 클라이언트는 오류 표시 후 수동 reset을 기다린다.
+- CI는 Windows C++ 컴파일, CTest, Godot 4.6.2 headless 실행에서
+  재시작/타임아웃 복구/실시간 접촉을 각각 테스트한다. 실행 결과는 GitHub Actions
+  `.github/workflows/live-regression.yml`을 확인한다.
+
+**수치 solver 자체의 수렴 실패가 전부 해결된 것은 아니다.** 특히
+`docs/issues/004-curved-contact-convergence.md`의 다중 곡면 접촉 실패는
+미해결로 유지한다. 실시간 120Hz 성능 및 생체 검증도 별도 수용 기준이다.
