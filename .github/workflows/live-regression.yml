@@ -73,6 +73,6 @@ jobs:
           $modelLog = & $env:OCTO_GODOT --headless --single-threaded-scene --render-thread safe --path game res://scenes/live_demo.tscn -- --live-model-test 2>&1 | Out-String
           Write-Host $modelLog
           if ($LASTEXITCODE -ne 0) { throw 'Godot skinned model smoke failed' }
-          foreach ($marker in @('LIVE_MODEL_LOADED', 'LIVE_FEM_SURFACE_READY', 'LIVE_MODEL_SKIN_OK', 'LIVE_GODOT_CONTACT_OK')) {
+          foreach ($marker in @('LIVE_MODEL_LOADED', 'LIVE_FEM_SKIN_BIND_OK', 'LIVE_FEM_SURFACE_READY', 'LIVE_MODEL_SKIN_OK', 'LIVE_GODOT_CONTACT_OK')) {
             if (-not $modelLog.Contains($marker)) { throw "Godot synthetic rig missing $marker" }
           }
