@@ -46,6 +46,10 @@ var fem_surface_built := false
 var fem_surface_debug := false
 var model_test := false
 var max_bone_motion := 0.0
+var fem_skin_mesh: MeshInstance3D
+var max_fem_skin_motion := 0.0
+# Six independent FEM boundary nodes, each with X/Y/Z displacement.
+const FEM_MORPH_COUNT := 18
 
 func _ready() -> void:
     Engine.max_fps = 60
@@ -159,7 +163,102 @@ func install_uploaded_model() -> void:
     for piece in animal.get_children():
         if piece != rig_scene and piece is MeshInstance3D:
             piece.visible = false
+    setup_fem_skin()
     print("LIVE_MODEL_LOADED skeleton_bones=%d arm_bones=192 asset=%s" % [rig_skeleton.get_bone_count(), MODEL_PATH])
+
+func setup_fem_skin() -> void:
+    # The external GLB already contains an artist-authored skinned surface.
+    # Its mantle is nearly entirely weighted to the single Root bone.
+    # Build 18 sparse GPU morph targets, preserving UVs/materials and the
+    # existing skeletal arm influences. Runtime FEM update is O(18), not
+    # 12,698 per-vertex CPU copies each frame.
+    for node in rig_scene.find_children("*", "MeshInstance3D", true, false):
+        if node.name == "Octopus_Skin":
+            fem_skin_mesh = node as MeshInstance3D
+            break
+    if fem_skin_mesh == null or fem_skin_mesh.mesh == null:
+        push_warning("GLB has no Octopus_Skin mesh: FEM body skin not bound")
+        return
+    var old_mesh: Mesh = fem_skin_mesh.mesh
+    var root_bind := -1
+    if fem_skin_mesh.skin != null:
+        var root_bone := rig_skeleton.find_bone("Root")
+        for k in range(fem_skin_mesh.skin.get_bind_count()):
+            if fem_skin_mesh.skin.get_bind_bone(k) == root_bone or fem_skin_mesh.skin.get_bind_name(k) == &"Root":
+                root_bind = k
+                break
+    if root_bind < 0:
+        push_warning("GLB skin has no Root bind: FEM body skin not bound")
+        return
+    var new_mesh := ArrayMesh.new()
+    new_mesh.blend_shape_mode = Mesh.BLEND_SHAPE_MODE_RELATIVE
+    for k in range(FEM_MORPH_COUNT):
+        new_mesh.add_blend_shape("FEM_%02d" % k)
+    var bound_vertices := 0
+    for surface_id in range(old_mesh.get_surface_count()):
+        var arrays: Array = old_mesh.surface_get_arrays(surface_id)
+        var base: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+        var bones: PackedInt32Array = arrays[Mesh.ARRAY_BONES]
+        var weights: PackedFloat32Array = arrays[Mesh.ARRAY_WEIGHTS]
+        if base.is_empty() or bones.is_empty() or weights.is_empty():
+            push_warning("GLB skin surface lacks skeletal weights")
+            return
+        var stride := 8 if old_mesh.surface_get_format(surface_id) & Mesh.ARRAY_FLAG_USE_8_BONE_WEIGHTS else 4
+        var coefficients: Array[PackedFloat32Array] = []
+        for k in range(6):
+            coefficients.append(PackedFloat32Array())
+            coefficients[k].resize(base.size())
+        for vertex_id in range(base.size()):
+            var root_weight := 0.0
+            for joint in range(stride):
+                var index := vertex_id * stride + joint
+                if int(bones[index]) == root_bind:
+                    root_weight += float(weights[index])
+            if root_weight <= 0.01:
+                continue
+            var point: Vector3 = base[vertex_id] - Vector3(0, 0.15, 0.1)
+            var norm_axis := absf(point.x) / 0.14 + absf(point.y) / 0.11 + absf(point.z) / 0.14
+            if norm_axis < 0.0001:
+                continue
+            var contributions := [
+                maxf(point.x, 0.0) / 0.14,
+                maxf(-point.x, 0.0) / 0.14,
+                maxf(point.y, 0.0) / 0.11,
+                maxf(-point.y, 0.0) / 0.11,
+                maxf(point.z, 0.0) / 0.14,
+                maxf(-point.z, 0.0) / 0.14,
+            ]
+            for k in range(6):
+                coefficients[k][vertex_id] = root_weight * contributions[k] / norm_axis
+            bound_vertices += 1
+        var shapes := []
+        for morph in range(FEM_MORPH_COUNT):
+            var node_id := morph / 3
+            var axis := morph % 3
+            var direction := Vector3.ZERO
+            direction[axis] = 1.0
+            var points := base.duplicate()
+            for vertex_id in range(base.size()):
+                var c: float = coefficients[node_id][vertex_id]
+                if c != 0:
+                    points[vertex_id] += direction * c
+            var shape := []
+            shape.resize(Mesh.ARRAY_MAX)
+            shape[Mesh.ARRAY_VERTEX] = points
+            if arrays[Mesh.ARRAY_NORMAL] != null:
+                shape[Mesh.ARRAY_NORMAL] = arrays[Mesh.ARRAY_NORMAL]
+            if arrays[Mesh.ARRAY_TANGENT] != null:
+                shape[Mesh.ARRAY_TANGENT] = arrays[Mesh.ARRAY_TANGENT]
+            shapes.append(shape)
+        new_mesh.add_surface_from_arrays(old_mesh.surface_get_primitive_type(surface_id), arrays, shapes, {},
+                                         old_mesh.surface_get_format(surface_id) & Mesh.ARRAY_FLAG_USE_8_BONE_WEIGHTS)
+        new_mesh.surface_set_material(surface_id, old_mesh.surface_get_material(surface_id))
+    fem_skin_mesh.mesh = new_mesh
+    if bound_vertices <= 0:
+        push_warning("FEM skin: no Root-weighted body vertices found")
+        fem_skin_mesh = null
+        return
+    print("LIVE_FEM_SKIN_BIND_OK vertices=%d morphs=%d" % [bound_vertices, new_mesh.get_blend_shape_count()])
 
 func interpolate_node(nodes: Array, u: float) -> Vector3:
     var cursor := clampf(u, 0.0, 1.0) * (nodes.size() - 1)
@@ -246,6 +345,23 @@ func update_fem_surface(a: Dictionary, b: Dictionary, alpha: float,
     var mesh := ArrayMesh.new()
     mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
     fem_surface.mesh = mesh
+    if fem_skin_mesh != null and fem_skin_mesh.get_blend_shape_count() == FEM_MORPH_COUNT:
+        var inverse_yaw := Quaternion(Vector3.UP, -MODEL_YAW)
+        for node_id in range(1, 7):
+            var world_p: Vector3 = read_vec(a.torso_nodes[node_id]).lerp(read_vec(b.torso_nodes[node_id]), alpha)
+            var local_p: Vector3 = body_q.inverse() * (world_p - body_p)
+            var rest_delta := Vector3.ZERO
+            match node_id:
+                1: rest_delta.x = 0.14
+                2: rest_delta.x = -0.14
+                3: rest_delta.y = 0.11
+                4: rest_delta.y = -0.11
+                5: rest_delta.z = 0.14
+                6: rest_delta.z = -0.14
+            var delta_position: Vector3 = inverse_yaw * (local_p - rest_delta) * DRAW_SCALE / MODEL_STAGE_SCALE
+            max_fem_skin_motion = maxf(max_fem_skin_motion, delta_position.length())
+            for axis in range(3):
+                fem_skin_mesh.set_blend_shape_value((node_id - 1) * 3 + axis, delta_position[axis])
     if not fem_surface_built:
         fem_surface_built = true
         print("LIVE_FEM_SURFACE_READY nodes=7 triangles=8")
@@ -268,6 +384,7 @@ func start_native() -> void:
     latest = {}
     rig_baseline.clear()
     max_bone_motion = 0.0
+    max_fem_skin_motion = 0.0
     fem_surface_built = false
     in_flight = false
     sent_at = 0
@@ -543,10 +660,10 @@ func _process(delta: float) -> void:
             await capture("live_box_contact")
         print("LIVE_GODOT_CONTACT_OK tick=%d contacts=%d motion_m=%.6f" % [current.tick,max_contacts,max_motion])
         if model_test:
-            if not fem_surface_built or max_bone_motion < 0.002:
+            if not fem_surface_built or fem_skin_mesh == null or max_bone_motion < 0.002:
                 fail("GLB skin or FEM torso did not update during live contact")
                 return
-            print("LIVE_MODEL_SKIN_OK bones=192 fem_triangles=8 pose_delta_m=%.6f" % max_bone_motion)
+            print("LIVE_MODEL_SKIN_OK bones=192 fem_triangles=8 pose_delta_m=%.6f fem_skin_delta=%.6f" % [max_bone_motion, max_fem_skin_motion])
         reset_world()
     if live_test and captured and int(current.tick) == 0 and not in_flight:
         print("LIVE_GODOT_RESET_OK")
