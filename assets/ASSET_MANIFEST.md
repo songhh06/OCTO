@@ -27,3 +27,22 @@ Preview motion and shape are artistic approximations, not measured biological da
 
 | game/scripts/live_demo.gd, game/scenes/live_demo.tscn | Authored live native-state renderer/UI | Project contribution | Project license pending | run_live_demo.cmd |
 | docs/preview/live_box_contact.png | Actual Godot 4.6.2 live contact viewport | Project contribution | Same procedural assets | live_demo.tscn -- --live-test |
+
+
+## Octopus_GameReady_v5.glb (user-provided 2026-11-14)
+
+- Intended location: `game/assets/Octopus_GameReady_v5.glb` (the actual binary
+  must be supplied separately; it is **not present in this Git branch**).
+- Original upload size: **15,203,672 bytes**, SHA256
+  `056032820b9fc4abfdf8058bcae84229e733cf7a8549bc8f283bba3b8393feb5`.
+- glTF v2.0, 8 arm chains × 24 bones, 193 skin joints (192 arm + Root),
+  skinned `Octopus_Skin`, no baked animations; units=meter per glTF extras.
+- Blender-generated glTF mesh is a **render/skinning asset**, not a validated
+  watertight FEM tetra mesh. The skin surface is not itself a physics collider.
+- Source: uploaded by the project user in ChatGPT. Original author, third-party
+  licenses, and distribution permission beyond the supplied project context
+  were not independently verified; resolve rights before public redistribution.
+- Validate with `python tools/check_octopus_model.py game/assets/Octopus_GameReady_v5.glb`.
+- The model's coordinate/scale mapping to the native 12-element rods is a
+  development approximation. The true render-to-collision mismatch must be
+  measured before P2V acceptance.
