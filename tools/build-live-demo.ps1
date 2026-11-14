@@ -6,8 +6,8 @@ try {
  # Discard the cache only when it belongs to a different checkout root.
  $cache = Join-Path (Get-Location).Path 'build/release/CMakeCache.txt'
  if (Test-Path -LiteralPath $cache) {
-   $home = Get-Content -LiteralPath $cache | Where-Object { $_ -like 'CMAKE_HOME_DIRECTORY:INTERNAL=*' } | Select-Object -First 1
-   $actual = if ($home) { ($home -split '=',2)[1].Replace('\','/').TrimEnd('/') } else { '' }
+   $cacheHomeLine = Get-Content -LiteralPath $cache | Where-Object { $_ -like 'CMAKE_HOME_DIRECTORY:INTERNAL=*' } | Select-Object -First 1
+   $actual = if ($cacheHomeLine) { ($cacheHomeLine -split '=',2)[1].Replace('\','/').TrimEnd('/') } else { '' }
    $expected = (Get-Location).Path.Replace('\','/').TrimEnd('/')
    if (-not [string]::Equals($actual, $expected, [StringComparison]::OrdinalIgnoreCase)) {
      Write-Host 'Ignoring CMake build cache from a different checkout.'
