@@ -27,6 +27,9 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'CMake configure failed' }
           cmake --build --preset release --parallel 4
           if ($LASTEXITCODE -ne 0) { throw 'Native build failed' }
+          # Exercise the exact incremental build helper used by run_live_demo.cmd.
+          ./tools/build-live-demo.ps1
+          if ($LASTEXITCODE -and $LASTEXITCODE -ne 0) { throw 'Live demo build helper failed' }
       - name: Native unit and RPC regressions
         shell: pwsh
         run: |
