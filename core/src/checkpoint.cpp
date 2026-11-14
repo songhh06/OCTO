@@ -34,7 +34,7 @@ void System::save(std::ostream &out) const {
     std::ostringstream o;
     o.imbue(std::locale::classic());
     o << std::setprecision(17);
-    o << "OCTO_DYNAMICS 3 " << state.tick << ' ' << state.seed << ' ';
+    o << "OCTO_DYNAMICS " << (torso_mesh.elements.empty() ? 3 : 4) << " " << state.tick << ' ' << state.seed << ' ';
     o << material.young << ' ' << material.shear << ' ' << material.density << ' '
       << material.sigma_max << ' ' << material.tau_on << ' ' << material.tau_off << ' '
       << material.damping_time << ' ' << material.min_stretch << ' ';
@@ -159,6 +159,20 @@ void System::save(std::ostream &out) const {
         write(o, joint.axis_multiplier);
         o << '\n';
     }
+    if (!torso_mesh.elements.empty()) {
+        o << "TORSO " << torso_body_ids.size() << ' ' << torso_mesh.elements.size() << ' '
+          << torso_material.shear << ' ' << torso_material.bulk << ' '
+          << torso_material.viscosity << ' ' << torso_material.min_J << ' '
+          << torso_material.min_relative_determinant << '\n';
+        for (std::size_t j = 0; j < torso_body_ids.size(); ++j) {
+            o << torso_body_ids[j] << ' ';
+            write(o, torso_mesh.reference[j]);
+            o << '\n';
+        }
+        for (const auto &tet : torso_mesh.elements)
+            o << tet.nodes[0] << ' ' << tet.nodes[1] << ' ' << tet.nodes[2] << ' '
+              << tet.nodes[3] << '\n';
+    }
     auto text = o.str();
     out << text << "CHECKSUM " << hash(text) << '\n';
 }
@@ -182,7 +196,7 @@ void System::restore(std::istream &input) {
     unsigned version{};
     System next;
     i >> magic >> version;
-    if (magic != "OCTO_DYNAMICS" || (version != 2 && version != 3))
+    if (magic != "OCTO_DYNAMICS" || (version != 2 && version != 3 && version != 4))
         throw std::invalid_argument("checkpoint version mismatch");
     i >> next.state.tick >> next.state.seed;
     auto &m = next.material;
@@ -264,7 +278,7 @@ void System::restore(std::istream &input) {
         i >> t.id;
     }
     next.terrain.build(std::move(triangles));
-    if (version == 3) {
+    if (version >= 3) {
         std::size_t contacts{}, hinges{};
         std::string tag;
         i >> tag >> next.coupled_constraints >> s.max_outer >> s.constraint_penalty >>
@@ -320,6 +334,32 @@ void System::restore(std::istream &input) {
             read(i, joint.axis_b);
             read(i, joint.position_multiplier);
             read(i, joint.axis_multiplier);
+        }
+        if (version == 4) {
+            std::size_t nodes{}, elements{};
+            i >> tag >> nodes >> elements >> next.torso_material.shear >>
+                next.torso_material.bulk >> next.torso_material.viscosity >>
+                next.torso_material.min_J >> next.torso_material.min_relative_determinant;
+            if (tag != "TORSO" || nodes < 4 || nodes > 1000 || elements == 0 ||
+                elements > 5000)
+                throw std::invalid_argument("invalid FEM torso checkpoint counts");
+            next.torso_material.validate();
+            next.torso_body_ids.resize(nodes);
+            next.torso_mesh.reference.resize(nodes);
+            for (std::size_t j = 0; j < nodes; ++j) {
+                i >> next.torso_body_ids[j];
+                read(i, next.torso_mesh.reference[j]);
+                if (next.torso_body_ids[j] >= nb)
+                    throw std::invalid_argument("invalid FEM torso body ID");
+            }
+            next.torso_mesh.elements.reserve(elements);
+            for (std::size_t j = 0; j < elements; ++j) {
+                std::array<std::uint32_t, 4> ids{};
+                for (auto &id : ids)
+                    i >> id;
+                next.torso_mesh.elements.push_back(
+                    fem::make_tet(next.torso_mesh.reference, ids, next.torso_material));
+            }
         }
     } else
         next.coupled_constraints = false;
