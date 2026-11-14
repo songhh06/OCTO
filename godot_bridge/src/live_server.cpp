@@ -48,7 +48,7 @@ void snapshot(std::ostream &o, const System &s) {
     bool first = true;
     for (std::size_t j = 1; j < s.state.bodies.size(); ++j) {
         const auto &b = s.state.bodies[j];
-        if (b.arm >= 0)
+        if (b.arm >= 0 || b.station == -100)
             continue;
         if (!first)
             o << ',';
@@ -60,19 +60,29 @@ void snapshot(std::ostream &o, const System &s) {
         vec(o, b.half_extents);
         o << '}';
     }
+    o << "],\"torso_nodes\":[";
+    for (std::size_t j = 0; j < s.torso_body_ids.size(); ++j) {
+        if (j)
+            o << ',';
+        vec(o, s.state.bodies[s.torso_body_ids[j]].p);
+    }
     o << "]}";
 }
 
-System make_world() {
+System make_world(bool volumetric = false) {
     System s;
     Body root;
-    root.mass = 2;
-    root.radius = .18;
+    root.mass = volumetric ? 0.35 : 2.0;
+    root.radius = volumetric ? .075 : .18;
+    if (volumetric)
+        root.inertia = {.015, .015, .015};
     s.add_body(root);
     for (int arm = 0; arm < 8; ++arm) {
         Q q = exp(V3{0, 2 * pi * arm / 8, 0});
         s.add_rod({0, q.rotate({0, 0, .25}), {}}, q, .9, .06, .012, 12, arm);
     }
+    if (volumetric)
+        s.add_volumetric_torso(0);
     Body box;
     box.box = true;
     box.mass = .6;
@@ -109,11 +119,20 @@ int main(int argc, char **argv) {
 #endif
         if (has_diagnostics)
             diagnostic_dir = std::filesystem::path(argv[2]);
-        else if (argc != 1)
-            throw std::invalid_argument("expected --diagnostics directory");
+#ifdef _WIN32
+        const bool fem_requested = (argc == 4 && has_diagnostics && std::wstring(argv[3]) == L"--torso-fem") ||
+                                   (argc == 2 && std::wstring(argv[1]) == L"--torso-fem");
+#else
+        const bool fem_requested = (argc == 4 && has_diagnostics && std::string(argv[3]) == "--torso-fem") ||
+                                   (argc == 2 && std::string(argv[1]) == "--torso-fem");
+#endif
+        if (argc != 1 && !has_diagnostics && !fem_requested)
+            throw std::invalid_argument("expected [--diagnostics directory] [--torso-fem]");
+        if (argc == 4 && !fem_requested)
+            throw std::invalid_argument("unknown native option");
         std::filesystem::create_directories(diagnostic_dir);
         std::cout << std::setprecision(17);
-        System s = make_world();
+        System s = make_world(fem_requested);
         std::size_t box_id = s.state.bodies.size() - 1;
         std::vector<V3> initial;
         for (const auto &b : s.state.bodies)
@@ -124,7 +143,8 @@ int main(int argc, char **argv) {
         auto send = [&](bool ok, const std::string &error) {
             double movement = 0;
             for (std::size_t j = 1; j < box_id; ++j)
-                movement = std::max(movement, norm(s.state.bodies[j].p - initial[j]));
+                if (s.state.bodies[j].arm >= 0)
+                    movement = std::max(movement, norm(s.state.bodies[j].p - initial[j]));
             std::cout << "{\"protocol\":1,\"live\":true,\"ok\":" << (ok ? "true" : "false")
                       << ",\"error\":" << octo::json::quote(error)
                       << ",\"contacts\":" << last.contacts
@@ -161,7 +181,7 @@ int main(int argc, char **argv) {
             if (op == "quit")
                 break;
             if (op == "reset") {
-                s = make_world();
+                s = make_world(fem_requested);
                 box_id = s.state.bodies.size() - 1;
                 collision = true;
                 last = {};
