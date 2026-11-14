@@ -633,8 +633,58 @@ std::vector<ContactConstraint> System::build_contacts(const std::vector<double> 
             add(constraint);
         }
     }
-    std::sort(result.begin(), result.end(),
-              [](const auto &a, const auto &z) { return a.key < z.key; });
+    // Dense triangulations create many nearly identical constraints for one
+    // physical surface patch. Independent AL multipliers on individual tiny
+    // triangles oscillate when the closest triangle changes within a tick.
+    // Select the deepest member of each deterministic contact manifold while
+    // retaining separate capsule endpoints, box quadrants and normal sectors.
+    // This does not relax the contact/dual tolerances and leaves all nonterrain
+    // contacts untouched.
+    std::map<std::uint64_t, ContactConstraint> manifolds;
+    for (auto c : result) {
+        const std::uint64_t kind = c.key >> 60;
+        if (kind != 3 && kind != 5) {
+            manifolds.emplace(c.key, c);
+            continue;
+        }
+        const std::uint64_t source = kind == 3 ? (c.key >> 32) & 0x0fffffffull
+                                               : (c.key >> 34) & 0x03ffffffull;
+        // Quantize normals into 9 bins per component. Small cone curvature
+        // remains in one sector; walls with different normals remain distinct.
+        auto quant = [](double v) {
+            return static_cast<std::uint64_t>(
+                std::clamp(std::lround((v + 1.0) * 4.0), 0l, 8l));
+        };
+        const std::uint64_t normal_bin =
+            81 * quant(c.normal.x) + 9 * quant(c.normal.y) + quant(c.normal.z);
+        std::uint64_t slot = kind == 5 ? c.key & 3ull : 0;
+        if (kind == 3 && b[source].box) {
+            const auto local =
+                b[source].q.conjugate().rotate(c.fixed_point - b[source].p);
+            // Retain a four-point support manifold under an oriented box.
+            slot = (local.x >= 0 ? 1ull : 0ull) | (local.z >= 0 ? 2ull : 0ull);
+        }
+        const std::uint64_t stable_key =
+            (kind << 60) | (source << 32) | (normal_bin << 8) | slot;
+        c.key = stable_key;
+        auto [it, inserted] = manifolds.emplace(stable_key, c);
+        if (!inserted &&
+            normal_gap(c, b) < normal_gap(it->second, b))
+            it->second = c;
+    }
+    result.clear();
+    result.reserve(manifolds.size());
+    for (auto &[key, c] : manifolds) {
+        auto prior = old.find(key);
+        if (prior != old.end() && dot(prior->second->normal, c.normal) > 0.99) {
+            c.normal_multiplier = prior->second->normal_multiplier;
+            c.tangent_multiplier =
+                prior->second->tangent_multiplier -
+                c.normal * dot(prior->second->tangent_multiplier, c.normal);
+            c.tangent_origin = prior->second->tangent_origin;
+        }
+        result.push_back(c);
+    }
     return result;
 }
 void System::sample_cup(Cup &cup, const std::vector<double> &x) const {
