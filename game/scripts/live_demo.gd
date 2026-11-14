@@ -35,6 +35,9 @@ const MODEL_PATH := "res://assets/Octopus_GameReady_v5.glb"
 # is already authored in meters, with ~1.9 m arms, whereas the demo rods
 # have length 0.9 m. This scales the artistic asset into the scene.
 const MODEL_STAGE_SCALE := 1.35
+# The supplied GLB's bone A7 points +22.5 degrees from +Z; native arm 0
+# points +Z, and the GLB arm numbers run opposite to the native winding.
+const MODEL_YAW := -PI / 8.0
 var rig_scene: Node3D
 var rig_skeleton: Skeleton3D
 var rig_baseline: Array = []
@@ -129,7 +132,9 @@ func install_uploaded_model() -> void:
     rig_scene.name = "UploadedSkinnedOctopus"
     animal.add_child(rig_scene)
     rig_scene.scale = Vector3.ONE * MODEL_STAGE_SCALE
-    rig_scene.position = Vector3(0, 0.63, 0) - Vector3(0, 0.15, 0.1) * MODEL_STAGE_SCALE
+    rig_scene.rotation.y = MODEL_YAW
+    var root_rest := Vector3(0, 0.15, 0.1)
+    rig_scene.position = Vector3(0, 0.63, 0) - Quaternion(Vector3.UP, MODEL_YAW) * (root_rest * MODEL_STAGE_SCALE)
     for node in rig_scene.find_children("*", "Skeleton3D", true, false):
         rig_skeleton = node as Skeleton3D
         break
@@ -174,6 +179,7 @@ func animate_rigged_model(a: Dictionary, b: Dictionary, alpha: float) -> void:
                 var p0 := interpolate_node(a.arms[arm_id].nodes, float(j) / 23.0)
                 initial.append(base_q.inverse() * (p0 - base_p))
             rig_baseline.append(initial)
+    var model_to_native := Quaternion(Vector3.UP, -MODEL_YAW)
     for arm_id in range(ARM_COUNT):
         var initial: Array = rig_baseline[arm_id]
         var points: Array = []
@@ -185,14 +191,15 @@ func animate_rigged_model(a: Dictionary, b: Dictionary, alpha: float) -> void:
             points.append(base_q.inverse() * (p - base_p))
         var target_globals: Dictionary = {}
         for j in range(24):
-            var id := rig_skeleton.find_bone("A%d_%02d" % [arm_id, j])
+            var art_arm_id := (ARM_COUNT - 1 - arm_id) % ARM_COUNT
+            var id := rig_skeleton.find_bone("A%d_%02d" % [art_arm_id, j])
             var rest := rig_skeleton.get_bone_global_rest(id)
-            var delta_position: Vector3 = (points[j] - initial[j]) * DRAW_SCALE / MODEL_STAGE_SCALE
+            var delta_position: Vector3 = model_to_native * (points[j] - initial[j]) * DRAW_SCALE / MODEL_STAGE_SCALE
             max_bone_motion = maxf(max_bone_motion, delta_position.length())
             var j2 := mini(j + 1, 23)
             var j0 := maxi(j - 1, 0)
-            var original_tangent: Vector3 = (initial[j2] - initial[j0]).normalized()
-            var current_tangent: Vector3 = (points[j2] - points[j0]).normalized()
+            var original_tangent: Vector3 = (model_to_native * (initial[j2] - initial[j0])).normalized()
+            var current_tangent: Vector3 = (model_to_native * (points[j2] - points[j0])).normalized()
             var swing := Quaternion.IDENTITY
             if original_tangent.length_squared() > 0.000001 and current_tangent.length_squared() > 0.000001:
                 swing = Quaternion(original_tangent, current_tangent)
