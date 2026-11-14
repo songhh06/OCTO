@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "grade": "ASSUMED",
+  "source": "GAME_SPEC.md sections 2 and 4; engineering choices documented in docs/PHYSICS_MODEL.md",
+  "note": "Runtime-loaded Material, geometry, cup, fluid and solver fields are documented in PHYSICS_MODEL.md. Unloaded dimensionless muscle/state thresholds are fixed-model audit values. No biological measurements.",
+  "material": {
+    "young": {
+      "value": 60000,
+      "unit": "Pa",
+      "range": [
+        20000,
+        200000
+      ]
+    },
+    "shear": {
+      "value": 20000,
+      "unit": "Pa",
+      "range": [
+        1,
+        100000
+      ]
+    },
+    "density": {
+      "value": 1050,
+      "unit": "kg/m^3",
+      "range": [
+        1000,
+        1150
+      ]
+    },
+    "sigma_max": {
+      "value": 20000,
+      "unit": "Pa",
+      "range": [
+        10000,
+        100000
+      ]
+    },
+    "tau_on": {
+      "value": 0.08,
+      "unit": "s",
+      "range": [
+        0.001,
+        1
+      ]
+    },
+    "tau_off": {
+      "value": 0.15,
+      "unit": "s",
+      "range": [
+        0.001,
+        1
+      ]
+    },
+    "damping_time": {
+      "value": 0.01,
+      "unit": "s",
+      "range": [
+        0,
+        1
+      ]
+    },
+    "min_stretch": {
+      "value": 0.3,
+      "unit": "1",
+      "range": [
+        0.01,
+        0.99
+      ]
+    }
+  },
+  "geometry": {
+    "length_m": 1,
+    "proximal_radius_m": 0.075,
+    "distal_radius_m": 0.012,
+    "elements": 24
+  },
+  "muscle": {
+    "longitudinal_area_fraction_per_channel": 0.25,
+    "transverse_area_factor": 0.25,
+    "oblique_area_factor": 0.05,
+    "fiber_radius_factor": 0.6,
+    "force_length_width": 0.5,
+    "force_velocity_s": 0.05,
+    "force_velocity_min": 0.2,
+    "force_velocity_max": 1.8
+  },
+  "cup": {
+    "radius_m": 0.015,
+    "external_pressure_Pa": 101325,
+    "pressure_max_Pa": 40000,
+    "vapor_pressure_Pa": 2300,
+    "capacitance_m3_per_Pa": 1e-10,
+    "pump_m3_per_s": 1e-06,
+    "conductance_m3_per_Pa_s": 1e-13,
+    "gap_conductance_m3_per_Pa_s": 1e-10,
+    "gap_reference_m": 0.001,
+    "rim_samples": 12,
+    "touch_gap_fraction": 0.1,
+    "minimum_rim_contacts": 10,
+    "seal_delay_s": 0.05,
+    "attach_pressure_difference_Pa": 3000,
+    "rim_stiffness_N_per_m": 10000,
+    "peel_rate_per_s": 8,
+    "minimum_rim_capacity_fraction": 0.001,
+    "release_remaining_rim_sum": 0.1,
+    "friction": 0.7
+  },
+  "solver": {
+    "fixed_dt_s": 0.008333333333333333,
+    "max_newton": 20,
+    "max_cg": 200,
+    "max_line_search": 24,
+    "absolute_gradient_tolerance": 1e-06,
+    "relative_gradient_tolerance": 1e-07,
+    "hessian_fd_step_m_and_rad": 1e-07,
+    "armijo": 0.0001,
+    "subdivision_attempts": [
+      1,
+      2,
+      4
+    ],
+    "contact_stiffness_N_per_m": 100000,
+    "max_outer": 32,
+    "constraint_penalty_N_per_m": 100000,
+    "exact_hessian": true
+  },
+  "fluid": {
+    "rod_drag_perpendicular": 1.2,
+    "rod_drag_parallel": 0.1,
+    "body_drag_coefficient": 1.0,
+    "default_density_kg_per_m3": 0
+  }
+}

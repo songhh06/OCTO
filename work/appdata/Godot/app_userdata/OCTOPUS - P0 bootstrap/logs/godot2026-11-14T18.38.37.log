@@ -1,0 +1,13 @@
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4060
+
+PREVIEW_READY arms=8 suckers=128 visual_only=true
+LIVE_GODOT_PROCESS_STARTED pid=24760
+LIVE_TICK 0 contacts=0 motion=0.000000
+LIVE_GODOT_READY arms=8 tick=0
+LIVE_TICK 60 contacts=0 motion=0.000000
+LIVE_TICK 120 contacts=0 motion=0.000000
+LIVE_TICK 180 contacts=0 motion=0.000000
+LIVE_TICK 240 contacts=0 motion=0.000000
+LIVE_TICK 300 contacts=1 motion=0.031621
+LIVE_TICK 360 contacts=2 motion=0.136868

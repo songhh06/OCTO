@@ -1,0 +1,143 @@
+{
+  "schema": 1,
+  "checked_at": "2026-11-14",
+  "host": "windows-x86_64",
+  "complete": false,
+  "note": "Observed binary hashes only. Official archive hashes and missing dependencies unresolved due DNS failure.",
+  "tools": {
+    "git": {
+      "version": "2.49.0.windows.1",
+      "source_url": "https://github.com/git-for-windows/git/releases/tag/v2.49.0.windows.1",
+      "url": null,
+      "sha256": null,
+      "local_path": "C:\\Program Files\\Git\\cmd\\git.exe",
+      "local_sha256": "fec691d80fccc35fcc309fbc9f720536c1d795b8a562ec169f28c9923da9600f",
+      "license": "GPL-2.0",
+      "status": "installed_provenance_unverified"
+    },
+    "cmake": {
+      "version": "3.31.7",
+      "source_url": "https://github.com/Kitware/CMake/releases/tag/v3.31.7",
+      "url": null,
+      "sha256": null,
+      "local_path": "C:\\Program Files\\CMake\\bin\\cmake.exe",
+      "local_sha256": "e915c2fd46e4cf8b89a16fa4fd92003bc6f581eb021a16869a41339ca0298be9",
+      "license": "BSD-3-Clause",
+      "status": "installed_provenance_unverified"
+    },
+    "ninja": {
+      "version": "1.12.1",
+      "source_url": "https://github.com/ninja-build/ninja/releases/tag/v1.12.1",
+      "url": null,
+      "sha256": null,
+      "local_path": "C:\\ninja\\ninja.exe",
+      "local_sha256": "68865c3276d449d746cea5065fdec2baf755d7813e161ab04205b0907b2629b8",
+      "license": "Apache-2.0",
+      "status": "installed_provenance_unverified"
+    },
+    "compiler": {
+      "version": "19.43.34809.0",
+      "source_url": "https://learn.microsoft.com/en-us/cpp/build/reference/compiler-options",
+      "url": null,
+      "sha256": null,
+      "local_path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\cl.exe",
+      "local_sha256": "249c9e0663ff869998971901ff102fefd01eb472f02de05c1f47909d9e2c9e8b",
+      "license": "Microsoft Visual Studio installed terms; not newly accepted",
+      "status": "installed_provenance_unverified"
+    },
+    "python": {
+      "version": "3.13.9",
+      "source_url": "https://www.python.org/downloads/release/python-3139/",
+      "url": null,
+      "sha256": null,
+      "local_path": "C:\\Anaconda\\python.exe",
+      "local_sha256": "7679e53fa969789309e81fdad0d52b8cda5f83c9abf7cb31a3c58bf24b31e264",
+      "license": "PSF; installed Anaconda distribution terms not independently verified",
+      "status": "installed_provenance_unverified"
+    },
+    "godot": {
+      "version": "4.6.2.stable.official.71f334935",
+      "source_url": "https://github.com/godotengine/godot/releases/tag/4.6.2-stable",
+      "url": null,
+      "sha256": null,
+      "local_path": "C:\\Tools\\Godot\\godot.exe",
+      "local_sha256": "975bf1d254b989ee12b64df4d07da692a31175f72424baa180f1078bfc0d71b0",
+      "license": "MIT",
+      "status": "installed_provenance_unverified"
+    },
+    "godot_required": {
+      "version": "4.7.2-stable",
+      "commit": null,
+      "source_url": "https://github.com/godotengine/godot/releases/tag/4.7.2-stable",
+      "url": null,
+      "sha256": null,
+      "license": "MIT",
+      "status": "unavailable_unverified"
+    },
+    "godot_cpp": {
+      "version": "",
+      "commit": null,
+      "source_url": "https://github.com/godotengine/godot-cpp",
+      "url": null,
+      "sha256": null,
+      "license": "MIT",
+      "status": "unavailable_unverified"
+    },
+    "eigen": {
+      "version": "",
+      "commit": null,
+      "source_url": "https://gitlab.com/libeigen/eigen",
+      "url": null,
+      "sha256": null,
+      "license": "MPL-2.0",
+      "status": "unavailable_unverified"
+    },
+    "test_framework": {
+      "version": "",
+      "commit": null,
+      "source_url": "https://github.com/catchorg/Catch2",
+      "url": null,
+      "sha256": null,
+      "license": "BSL-1.0",
+      "status": "unavailable_unverified"
+    },
+    "blender": {
+      "version": "",
+      "commit": null,
+      "source_url": "https://download.blender.org/release/",
+      "url": null,
+      "sha256": null,
+      "license": "GPL-3.0-or-later",
+      "status": "unavailable_unverified"
+    },
+    "jsonschema": {
+      "version": "4.25.0",
+      "commit": null,
+      "source_url": "https://pypi.org/project/jsonschema/4.25.0/",
+      "url": null,
+      "sha256": null,
+      "license": "MIT",
+      "status": "installed_provenance_unverified"
+    },
+    "clang-format": {
+      "version": "19.1.1",
+      "source_url": "https://github.com/llvm/llvm-project/releases/tag/llvmorg-19.1.1",
+      "url": null,
+      "sha256": null,
+      "local_path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\Llvm\\bin\\clang-format.exe",
+      "local_sha256": "11038db61fd77d5f8bb835ffdca0cf546f42d7f154d7c4c03c6dbdf474a709ce",
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "status": "installed_provenance_unverified"
+    },
+    "clang-tidy": {
+      "version": "19.1.1",
+      "source_url": "https://github.com/llvm/llvm-project/releases/tag/llvmorg-19.1.1",
+      "url": null,
+      "sha256": null,
+      "local_path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\Llvm\\bin\\clang-tidy.exe",
+      "local_sha256": "dfb9263ac6131a7057d3d40c09bb1bc68d1a167bfd6ff1179d8664e6870c3ee5",
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "status": "installed_provenance_unverified"
+    }
+  }
+}

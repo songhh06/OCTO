@@ -1,0 +1,408 @@
+**********************
+PowerShell transcript start
+Start time: 20261114182242
+Username: DESKTOP-4GU53SO\로컬
+RunAs User: DESKTOP-4GU53SO\로컬
+Configuration Name: 
+Machine: DESKTOP-4GU53SO (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Program Files\WindowsApps\OpenAI.CodexPrimaryRuntime.v26-1111-570-0_26.1111.570.0_x64__3k8sg7r9htsxt\dependencies\native\powershell\pwsh.dll -Command # PowerShell/PowerShell#27899: a denied ancestor can leave $PWD unset and the
+# filesystem drive at its root. Use the process cwd without resolving it again.
+# A successful startup or a profile that changed location has already set $PWD.
+& {
+    if ($ExecutionContext.SessionState.LanguageMode -ne 'FullLanguage') { return }
+    if ($null -ne $ExecutionContext.SessionState.PSVariable.GetValue('global:PWD')) { return }
+    $drive = $ExecutionContext.SessionState.Drive.Current
+    $cwd = [Environment]::CurrentDirectory
+    if ($drive.Provider.Name -eq 'FileSystem' -and !$drive.CurrentLocation -and
+        $drive.Root -eq [IO.Path]::GetPathRoot($cwd) -and $cwd.Length -gt $drive.Root.Length) {
+        $drive.CurrentLocation = $cwd.Substring($drive.Root.Length)
+        Microsoft.PowerShell.Utility\Set-Variable -Name PWD -Scope Global -Value $ExecutionContext.SessionState.Path.CurrentLocation -Force
+    }
+}
+$env:PYTHONUTF8='1'
+@'
+from pathlib import Path
+p=Path('CMakeLists.txt');s=p.read_text().replace('physics.live_wrap_regression PROPERTIES TIMEOUT 120','physics.live_wrap_regression PROPERTIES TIMEOUT 600');p.write_text(s)
+'@ | C:\Anaconda\python.exe
+Start-Transcript -Path docs/progress/physics/live-contact-fix-verification.log -Force
+try { ./tools/verify.ps1 } finally { Stop-Transcript }
+Process ID: 31272
+PSVersion: 7.6.9
+PSEdition: Core
+GitCommitId: 7.6.9
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/progress/physics/live-contact-fix-verification.log
+P0 core boundary: passed
+Preset CMake variables:
+
+  CMAKE_BUILD_TYPE="Debug"
+  CMAKE_CXX_COMPILER="cl.exe"
+  CMAKE_CXX_FLAGS_DEBUG="/Ob0 /Od /RTC1"
+  CMAKE_EXPORT_COMPILE_COMMANDS="ON"
+
+-- Configuring done (0.9s)
+-- Generating done (0.1s)
+-- Build files have been written to: D:/諛뷀깢?붾㈃/Octopus_Simulator/build/dev
+[0/2] Re-checking globbed directories...
+[1/32] Building CXX object CMakeFiles\octo_core.dir\core\src\world.cpp.obj
+[2/32] Building CXX object CMakeFiles\octo_fem_tests.dir\tests\unit\fem_tests.cpp.obj
+[3/32] Building CXX object CMakeFiles\octo_contact_regression.dir\tools\repro_live_step.cpp.obj
+[4/32] Building CXX object CMakeFiles\octo_core.dir\core\src\contact.cpp.obj
+[5/32] Building CXX object CMakeFiles\octo_fem.dir\core\src\fem.cpp.obj
+[6/32] Building CXX object CMakeFiles\octo_cli.dir\core\src\cli.cpp.obj
+[7/32] Building CXX object CMakeFiles\octo_core.dir\core\src\coupled.cpp.obj
+[8/32] Building CXX object CMakeFiles\octo_core.dir\core\src\broadphase.cpp.obj
+[9/32] Building CXX object CMakeFiles\octo_core.dir\core\src\constraints.cpp.obj
+[10/32] Building CXX object CMakeFiles\octo_sim.dir\core\src\sim_cli.cpp.obj
+[11/32] Building CXX object CMakeFiles\octo_core.dir\core\src\checkpoint.cpp.obj
+[12/32] Linking CXX static library octo_fem.lib
+[13/32] Building CXX object CMakeFiles\octo_core_tests.dir\tests\unit\world_tests.cpp.obj
+[14/32] Building CXX object CMakeFiles\octo_core.dir\core\src\dynamics.cpp.obj
+[15/32] Building CXX object CMakeFiles\octo_replay.dir\core\src\replay_cli.cpp.obj
+[16/32] Building CXX object CMakeFiles\octo_physics_tests.dir\tests\unit\physics_tests.cpp.obj
+[17/32] Linking CXX executable octo_fem_tests.exe
+[18/32] Building CXX object CMakeFiles\octo_core.dir\core\src\scene.cpp.obj
+[19/32] Linking CXX static library octo_core.lib
+[20/32] Building CXX object CMakeFiles\octo_benchmark.dir\tools\native_benchmark.cpp.obj
+[21/32] Building CXX object CMakeFiles\octo_live.dir\godot_bridge\src\live_server.cpp.obj
+[22/32] Building CXX object CMakeFiles\octo_p2_tests.dir\tests\unit\p2_tests.cpp.obj
+[23/32] Linking CXX executable octo_cli.exe
+[24/32] Linking CXX executable octo_core_tests.exe
+[25/32] Linking CXX executable octo_sim.exe
+[26/32] Linking CXX executable octo_replay.exe
+[27/32] Linking CXX executable octo_contact_regression.exe
+[28/32] Linking CXX executable octo_p2_tests.exe
+[29/32] Linking CXX executable octo_live.exe
+[30/32] Linking CXX executable octo_physics_tests.exe
+[31/32] Linking CXX executable octo_benchmark.exe
+Test project D:/諛뷀깢?붾㈃/Octopus_Simulator/build/dev
+      Start  1: physics.live_wrap_regression
+ 1/27 Test  #1: physics.live_wrap_regression .....   Passed  100.55 sec
+      Start  3: FEM.P1V1
+ 2/27 Test  #3: FEM.P1V1 .........................   Passed    0.06 sec
+      Start  4: P2.V06_geometry
+ 3/27 Test  #4: P2.V06_geometry ..................   Passed    0.56 sec
+      Start  5: P2.V07
+ 4/27 Test  #5: P2.V07 ...........................   Passed    0.11 sec
+      Start  6: P2.V08
+ 5/27 Test  #6: P2.V08 ...........................   Passed    1.21 sec
+      Start  7: P2.door
+ 6/27 Test  #7: P2.door ..........................   Passed    0.14 sec
+      Start  8: P2.ccd
+ 7/27 Test  #8: P2.ccd ...........................   Passed    0.78 sec
+      Start 10: P2.capsules
+ 8/27 Test #10: P2.capsules ......................   Passed    6.19 sec
+      Start 12: P2.hessian
+ 9/27 Test #12: P2.hessian .......................   Passed    0.02 sec
+      Start 13: physics.math
+10/27 Test #13: physics.math .....................   Passed    0.55 sec
+      Start 14: physics.V01
+11/27 Test #14: physics.V01 ......................   Passed    5.81 sec
+      Start 15: physics.V02
+12/27 Test #15: physics.V02 ......................   Passed    0.11 sec
+      Start 19: physics.V06
+13/27 Test #19: physics.V06 ......................   Passed    0.01 sec
+      Start 20: physics.V07
+14/27 Test #20: physics.V07 ......................   Passed    0.01 sec
+      Start 21: physics.V08_model
+15/27 Test #21: physics.V08_model ................   Passed    0.01 sec
+      Start 22: physics.V09_pair
+16/27 Test #22: physics.V09_pair .................   Passed    0.70 sec
+      Start 25: physics.contact
+17/27 Test #25: physics.contact ..................   Passed    0.01 sec
+      Start 26: physics.V11
+18/27 Test #26: physics.V11 ......................   Passed    0.28 sec
+      Start 28: physics.rollback
+19/27 Test #28: physics.rollback .................   Passed    0.03 sec
+      Start 29: physics.implicit_exact
+20/27 Test #29: physics.implicit_exact ...........   Passed    0.01 sec
+      Start 30: physics.free_spin
+21/27 Test #30: physics.free_spin ................   Passed    0.04 sec
+      Start 31: P0.core_contract
+22/27 Test #31: P0.core_contract .................   Passed    0.11 sec
+      Start 32: P0.cli_tick
+23/27 Test #32: P0.cli_tick ......................   Passed    0.09 sec
+      Start 33: P0.cli_reject_negative
+24/27 Test #33: P0.cli_reject_negative ...........   Passed    0.01 sec
+      Start 34: P2.schemas
+25/27 Test #34: P2.schemas .......................   Passed    0.55 sec
+      Start 35: P0.schemas
+26/27 Test #35: P0.schemas .......................   Passed    0.43 sec
+      Start 36: P0.core_engine_boundary
+27/27 Test #36: P0.core_engine_boundary ..........   Passed    0.10 sec
+
+100% tests passed, 0 tests failed out of 27
+
+Total Test time (real) = 118.52 sec
+Preset CMake variables:
+
+  CMAKE_BUILD_TYPE="Release"
+  CMAKE_CXX_COMPILER="cl.exe"
+  CMAKE_CXX_FLAGS_DEBUG="/Ob0 /Od /RTC1"
+  CMAKE_EXPORT_COMPILE_COMMANDS="ON"
+
+-- Configuring done (0.6s)
+-- Generating done (0.1s)
+-- Build files have been written to: D:/諛뷀깢?붾㈃/Octopus_Simulator/build/release
+[0/2] Re-checking globbed directories...
+[1/32] Building CXX object CMakeFiles\octo_fem.dir\core\src\fem.cpp.obj
+[2/32] Building CXX object CMakeFiles\octo_core.dir\core\src\world.cpp.obj
+[3/32] Building CXX object CMakeFiles\octo_fem_tests.dir\tests\unit\fem_tests.cpp.obj
+[4/32] Building CXX object CMakeFiles\octo_core.dir\core\src\broadphase.cpp.obj
+[5/32] Building CXX object CMakeFiles\octo_cli.dir\core\src\cli.cpp.obj
+[6/32] Building CXX object CMakeFiles\octo_core.dir\core\src\contact.cpp.obj
+[7/32] Building CXX object CMakeFiles\octo_contact_regression.dir\tools\repro_live_step.cpp.obj
+[8/32] Building CXX object CMakeFiles\octo_core.dir\core\src\coupled.cpp.obj
+[9/32] Linking CXX static library octo_fem.lib
+[10/32] Building CXX object CMakeFiles\octo_core_tests.dir\tests\unit\world_tests.cpp.obj
+[11/32] Building CXX object CMakeFiles\octo_core.dir\core\src\checkpoint.cpp.obj
+[12/32] Building CXX object CMakeFiles\octo_sim.dir\core\src\sim_cli.cpp.obj
+[13/32] Linking CXX executable octo_fem_tests.exe
+[14/32] Building CXX object CMakeFiles\octo_physics_tests.dir\tests\unit\physics_tests.cpp.obj
+[15/32] Building CXX object CMakeFiles\octo_core.dir\core\src\constraints.cpp.obj
+[16/32] Building CXX object CMakeFiles\octo_replay.dir\core\src\replay_cli.cpp.obj
+[17/32] Building CXX object CMakeFiles\octo_benchmark.dir\tools\native_benchmark.cpp.obj
+[18/32] Building CXX object CMakeFiles\octo_live.dir\godot_bridge\src\live_server.cpp.obj
+[19/32] Building CXX object CMakeFiles\octo_core.dir\core\src\scene.cpp.obj
+[20/32] Building CXX object CMakeFiles\octo_p2_tests.dir\tests\unit\p2_tests.cpp.obj
+[21/32] Building CXX object CMakeFiles\octo_core.dir\core\src\dynamics.cpp.obj
+[22/32] Linking CXX static library octo_core.lib
+[23/32] Linking CXX executable octo_sim.exe
+[24/32] Linking CXX executable octo_contact_regression.exe
+[25/32] Linking CXX executable octo_cli.exe
+[26/32] Linking CXX executable octo_replay.exe
+[27/32] Linking CXX executable octo_core_tests.exe
+[28/32] Linking CXX executable octo_benchmark.exe
+[29/32] Linking CXX executable octo_live.exe
+[30/32] Linking CXX executable octo_p2_tests.exe
+[31/32] Linking CXX executable octo_physics_tests.exe
+Test project D:/諛뷀깢?붾㈃/Octopus_Simulator/build/release
+      Start  1: physics.live_wrap_regression
+ 1/36 Test  #1: physics.live_wrap_regression .....   Passed    9.08 sec
+      Start  2: live.protocol
+ 2/36 Test  #2: live.protocol ....................   Passed   39.14 sec
+      Start  3: FEM.P1V1
+ 3/36 Test  #3: FEM.P1V1 .........................   Passed    0.05 sec
+      Start  4: P2.V06_geometry
+ 4/36 Test  #4: P2.V06_geometry ..................   Passed    0.10 sec
+      Start  5: P2.V07
+ 5/36 Test  #5: P2.V07 ...........................   Passed    0.02 sec
+      Start  6: P2.V08
+ 6/36 Test  #6: P2.V08 ...........................   Passed    0.13 sec
+      Start  7: P2.door
+ 7/36 Test  #7: P2.door ..........................   Passed    0.02 sec
+      Start  8: P2.ccd
+ 8/36 Test  #8: P2.ccd ...........................   Passed    0.08 sec
+      Start  9: P2.V10
+ 9/36 Test  #9: P2.V10 ...........................   Passed  365.54 sec
+      Start 10: P2.capsules
+10/36 Test #10: P2.capsules ......................   Passed    0.55 sec
+      Start 11: P2.V12_io
+11/36 Test #11: P2.V12_io ........................   Passed   20.51 sec
+      Start 12: P2.hessian
+12/36 Test #12: P2.hessian .......................   Passed    0.01 sec
+      Start 13: physics.math
+13/36 Test #13: physics.math .....................   Passed    0.08 sec
+      Start 14: physics.V01
+14/36 Test #14: physics.V01 ......................   Passed    0.43 sec
+      Start 15: physics.V02
+15/36 Test #15: physics.V02 ......................   Passed    0.02 sec
+      Start 16: physics.V03
+16/36 Test #16: physics.V03 ......................   Passed    0.51 sec
+      Start 17: physics.V04
+17/36 Test #17: physics.V04 ......................   Passed    0.51 sec
+      Start 18: physics.V05
+18/36 Test #18: physics.V05 ......................   Passed    0.50 sec
+      Start 19: physics.V06
+19/36 Test #19: physics.V06 ......................   Passed    0.01 sec
+      Start 20: physics.V07
+20/36 Test #20: physics.V07 ......................   Passed    0.01 sec
+      Start 21: physics.V08_model
+21/36 Test #21: physics.V08_model ................   Passed    0.01 sec
+      Start 22: physics.V09_pair
+22/36 Test #22: physics.V09_pair .................   Passed    0.07 sec
+      Start 23: physics.V09_rod
+23/36 Test #23: physics.V09_rod ..................   Passed    5.68 sec
+      Start 24: physics.V10_rest
+24/36 Test #24: physics.V10_rest .................   Passed   92.46 sec
+      Start 25: physics.contact
+25/36 Test #25: physics.contact ..................   Passed    0.01 sec
+      Start 26: physics.V11
+26/36 Test #26: physics.V11 ......................   Passed    0.02 sec
+      Start 27: physics.V12
+27/36 Test #27: physics.V12 ......................   Passed    9.77 sec
+      Start 28: physics.rollback
+28/36 Test #28: physics.rollback .................   Passed    0.01 sec
+      Start 29: physics.implicit_exact
+29/36 Test #29: physics.implicit_exact ...........   Passed    0.01 sec
+      Start 30: physics.free_spin
+30/36 Test #30: physics.free_spin ................   Passed    0.01 sec
+      Start 31: P0.core_contract
+31/36 Test #31: P0.core_contract .................   Passed    0.04 sec
+      Start 32: P0.cli_tick
+32/36 Test #32: P0.cli_tick ......................   Passed    0.03 sec
+      Start 33: P0.cli_reject_negative
+33/36 Test #33: P0.cli_reject_negative ...........   Passed    0.01 sec
+      Start 34: P2.schemas
+34/36 Test #34: P2.schemas .......................   Passed    0.56 sec
+      Start 35: P0.schemas
+35/36 Test #35: P0.schemas .......................   Passed    0.45 sec
+      Start 36: P0.core_engine_boundary
+36/36 Test #36: P0.core_engine_boundary ..........   Passed    0.10 sec
+
+100% tests passed, 0 tests failed out of 36
+
+Label Time Summary:
+long    = 534.62 sec*proc (9 tests)
+
+Total Test time (real) = 546.59 sec
+Preset CMake variables:
+
+  CMAKE_BUILD_TYPE="Debug"
+  CMAKE_CXX_COMPILER="cl.exe"
+  CMAKE_CXX_FLAGS_DEBUG="/Ob0 /Od"
+  CMAKE_EXPORT_COMPILE_COMMANDS="ON"
+  OCTO_ASAN="ON"
+
+-- Configuring done (0.6s)
+-- Generating done (0.1s)
+-- Build files have been written to: D:/諛뷀깢?붾㈃/Octopus_Simulator/build/asan
+[0/2] Re-checking globbed directories...
+[1/32] Building CXX object CMakeFiles\octo_core.dir\core\src\world.cpp.obj
+[2/32] Building CXX object CMakeFiles\octo_fem.dir\core\src\fem.cpp.obj
+[3/32] Building CXX object CMakeFiles\octo_core.dir\core\src\contact.cpp.obj
+[4/32] Building CXX object CMakeFiles\octo_fem_tests.dir\tests\unit\fem_tests.cpp.obj
+[5/32] Building CXX object CMakeFiles\octo_cli.dir\core\src\cli.cpp.obj
+[6/32] Building CXX object CMakeFiles\octo_core.dir\core\src\constraints.cpp.obj
+[7/32] Building CXX object CMakeFiles\octo_core.dir\core\src\broadphase.cpp.obj
+[8/32] Building CXX object CMakeFiles\octo_core.dir\core\src\coupled.cpp.obj
+[9/32] Building CXX object CMakeFiles\octo_contact_regression.dir\tools\repro_live_step.cpp.obj
+[10/32] Linking CXX static library octo_fem.lib
+[11/32] Building CXX object CMakeFiles\octo_core.dir\core\src\checkpoint.cpp.obj
+[12/32] Building CXX object CMakeFiles\octo_sim.dir\core\src\sim_cli.cpp.obj
+[13/32] Building CXX object CMakeFiles\octo_core_tests.dir\tests\unit\world_tests.cpp.obj
+[14/32] Linking CXX executable octo_fem_tests.exe
+[15/32] Building CXX object CMakeFiles\octo_core.dir\core\src\dynamics.cpp.obj
+[16/32] Building CXX object CMakeFiles\octo_physics_tests.dir\tests\unit\physics_tests.cpp.obj
+[17/32] Building CXX object CMakeFiles\octo_replay.dir\core\src\replay_cli.cpp.obj
+[18/32] Building CXX object CMakeFiles\octo_core.dir\core\src\scene.cpp.obj
+[19/32] Building CXX object CMakeFiles\octo_live.dir\godot_bridge\src\live_server.cpp.obj
+[20/32] Linking CXX static library octo_core.lib
+[21/32] Building CXX object CMakeFiles\octo_benchmark.dir\tools\native_benchmark.cpp.obj
+[22/32] Building CXX object CMakeFiles\octo_p2_tests.dir\tests\unit\p2_tests.cpp.obj
+[23/32] Linking CXX executable octo_cli.exe
+[24/32] Linking CXX executable octo_core_tests.exe
+[25/32] Linking CXX executable octo_sim.exe
+[26/32] Linking CXX executable octo_contact_regression.exe
+[27/32] Linking CXX executable octo_live.exe
+[28/32] Linking CXX executable octo_physics_tests.exe
+[29/32] Linking CXX executable octo_replay.exe
+[30/32] Linking CXX executable octo_benchmark.exe
+[31/32] Linking CXX executable octo_p2_tests.exe
+Test project D:/諛뷀깢?붾㈃/Octopus_Simulator/build/asan
+      Start  1: physics.live_wrap_regression
+ 1/27 Test  #1: physics.live_wrap_regression .....   Passed  163.91 sec
+      Start  3: FEM.P1V1
+ 2/27 Test  #3: FEM.P1V1 .........................   Passed    0.08 sec
+      Start  4: P2.V06_geometry
+ 3/27 Test  #4: P2.V06_geometry ..................   Passed    1.02 sec
+      Start  5: P2.V07
+ 4/27 Test  #5: P2.V07 ...........................   Passed    0.29 sec
+      Start  6: P2.V08
+ 5/27 Test  #6: P2.V08 ...........................   Passed    2.28 sec
+      Start  7: P2.door
+ 6/27 Test  #7: P2.door ..........................   Passed    0.27 sec
+      Start  8: P2.ccd
+ 7/27 Test  #8: P2.ccd ...........................   Passed    1.21 sec
+      Start 10: P2.capsules
+ 8/27 Test #10: P2.capsules ......................   Passed    8.93 sec
+      Start 12: P2.hessian
+ 9/27 Test #12: P2.hessian .......................   Passed    0.04 sec
+      Start 13: physics.math
+10/27 Test #13: physics.math .....................   Passed    1.13 sec
+      Start 14: physics.V01
+11/27 Test #14: physics.V01 ......................   Passed   12.51 sec
+      Start 15: physics.V02
+12/27 Test #15: physics.V02 ......................   Passed    0.21 sec
+      Start 19: physics.V06
+13/27 Test #19: physics.V06 ......................   Passed    0.04 sec
+      Start 20: physics.V07
+14/27 Test #20: physics.V07 ......................   Passed    0.04 sec
+      Start 21: physics.V08_model
+15/27 Test #21: physics.V08_model ................   Passed    0.04 sec
+      Start 22: physics.V09_pair
+16/27 Test #22: physics.V09_pair .................   Passed    1.35 sec
+      Start 25: physics.contact
+17/27 Test #25: physics.contact ..................   Passed    0.03 sec
+      Start 26: physics.V11
+18/27 Test #26: physics.V11 ......................   Passed    1.27 sec
+      Start 28: physics.rollback
+19/27 Test #28: physics.rollback .................   Passed    0.11 sec
+      Start 29: physics.implicit_exact
+20/27 Test #29: physics.implicit_exact ...........   Passed    0.04 sec
+      Start 30: physics.free_spin
+21/27 Test #30: physics.free_spin ................   Passed    0.20 sec
+      Start 31: P0.core_contract
+22/27 Test #31: P0.core_contract .................   Passed    0.07 sec
+      Start 32: P0.cli_tick
+23/27 Test #32: P0.cli_tick ......................   Passed    0.07 sec
+      Start 33: P0.cli_reject_negative
+24/27 Test #33: P0.cli_reject_negative ...........   Passed    0.05 sec
+      Start 34: P2.schemas
+25/27 Test #34: P2.schemas .......................   Passed    0.60 sec
+      Start 35: P0.schemas
+26/27 Test #35: P0.schemas .......................   Passed    0.46 sec
+      Start 36: P0.core_engine_boundary
+27/27 Test #36: P0.core_engine_boundary ..........   Passed    0.10 sec
+
+100% tests passed, 0 tests failed out of 27
+
+Total Test time (real) = 196.41 sec
+[1/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\broadphase.cpp.
+[2/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\checkpoint.cpp.
+[3/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\cli.cpp.
+[4/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\constraints.cpp.
+[5/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\contact.cpp.
+[6/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\coupled.cpp.
+[7/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\dynamics.cpp.
+[8/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\fem.cpp.
+[9/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\replay_cli.cpp.
+[10/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\scene.cpp.
+[11/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\sim_cli.cpp.
+[12/12] Processing file D:\諛뷀깢?붾㈃\Octopus_Simulator\core\src\world.cpp.
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (3 steps)
+[   0% ] update_scripts_classes | 
+[  25% ] update_scripts_classes | 
+[  50% ] update_scripts_classes | 
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+P0_SCENE_READY: empty 3D scene; native bridge not yet verified
+Available bootstrap checks passed. Full P0 requires -RequireCompleteP0.
+**********************
+PowerShell transcript end
+End time: 20261114183837
+**********************

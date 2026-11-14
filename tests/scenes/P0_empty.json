@@ -1,0 +1,12 @@
+{
+  "schema_version":1,
+  "unit_system":"SI",
+  "coordinate_system":"RH_Y_UP",
+  "gravity":[0,-9.81,0],
+  "water":{"density":1025,"velocity":[0,0,0]},
+  "octopus_profile":"profiles/default.toml",
+  "static_colliders":[],
+  "dynamic_bodies":[],
+  "surface_materials":[{"id":0,"sealability":1,"roughness":0,"leak_conductance":0,"friction":0.5,"peel_energy":1,"source":"P0 schema fixture only; not physical measurements","grade":"ASSUMED"}],
+  "objectives":[]
+}

@@ -1,0 +1,676 @@
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4060
+
+PREVIEW_READY arms=8 suckers=128 visual_only=true
+LIVE_GODOT_PROCESS_STARTED pid=31356
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: Condition "!PeekNamedPipe(fd[0], nullptr, 0, nullptr, &buf_rem, nullptr)" is true. Returning: 0
+   at: get_length (drivers/windows/file_access_windows_pipe.cpp:109)
+   GDScript backtrace (most recent call first):
+       [0] poll_native (res://scripts/live_demo.gd:120)
+       [1] _process (res://scripts/live_demo.gd:266)
+ERROR: No response from native process for 10 seconds
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] fail (res://scripts/live_demo.gd:115)
+       [1] poll_native (res://scripts/live_demo.gd:151)
+       [2] _process (res://scripts/live_demo.gd:266)

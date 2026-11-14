@@ -1,0 +1,6 @@
+{"schema_version":2,"events":[
+  {"tick":0,"arm":0,"activation":[0.005,0,0,0,0,0,0],"suction":false},
+  {"tick":240,"arm":0,"activation":[0,0,0,0,0.02,0,0],"suction":false},
+  {"tick":480,"arm":0,"activation":[0,0,0.005,0,0,0,0],"suction":false},
+  {"tick":960,"arm":0,"activation":[0,0,0,0,0,0,0.002],"suction":false}
+]}

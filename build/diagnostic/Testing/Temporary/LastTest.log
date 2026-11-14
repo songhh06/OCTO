@@ -1,0 +1,72 @@
+Start testing: Nov 14 16:31 Korea Standard Time
+----------------------------------------------------------
+2/32 Testing: P2.V07
+2/32 Test: P2.V07
+Command: "D:/바탕화면/Octopus_Simulator/build/diagnostic/octo_p2_tests.exe" "V07"
+Directory: D:/바탕화면/Octopus_Simulator/build/diagnostic
+"P2.V07" start time: Nov 14 16:31 Korea Standard Time
+Output:
+----------------------------------------------------------
+eccentric_geometric_peeling=true released_ticks=101
+V07 passed
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"P2.V07" end time: Nov 14 16:31 Korea Standard Time
+"P2.V07" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/32 Testing: P2.V08
+3/32 Test: P2.V08
+Command: "D:/바탕화면/Octopus_Simulator/build/diagnostic/octo_p2_tests.exe" "V08"
+Directory: D:/바탕화면/Octopus_Simulator/build/diagnostic
+"P2.V08" start time: Nov 14 16:31 Korea Standard Time
+Output:
+----------------------------------------------------------
+material=1 x=-1.72567e-12 maxpen=1.64345e-09
+material=0.2 x=4.29979 maxpen=1.02291e-08
+V08 passed
+<end of output>
+Test time =   0.13 sec
+----------------------------------------------------------
+Test Passed.
+"P2.V08" end time: Nov 14 16:31 Korea Standard Time
+"P2.V08" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/32 Testing: P2.ccd
+5/32 Test: P2.ccd
+Command: "D:/바탕화면/Octopus_Simulator/build/diagnostic/octo_p2_tests.exe" "ccd"
+Directory: D:/바탕화면/Octopus_Simulator/build/diagnostic
+"P2.ccd" start time: Nov 14 16:31 Korea Standard Time
+Output:
+----------------------------------------------------------
+fast_sphere_z=0.0199987 hits=5
+ccd passed
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"P2.ccd" end time: Nov 14 16:31 Korea Standard Time
+"P2.ccd" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/32 Testing: P2.hessian
+9/32 Test: P2.hessian
+Command: "D:/바탕화면/Octopus_Simulator/build/diagnostic/octo_p2_tests.exe" "hessian"
+Directory: D:/바탕화면/Octopus_Simulator/build/diagnostic
+"P2.hessian" start time: Nov 14 16:31 Korea Standard Time
+Output:
+----------------------------------------------------------
+hessian_relative_error=1.09087e-10
+hessian passed
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"P2.hessian" end time: Nov 14 16:31 Korea Standard Time
+"P2.hessian" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 14 16:31 Korea Standard Time

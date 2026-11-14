@@ -1,0 +1,11 @@
+schema_version = 1
+unit_system = "SI"
+coordinate_system = "RH_Y_UP"
+# P0 metadata only; no material properties or physical bodies implemented.
+[clock]
+fixed_dt = 0.008333333333333333
+unit = "s"
+source = "GAME_SPEC.md section 4"
+grade = "DESIGN_CONTRACT"
+min = 0.008333333333333333
+max = 0.008333333333333333

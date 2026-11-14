@@ -1,0 +1,81 @@
+{
+  "checked_at": "2026-11-14T08:25:14.658322+00:00",
+  "native_P2": "V06-V12 acceptance passed; P2.7 target gap recorded",
+  "project_phase_acceptance": "OPEN: upstream P0/P1 live bridge/provenance/Git gates",
+  "build_id": "a860f4ea1b6e4d58c546fd240565ca7c6d1e0b62ddf205531bd3be77eb9d134b",
+  "tests": {
+    "dev": {
+      "passed": 25,
+      "sha256": "f10023d7e1d14dc2133d9ed39984fb3f87cc8766909db1fe4a7c8ac51d0314a6"
+    },
+    "release": {
+      "passed": 33,
+      "sha256": "c9ad37a3cf298728ca72914cb1cfb4516042edd4ab861ec490e7c663422ef13d"
+    },
+    "asan": {
+      "passed": 25,
+      "sha256": "21ad7c18e13ff26c0f88524a590299d1b72bf8647fbb5cde111da1e1c5fe21ee"
+    }
+  },
+  "moving_soak": {
+    "moving_seconds": 60.0,
+    "motion": 0.00190753,
+    "penetration": 1.99525e-08,
+    "pressure_error": 2.21889e-09,
+    "active_min": 120.0,
+    "p50_ms": 47.6873,
+    "p95_ms": 57.0959
+  },
+  "V13_flat": {
+    "V13_accepted": false,
+    "arms": 8,
+    "build_id": "a860f4ea1b6e4d58c546fd240565ca7c6d1e0b62ddf205531bd3be77eb9d134b",
+    "completed_ticks": 10,
+    "cups": 128,
+    "elements": 192,
+    "failure": "",
+    "max_contacts": 2366,
+    "max_penetration_m": 6.239316008294082e-11,
+    "min_attached_cups": 128,
+    "mode": "Release native CPU",
+    "other_dynamic_objects": 20,
+    "p50_ms": 607.0615,
+    "p95_ms": 1474.5591,
+    "success": true,
+    "target_contacts": 300,
+    "target_p95_ms": 8.333333333333334,
+    "triangles": 100000
+  },
+  "V13_curved": {
+    "V13_accepted": false,
+    "arms": 8,
+    "build_id": "a860f4ea1b6e4d58c546fd240565ca7c6d1e0b62ddf205531bd3be77eb9d134b",
+    "completed_ticks": 1,
+    "cups": 128,
+    "elements": 192,
+    "failure": "Newton-CG/line-search exhausted 1/2/4 subdivision; state rolled back",
+    "max_contacts": 0,
+    "max_penetration_m": 0,
+    "min_attached_cups": 128,
+    "mode": "Release native CPU",
+    "other_dynamic_objects": 20,
+    "p50_ms": 23589.6757,
+    "p95_ms": 23589.6757,
+    "success": false,
+    "target_contacts": 300,
+    "target_p95_ms": 8.333333333333334,
+    "triangles": 100000
+  },
+  "input_replay_ticks": 1200,
+  "eight_arm_scene_replay_ticks": 120,
+  "restored_continuation_s": 10,
+  "BIO": "UNVALIDATED",
+  "git_HEAD": "4541a5975d62143c3cbf51a2c7a8cdd3adb81aac",
+  "new_commit": null,
+  "executable_sha256": {
+    "octo_replay": "b8286761e805452c16bbf9428dcc13c56ef49920dfa40fffb4cb6f372048ef1a",
+    "octo_p2_tests": "b44905e9473db3ed6117a8efa3e28a3989d019f6b7f64840bfec809e40dcfa1c",
+    "octo_sim": "7477aea198ae59e7c738f99eabdf1448c7e0bd15271c2cd6e8092cdaafc6d610",
+    "octo_benchmark": "da74fa930616f5f9fabf048fe4a03ebbf608c10ca02e2383f5b18888dca60374"
+  }
+}

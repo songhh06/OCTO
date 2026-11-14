@@ -1,0 +1,20 @@
+[
+  {
+    "contact_trial": false,
+    "ticks": 360,
+    "contacts_peak": 0,
+    "max_arm_motion_m": 4.0966459908937606e-11,
+    "max_penetration_m": 0,
+    "p50_ms": 42.8148,
+    "p95_ms": 46.0866
+  },
+  {
+    "contact_trial": true,
+    "ticks": 360,
+    "contacts_peak": 4,
+    "max_arm_motion_m": 0.32851507418962533,
+    "max_penetration_m": 2.589391655261064e-08,
+    "p50_ms": 44.3824,
+    "p95_ms": 138.3949
+  }
+]

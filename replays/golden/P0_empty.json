@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "core_build_id": "P0-format-fixture-not-simulation-recording",
+  "scene_sha256": "00b6649d6267a7f62ff26879b45abd354f0dc7941c3e4c006a23ffb8f5a84aa0",
+  "profile_sha256": "cc0e0fb138287b01ab3f410078c1f35e65daf002448fca1382392355d584d7e7",
+  "numeric_backend": "std-cxx20-empty-world",
+  "cpu_arch": "x86_64",
+  "seed": 42,
+  "fixed_dt": 0.008333333333333333,
+  "snapshot_version": 1,
+  "start_tick": 0,
+  "intents": [],
+  "events": []
+}

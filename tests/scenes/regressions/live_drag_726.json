@@ -1,0 +1,1 @@
+{"command":{"op":"step","target":[0.391229748725891,0.0,0.227256760001183]},"constraint_error":5.0858519756724618e-08,"dual_error":0.0050961884733025098,"error":"1/2/4 subdivision exhausted; state rolled back: Contact iteration exhausted; geometry=0.000000, dual=0.005096","outer_iterations":115,"residual":4.7261793367781024e-09,"tick":726}

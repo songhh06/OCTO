@@ -1,0 +1,47 @@
+{
+  "source": "live-native-stdio",
+  "protocol_version": 1,
+  "playback_only": false,
+  "bio_validated": false,
+  "arms": 8,
+  "elements_per_arm": 12,
+  "fixed_dt_s": 0.008333333333333333,
+  "control": {
+    "position_spring_N_per_m": 30,
+    "position_damping_Ns_per_m": 10,
+    "force_cap_N": 10,
+    "angular_spring_Nm_per_rad": 4,
+    "angular_damping_Nms_per_rad": 0.8,
+    "torque_cap_Nm": 2
+  },
+  "source_sha256": {
+    "godot_bridge/src/live_server.cpp": "68b0bdb82db32b8ff455f8f0f5e620160acb30bb713ef01903cd656be03430ab",
+    "game/scripts/live_demo.gd": "7d1c121935df1344e51e94c5a6b1f7a15b1a1b02f04c5d908f7170233e3842e9",
+    "build/release/octo_live.exe": "49b9d6c0bdb2d88f80431237a7c7df1d991910e1e3d66b77d8bc819e592dc9e3"
+  },
+  "tests": [
+    {
+      "contact_trial": false,
+      "ticks": 360,
+      "contacts_peak": 0,
+      "max_arm_motion_m": 4.0966459908937606e-11,
+      "max_penetration_m": 0,
+      "p50_ms": 42.8811,
+      "p95_ms": 44.6473
+    },
+    {
+      "contact_trial": true,
+      "ticks": 360,
+      "contacts_peak": 4,
+      "max_arm_motion_m": 0.32851507418962533,
+      "max_penetration_m": 2.589391655261064e-08,
+      "p50_ms": 43.0866,
+      "p95_ms": 140.4936
+    }
+  ],
+  "godot_test": "LIVE_CONTROLS_OK + LIVE_GODOT_CONTACT_OK + LIVE_GODOT_RESET_OK",
+  "regression_short_passed": 26,
+  "asan_smoke_ticks": 8,
+  "head": "4541a5975d62143c3cbf51a2c7a8cdd3adb81aac",
+  "new_commit": null
+}

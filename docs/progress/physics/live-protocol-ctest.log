@@ -1,0 +1,23 @@
+Start testing: Nov 14 18:06 Korea Standard Time
+----------------------------------------------------------
+1/35 Testing: live.protocol
+1/35 Test: live.protocol
+Command: "C:/Anaconda/python.exe" "D:/바탕화면/Octopus_Simulator/tests/integration/live_bridge_tests.py" "D:/바탕화면/Octopus_Simulator/build/release/octo_live.exe"
+Directory: D:/바탕화면/Octopus_Simulator
+"live.protocol" start time: Nov 14 18:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+[{"contact_trial": false, "ticks": 360, "contacts_peak": 0, "max_arm_motion_m": 4.0966459908937606e-11, "max_penetration_m": 0, "p50_ms": 42.8811, "p95_ms": 44.6473}, {"contact_trial": true, "ticks": 360, "contacts_peak": 4, "max_arm_motion_m": 0.32851507418962533, "max_penetration_m": 2.589391655261064e-08, "p50_ms": 43.0866, "p95_ms": 140.4936}]
+LIVE_NATIVE_CONTACT_OK
+<end of output>
+Test time =  38.90 sec
+----------------------------------------------------------
+Test Passed.
+"live.protocol" end time: Nov 14 18:06 Korea Standard Time
+"live.protocol" time elapsed: 00:00:38
+----------------------------------------------------------
+
+End testing: Nov 14 18:06 Korea Standard Time
+
+long =  38.90 sec*proc
+

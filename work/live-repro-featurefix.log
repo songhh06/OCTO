@@ -1,0 +1,140 @@
+loaded_tick=319 bodies=98
+outer=0 h=0.00833333 contacts=6 same=0 geometry=8.63748e-07 dual=0.0908788 pressure=0
+outer=1 h=0.00833333 contacts=7 same=1 geometry=1.87635e-05 dual=0.0248614 pressure=0
+outer=2 h=0.00833333 contacts=7 same=1 geometry=2.94064e-07 dual=0.02806 pressure=0
+outer=3 h=0.00833333 contacts=7 same=1 geometry=1.80545e-05 dual=0.0274058 pressure=0
+outer=4 h=0.00833333 contacts=7 same=1 geometry=1.80064e-07 dual=0.0280007 pressure=0
+outer=5 h=0.00833333 contacts=7 same=1 geometry=1.80575e-05 dual=0.0273998 pressure=0
+outer=6 h=0.00833333 contacts=7 same=1 geometry=1.90617e-07 dual=0.0279193 pressure=0
+outer=7 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273993 pressure=0
+outer=8 h=0.00833333 contacts=7 same=1 geometry=1.90204e-07 dual=0.0279227 pressure=0
+outer=9 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=10 h=0.00833333 contacts=7 same=1 geometry=1.90217e-07 dual=0.0279226 pressure=0
+outer=11 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=12 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+outer=13 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=14 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+outer=15 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=16 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+outer=17 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=18 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+outer=19 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+ contact key=9223372363272290693 gap=4.45651e-08 n=-0.587545,0,-0.809191 lambda=0.7223 -> 0.717843 tangent_delta=0.00311956 weights=0,1,-1
+ contact key=9223372397632029061 gap=0.00244509 n=-0.933068,0,-0.3597 lambda=0 -> 0 tangent_delta=0 weights=0,1,-1
+ contact key=9223372397632029062 gap=-1.08035e-07 n=-0.683039,0,-0.730382 lambda=2.46687 -> 2.47767 tangent_delta=0.00756244 weights=0.142724,0.857276,-1
+ contact key=11529215076133240854 gap=-4.18204e-08 n=-0.959532,0,-0.2816 lambda=1.66224 -> 1.66642 tangent_delta=0.0279226 weights=0,1,-0.113415
+ contact key=11529215080428208150 gap=0.00043428 n=-0.999956,0,-0.0093687 lambda=0 -> 0 tangent_delta=0 weights=0.733585,0.266415,-0
+ contact key=11529215080428208151 gap=0.00114251 n=-0.997548,0,-0.0699815 lambda=0 -> 0 tangent_delta=0 weights=0,1,-0.231635
+ contact key=11529215084723175447 gap=0.00295206 n=-0.999161,0,0.0409613 lambda=0 -> 0 tangent_delta=0 weights=0.708895,0.291105,-0
+outer=20 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+ contact key=9223372363272290693 gap=-4.45652e-08 n=-0.587558,0,-0.809182 lambda=0.717843 -> 0.7223 tangent_delta=0.00311956 weights=0,1,-1
+ contact key=9223372397632029061 gap=0.00244761 n=-0.933023,0,-0.359818 lambda=0 -> 0 tangent_delta=0 weights=0,1,-1
+ contact key=9223372397632029062 gap=1.08035e-07 n=-0.683087,0,-0.730337 lambda=2.47767 -> 2.46687 tangent_delta=0.00756243 weights=0.142653,0.857347,-1
+ contact key=11529215076133240854 gap=4.18204e-08 n=-0.966899,0,-0.25516 lambda=1.66642 -> 1.66224 tangent_delta=0.0273994 weights=0,1,-0.113608
+ contact key=11529215080428208150 gap=0.000419186 n=-0.999956,0,-0.00934384 lambda=0 -> 0 tangent_delta=0 weights=0.733407,0.266593,-0
+ contact key=11529215080428208151 gap=0.00113687 n=-0.997537,0,-0.0701449 lambda=0 -> 0 tangent_delta=0 weights=0,1,-0.23166
+ contact key=11529215084723175447 gap=0.00295082 n=-0.999159,0,0.0409972 lambda=0 -> 0 tangent_delta=0 weights=0.708768,0.291232,-0
+outer=21 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=22 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+outer=23 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=24 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+outer=25 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=26 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+outer=27 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=28 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+outer=29 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=30 h=0.00833333 contacts=7 same=1 geometry=1.90216e-07 dual=0.0279226 pressure=0
+outer=31 h=0.00833333 contacts=7 same=1 geometry=1.80573e-05 dual=0.0273994 pressure=0
+outer=0 h=0.00416667 contacts=6 same=0 geometry=1.31187e-06 dual=0.0978217 pressure=0
+outer=1 h=0.00416667 contacts=7 same=1 geometry=4.63382e-06 dual=0.0268614 pressure=0
+outer=2 h=0.00416667 contacts=7 same=1 geometry=1.63121e-07 dual=0.0109685 pressure=0
+outer=3 h=0.00416667 contacts=7 same=1 geometry=4.58952e-06 dual=0.013191 pressure=0
+outer=4 h=0.00416667 contacts=7 same=1 geometry=9.03353e-08 dual=0.0128048 pressure=0
+outer=5 h=0.00416667 contacts=7 same=1 geometry=4.62486e-06 dual=0.0126118 pressure=0
+outer=6 h=0.00416667 contacts=7 same=1 geometry=9.10013e-08 dual=0.0127672 pressure=0
+outer=7 h=0.00416667 contacts=7 same=1 geometry=4.62367e-06 dual=0.0126317 pressure=0
+outer=8 h=0.00416667 contacts=7 same=1 geometry=9.10145e-08 dual=0.012771 pressure=0
+outer=9 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.0126299 pressure=0
+outer=10 h=0.00416667 contacts=7 same=1 geometry=9.10167e-08 dual=0.012771 pressure=0
+outer=11 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=12 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+outer=13 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=14 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+outer=15 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=16 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+outer=17 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=18 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+outer=19 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+ contact key=9223372363272290693 gap=1.37742e-08 n=-0.588073,0,-0.808808 lambda=0.705153 -> 0.703775 tangent_delta=0.000964192 weights=0,1,-1
+ contact key=9223372397632029061 gap=0.00276958 n=-0.941629,0,-0.336652 lambda=0 -> 0 tangent_delta=0 weights=0,1,-1
+ contact key=9223372397632029062 gap=-4.44375e-08 n=-0.681953,0,-0.731396 lambda=2.40728 -> 2.41173 tangent_delta=0.00311062 weights=0.152481,0.847519,-1
+ contact key=11529215076133240854 gap=-9.10166e-08 n=-0.959532,0,-0.2816 lambda=1.5937 -> 1.6028 tangent_delta=0.012771 weights=0,1,-0.107219
+ contact key=11529215080428208150 gap=0.000284334 n=-0.99995,0,-0.0100046 lambda=0 -> 0 tangent_delta=0 weights=0.73203,0.26797,-0
+ contact key=11529215080428208151 gap=0.000774004 n=-0.997193,0,-0.0748709 lambda=0 -> 0 tangent_delta=0 weights=0,1,-0.231156
+ contact key=11529215084723175447 gap=0.00255717 n=-0.999291,0,0.0376419 lambda=0 -> 0 tangent_delta=0 weights=0.708975,0.291025,-0
+outer=20 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+ contact key=9223372363272290693 gap=-1.37742e-08 n=-0.588074,0,-0.808807 lambda=0.703775 -> 0.705153 tangent_delta=0.000964192 weights=0,1,-1
+ contact key=9223372397632029061 gap=0.00277 n=-0.941624,0,-0.336668 lambda=0 -> 0 tangent_delta=0 weights=0,1,-1
+ contact key=9223372397632029062 gap=4.44375e-08 n=-0.681959,0,-0.73139 lambda=2.41173 -> 2.40728 tangent_delta=0.00311062 weights=0.152471,0.847529,-1
+ contact key=11529215076133240854 gap=9.10166e-08 n=-0.963385,0,-0.268122 lambda=1.6028 -> 1.5937 tangent_delta=0.01263 weights=0,1,-0.107266
+ contact key=11529215080428208150 gap=0.000280503 n=-0.99995,0,-0.00999353 lambda=0 -> 0 tangent_delta=0 weights=0.731987,0.268013,-0
+ contact key=11529215080428208151 gap=0.000772763 n=-0.99719,0,-0.0749111 lambda=0 -> 0 tangent_delta=0 weights=0,1,-0.231153
+ contact key=11529215084723175447 gap=0.00255682 n=-0.999291,0,0.0376464 lambda=0 -> 0 tangent_delta=0 weights=0.708956,0.291044,-0
+outer=21 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=22 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+outer=23 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=24 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+outer=25 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=26 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+outer=27 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=28 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+outer=29 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=30 h=0.00416667 contacts=7 same=1 geometry=9.10166e-08 dual=0.012771 pressure=0
+outer=31 h=0.00416667 contacts=7 same=1 geometry=4.62377e-06 dual=0.01263 pressure=0
+outer=0 h=0.00208333 contacts=6 same=0 geometry=6.39875e-07 dual=0.0855248 pressure=0
+outer=1 h=0.00208333 contacts=7 same=1 geometry=4.46861e-07 dual=0.0505117 pressure=0
+outer=2 h=0.00208333 contacts=7 same=1 geometry=1.23387e-07 dual=0.0123387 pressure=0
+outer=3 h=0.00208333 contacts=7 same=1 geometry=1.0532e-06 dual=0.00834146 pressure=0
+outer=4 h=0.00208333 contacts=7 same=1 geometry=9.16666e-08 dual=0.00589792 pressure=0
+outer=5 h=0.00208333 contacts=7 same=1 geometry=1.10419e-06 dual=0.00652664 pressure=0
+outer=6 h=0.00208333 contacts=7 same=1 geometry=9.92283e-08 dual=0.00638509 pressure=0
+outer=7 h=0.00208333 contacts=7 same=1 geometry=1.10576e-06 dual=0.00643361 pressure=0
+outer=8 h=0.00208333 contacts=7 same=1 geometry=9.93557e-08 dual=0.00639328 pressure=0
+outer=9 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.00643443 pressure=0
+outer=10 h=0.00208333 contacts=7 same=1 geometry=9.93526e-08 dual=0.00639308 pressure=0
+outer=11 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.00643432 pressure=0
+outer=12 h=0.00208333 contacts=7 same=1 geometry=9.93537e-08 dual=0.00639316 pressure=0
+outer=13 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+outer=14 h=0.00208333 contacts=7 same=1 geometry=9.93538e-08 dual=0.00639316 pressure=0
+outer=15 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+outer=16 h=0.00208333 contacts=7 same=1 geometry=9.93538e-08 dual=0.00639316 pressure=0
+outer=17 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+outer=18 h=0.00208333 contacts=7 same=1 geometry=9.93538e-08 dual=0.00639316 pressure=0
+outer=19 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+ contact key=9223372363272290693 gap=3.13816e-09 n=-0.588301,0,-0.808642 lambda=0.696888 -> 0.696574 tangent_delta=0.000219671 weights=0,1,-1
+ contact key=9223372397632029061 gap=0.00294873 n=-0.945788,0,-0.324784 lambda=0 -> 0 tangent_delta=0 weights=0,1,-1
+ contact key=9223372397632029062 gap=-1.55874e-08 n=-0.681177,0,-0.732118 lambda=2.37898 -> 2.38054 tangent_delta=0.00109112 weights=0.157676,0.842324,-1
+ contact key=11529215076133240854 gap=-9.93538e-08 n=-0.959532,0,-0.2816 lambda=1.54413 -> 1.55406 tangent_delta=0.00560401 weights=0,1,-0.103835
+ contact key=11529215080428208150 gap=0.000211962 n=-0.999948,0,-0.0101913 lambda=0 -> 0 tangent_delta=0 weights=0.731305,0.268695,-0
+ contact key=11529215080428208151 gap=0.000641106 n=-0.997082,0,-0.0763368 lambda=0 -> 0 tangent_delta=0 weights=0,1,-0.23145
+ contact key=11529215084723175447 gap=0.0024263 n=-0.999352,0,0.0359876 lambda=0 -> 0 tangent_delta=0 weights=0.708878,0.291122,-0
+outer=20 h=0.00208333 contacts=7 same=1 geometry=9.93538e-08 dual=0.00639316 pressure=0
+ contact key=9223372363272290693 gap=-3.13816e-09 n=-0.588301,0,-0.808642 lambda=0.696574 -> 0.696888 tangent_delta=0.000219671 weights=0,1,-1
+ contact key=9223372397632029061 gap=0.0029488 n=-0.945788,0,-0.324785 lambda=0 -> 0 tangent_delta=0 weights=0,1,-1
+ contact key=9223372397632029062 gap=1.55874e-08 n=-0.681178,0,-0.732118 lambda=2.38054 -> 2.37898 tangent_delta=0.00109112 weights=0.157675,0.842325,-1
+ contact key=11529215076133240854 gap=9.93538e-08 n=-0.961506,0,-0.274783 lambda=1.55406 -> 1.54413 tangent_delta=0.00556756 weights=0,1,-0.103845
+ contact key=11529215080428208150 gap=0.000211104 n=-0.999948,0,-0.0101883 lambda=0 -> 0 tangent_delta=0 weights=0.731296,0.268704,-0
+ contact key=11529215080428208151 gap=0.000640865 n=-0.997081,0,-0.0763459 lambda=0 -> 0 tangent_delta=0 weights=0,1,-0.231448
+ contact key=11529215084723175447 gap=0.00242623 n=-0.999352,0,0.035988 lambda=0 -> 0 tangent_delta=0 weights=0.708876,0.291124,-0
+outer=21 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+outer=22 h=0.00208333 contacts=7 same=1 geometry=9.93538e-08 dual=0.00639316 pressure=0
+outer=23 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+outer=24 h=0.00208333 contacts=7 same=1 geometry=9.93538e-08 dual=0.00639316 pressure=0
+outer=25 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+outer=26 h=0.00208333 contacts=7 same=1 geometry=9.93538e-08 dual=0.00639316 pressure=0
+outer=27 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+outer=28 h=0.00208333 contacts=7 same=1 geometry=9.93538e-08 dual=0.00639316 pressure=0
+outer=29 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+outer=30 h=0.00208333 contacts=7 same=1 geometry=9.93538e-08 dual=0.00639316 pressure=0
+outer=31 h=0.00208333 contacts=7 same=1 geometry=1.10571e-06 dual=0.0064343 pressure=0
+converged=0 residual=2.02674e-08 outer=96 geometry=1.10571e-06 dual=0.0064343 substeps=4 message=1/2/4 subdivision exhausted; state rolled back: Contact iteration exhausted; geometry=0.000001, dual=0.006434

@@ -1,0 +1,17 @@
+{
+  "scenario": "coupled",
+  "channel": 0,
+  "command": 0.04,
+  "box_mass_kg": 0.5,
+  "ticks": 600,
+  "build": "MSVC 19.43 Release",
+  "fixed_dt_s": 0.008333333333333333,
+  "unit_system": "SI",
+  "coordinate_system": "RH_Y_UP",
+  "source": "native-cxx20-cosserat",
+  "playback_only": true,
+  "bio_validated": false,
+  "profile_sha256": "03c6a7cf7e087307471bf6b4636759a2955a33d00e5ec231a62be403ec4065cf",
+  "trace_sha256": "45c8b3a97fced4208bd1833a6746b738157504c737e91863a2703c67dc86cea1",
+  "executable_sha256": "8c24e3cd07fcb22e1fbe4831822c702937841ad1b4566b76d8c3cbb4e35a28d4"
+}

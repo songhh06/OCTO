@@ -1,0 +1,5 @@
+loaded_tick=319 bodies=98
+outer=0 h=0.00833333 contacts=6 same=0 geometry=8.63748e-07 dual=0.0908788 pressure=0
+outer=1 h=0.00833333 contacts=7 same=1 geometry=8.40015e-07 dual=0.0248614 pressure=0
+outer=2 h=0.00833333 contacts=7 same=1 geometry=2.18038e-07 dual=0.00131088 pressure=0
+converged=1 residual=1.41816e-08 outer=3 geometry=2.18038e-07 dual=0.00131088 substeps=1 message=

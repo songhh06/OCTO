@@ -1,0 +1,12 @@
+{
+  "animated_geometry": true,
+  "arms": 8,
+  "drag_orbit": true,
+  "engine": "4.6.2-stable (official)",
+  "os_mouse_injection_tested": false,
+  "pause_toggle": true,
+  "physics_solver_tested": false,
+  "suckers": 128,
+  "visual_only": true,
+  "wheel_zoom": true
+}

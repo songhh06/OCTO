@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "grade": "ASSUMED",
+  "source": "VOLUMETRIC_SOFTBODY_ADDENDUM.md candidate model, not biological measurement",
+  "status": "element-kernel profile; full coupled world loading is pending",
+  "material": {
+    "shear": {"value": 20000, "unit": "Pa"},
+    "bulk": {"value": 2000000, "unit": "Pa"},
+    "viscosity": {"value": 20, "unit": "Pa*s"},
+    "min_J": {"value": 0.05, "unit": "1"},
+    "min_relative_determinant": {"value": 0.000001, "unit": "1"}
+  },
+  "pressure_stabilization": "negative pressure jump saddle term; coefficient requires mesh refinement validation"
+}

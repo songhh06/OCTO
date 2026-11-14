@@ -1,0 +1,120 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.26200 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/cl.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Microsoft (R) C/C++ 최적화 컴파일러 버전 19.43.34809(x64)
+      Copyright (c) Microsoft Corporation. All rights reserved.
+      
+      CMakeCXXCompilerId.cpp
+      Microsoft (R) Incremental Linker Version 14.43.34809.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+      
+      /out:CMakeCXXCompilerId.exe 
+      CMakeCXXCompilerId.obj 
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+      
+      The CXX compiler identification is MSVC, found in:
+        D:/바탕화면/Octopus_Simulator/build/nmake/CMakeFiles/3.31.7/CompilerIdCXX/CMakeCXXCompilerId.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1288 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:250 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting CXX compiler /showIncludes prefix:
+        main.c
+        참고: 포함 파일: D:\\바탕화면\\Octopus_Simulator\\build\\nmake\\CMakeFiles\\ShowIncludes\\foo.h
+        
+      Found prefix "참고: 포함 파일: "
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "D:/\ubc14\ud0d5\ud654\uba74/Octopus_Simulator/build/nmake/CMakeFiles/CMakeScratch/TryCompile-ou41dm"
+      binary: "D:/\ubc14\ud0d5\ud654\uba74/Octopus_Simulator/build/nmake/CMakeFiles/CMakeScratch/TryCompile-ou41dm"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/바탕화면/Octopus_Simulator/build/nmake/CMakeFiles/CMakeScratch/TryCompile-ou41dm'
+        
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_f353e\\fast
+        	"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_f353e.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_f353e.dir\\build
+        Building CXX object CMakeFiles/cmTC_f353e.dir/CMakeCXXCompilerABI.cpp.obj
+        	"C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_f353e.dir\\CMakeCXXCompilerABI.cpp.obj.d --working-dir=D:\\바탕화면\\Octopus_Simulator\\build\\nmake\\CMakeFiles\\CMakeScratch\\TryCompile-ou41dm --filter-prefix="참고: 포함 파일: " -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1443~1.348\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\???\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{2e8e3a09-6e74-43aa-84de-670ba6e6757a}\\Temp\\nm2C3D.tmp
+        NMAKE : fatal error U1077: '"C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_f353e.dir\\CMakeCXXCompilerABI.cpp.obj.d --working-dir=D:\\바탕화면\\Octopus_Simulator\\build\\nmake\\CMakeFiles\\CMakeScratch\\TryCompile-ou41dm --filter-prefix="참고: 포함 파일: " -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1443~1.348\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\???\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{2e8e3a09-6e74-43aa-84de-670ba6e6757a}\\Temp\\nm2C3D.tmp' : '0x2' 
+        Stop.
+        NMAKE : fatal error U1077: '"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_f353e.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_f353e.dir\\build' : '0x2' 
+        Stop.
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:56 (try_compile)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/cl.exe"
+    directories:
+      source: "D:/\ubc14\ud0d5\ud654\uba74/Octopus_Simulator/build/nmake/CMakeFiles/CMakeScratch/TryCompile-49a0r0"
+      binary: "D:/\ubc14\ud0d5\ud654\uba74/Octopus_Simulator/build/nmake/CMakeFiles/CMakeScratch/TryCompile-49a0r0"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/바탕화면/Octopus_Simulator/build/nmake/CMakeFiles/CMakeScratch/TryCompile-49a0r0'
+        
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_0cdec\\fast
+        	"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_0cdec.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_0cdec.dir\\build
+        Building CXX object CMakeFiles/cmTC_0cdec.dir/testCXXCompiler.cxx.obj
+        	"C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_0cdec.dir\\testCXXCompiler.cxx.obj.d --working-dir=D:\\바탕화면\\Octopus_Simulator\\build\\nmake\\CMakeFiles\\CMakeScratch\\TryCompile-49a0r0 --filter-prefix="참고: 포함 파일: " -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1443~1.348\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\???\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{2e8e3a09-6e74-43aa-84de-670ba6e6757a}\\Temp\\nm2D66.tmp
+        NMAKE : fatal error U1077: '"C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_0cdec.dir\\testCXXCompiler.cxx.obj.d --working-dir=D:\\바탕화면\\Octopus_Simulator\\build\\nmake\\CMakeFiles\\CMakeScratch\\TryCompile-49a0r0 --filter-prefix="참고: 포함 파일: " -- C:\\PROGRA~1\\MIB055~1\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1443~1.348\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\???\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{2e8e3a09-6e74-43aa-84de-670ba6e6757a}\\Temp\\nm2D66.tmp' : '0x2' 
+        Stop.
+        NMAKE : fatal error U1077: '"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_0cdec.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_0cdec.dir\\build' : '0x2' 
+        Stop.
+        
+      exitCode: 2
+...

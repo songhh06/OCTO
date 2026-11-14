@@ -1,0 +1,24 @@
+world.cpp
+world_tests.cpp
+코드를 생성하고 있습니다...
+P0 world: tick, dt rejection, atomic restore, determinism, overflow, SI passed
+world.cpp
+cli.cpp
+코드를 생성하고 있습니다...
+{"snapshot_version":1,"tick":1200,"seed":42,"dynamic_bodies":0}
+expected unsigned integer
+world.cpp
+world_tests.cpp
+코드를 생성하고 있습니다...
+P0 world: tick, dt rejection, atomic restore, determinism, overflow, SI passed
+world.cpp
+cli.cpp
+코드를 생성하고 있습니다...
+{"snapshot_version":1,"tick":1200,"seed":42,"dynamic_bodies":0}
+expected unsigned integer
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.025s
+
+OK
+P0 core boundary: passed

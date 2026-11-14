@@ -1,0 +1,15 @@
+Test project D:/諛뷀깢?붾㈃/Octopus_Simulator/build/asan
+    Start 1: P0.core_contract
+1/5 Test #1: P0.core_contract .................   Passed    0.07 sec
+    Start 2: P0.cli_tick
+2/5 Test #2: P0.cli_tick ......................   Passed    0.09 sec
+    Start 3: P0.cli_reject_negative
+3/5 Test #3: P0.cli_reject_negative ...........   Passed    0.04 sec
+    Start 4: P0.schemas
+4/5 Test #4: P0.schemas .......................   Passed    0.51 sec
+    Start 5: P0.core_engine_boundary
+5/5 Test #5: P0.core_engine_boundary ..........   Passed    0.14 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Total Test time (real) =   0.87 sec

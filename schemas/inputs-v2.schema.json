@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "tick",
+          "arm",
+          "activation",
+          "suction"
+        ],
+        "properties": {
+          "tick": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "arm": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 7
+          },
+          "activation": {
+            "type": "array",
+            "minItems": 7,
+            "maxItems": 7,
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "suction": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "events"
+  ],
+  "additionalProperties": false
+}

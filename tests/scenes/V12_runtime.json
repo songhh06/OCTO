@@ -1,0 +1,17 @@
+{
+  "schema_version": 2,
+  "unit_system": "SI",
+  "coordinate_system": "RH_Y_UP",
+  "seed": 42,
+  "gravity": [0,0,0],
+  "water": {"density":0,"velocity":[0,0,0],"surface_y":0},
+  "octopus_profile": "../../profiles/dynamics-model.json",
+  "surface_materials": [{"id":0,"friction":0.7,"sealability":1,"roughness":0,"leak_conductance":1e-13,"peel_energy":1,"grade":"ASSUMED","source":"engineering regression fixture"}],
+  "dynamic_bodies": [{"id":1,"mass":2,"inertia_body":[[1,0,0],[0,1,0],[0,0,1]],"pose":{"position":[0,0,0],"rotation_xyzw":[0,0,0,1]},"linear_velocity":[0,0,0],"angular_velocity":[0,0,0],"fixed":true,"shape":{"type":"sphere","radius":0.01},"material_id":0}],
+  "static_colliders": [],
+  "octopus": {"body_id":1,"arms":1},
+  "cups": [],
+  "hinges": [],
+  "self_contact": true,
+  "objectives": []
+}

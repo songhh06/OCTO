@@ -1,0 +1,324 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "unit_system": {
+      "const": "SI"
+    },
+    "coordinate_system": {
+      "const": "RH_Y_UP"
+    },
+    "gravity": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "water": {
+      "type": "object",
+      "properties": {
+        "density": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "velocity": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "density",
+        "velocity"
+      ],
+      "additionalProperties": false
+    },
+    "octopus_profile": {
+      "type": "string",
+      "minLength": 1
+    },
+    "static_colliders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          },
+          "mesh_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "transform": {
+            "type": "object",
+            "properties": {
+              "position": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "rotation_xyzw": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              }
+            },
+            "required": [
+              "position",
+              "rotation_xyzw"
+            ],
+            "additionalProperties": false
+          },
+          "material_id": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          }
+        },
+        "required": [
+          "id",
+          "mesh_sha256",
+          "transform",
+          "material_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "dynamic_bodies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          },
+          "mass": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "inertia_body": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "pose": {
+            "type": "object",
+            "properties": {
+              "position": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "rotation_xyzw": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              }
+            },
+            "required": [
+              "position",
+              "rotation_xyzw"
+            ],
+            "additionalProperties": false
+          },
+          "linear_velocity": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "angular_velocity": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "shape": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "box"
+              },
+              "half_extents": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "type",
+              "half_extents"
+            ],
+            "additionalProperties": false
+          },
+          "material_id": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          }
+        },
+        "required": [
+          "id",
+          "mass",
+          "inertia_body",
+          "pose",
+          "linear_velocity",
+          "angular_velocity",
+          "shape",
+          "material_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "surface_materials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          },
+          "sealability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "roughness": {
+            "type": "number",
+            "minimum": 0
+          },
+          "leak_conductance": {
+            "type": "number",
+            "minimum": 0
+          },
+          "friction": {
+            "type": "number",
+            "minimum": 0
+          },
+          "peel_energy": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "grade": {
+            "enum": [
+              "ASSUMED",
+              "MEASURED",
+              "TUNED_FOR_GAMEPLAY"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "sealability",
+          "roughness",
+          "leak_conductance",
+          "friction",
+          "peel_energy",
+          "source",
+          "grade"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "objectives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "hold_box"
+          },
+          "body_id": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          },
+          "target": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "radius": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "duration": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "type",
+          "body_id",
+          "target",
+          "radius",
+          "duration"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "unit_system",
+    "coordinate_system",
+    "gravity",
+    "water",
+    "octopus_profile",
+    "static_colliders",
+    "dynamic_bodies",
+    "surface_materials",
+    "objectives"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:octopus:scene:1"
+}

@@ -1,0 +1,1850 @@
+{
+  "schema_version": 2,
+  "unit_system": "SI",
+  "coordinate_system": "RH_Y_UP",
+  "seed": 42,
+  "gravity": [
+    0,
+    0,
+    0
+  ],
+  "water": {
+    "density": 0,
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "surface_y": 0
+  },
+  "octopus_profile": "../../profiles/dynamics-model.json",
+  "surface_materials": [
+    {
+      "id": 0,
+      "friction": 0.7,
+      "sealability": 1,
+      "roughness": 0,
+      "leak_conductance": 1e-13,
+      "peel_energy": 1,
+      "grade": "ASSUMED",
+      "source": "engineering regression fixture"
+    }
+  ],
+  "dynamic_bodies": [
+    {
+      "id": 1,
+      "mass": 2,
+      "inertia_body": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pose": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "linear_velocity": [
+        0,
+        0,
+        0
+      ],
+      "angular_velocity": [
+        0,
+        0,
+        0
+      ],
+      "fixed": false,
+      "shape": {
+        "type": "sphere",
+        "radius": 0.04
+      },
+      "material_id": 0
+    },
+    {
+      "id": 2,
+      "mass": 2,
+      "inertia_body": [
+        [
+          0.1683333,
+          0,
+          0
+        ],
+        [
+          0,
+          0.1683333,
+          0
+        ],
+        [
+          0,
+          0,
+          0.3333333
+        ]
+      ],
+      "pose": {
+        "position": [
+          2,
+          0.5,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "linear_velocity": [
+        0,
+        0,
+        0
+      ],
+      "angular_velocity": [
+        0,
+        0,
+        0
+      ],
+      "shape": {
+        "type": "box",
+        "half_extents": [
+          0.5,
+          0.5,
+          0.05
+        ]
+      },
+      "material_id": 0
+    }
+  ],
+  "static_colliders": [
+    {
+      "id": 10,
+      "material_id": 0,
+      "type": "plane",
+      "normal": [
+        0,
+        1,
+        0
+      ],
+      "offset": -0.08
+    }
+  ],
+  "octopus": {
+    "body_id": 1,
+    "arms": 8
+  },
+  "cups": [
+    {
+      "a": {
+        "arm": 0,
+        "station": 2,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 3,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 4,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 5,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 6,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 7,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 8,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 9,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 10,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 11,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 12,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 13,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 14,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 15,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 16,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 0,
+        "station": 17,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 2,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 3,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 4,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 5,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 6,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 7,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 8,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 9,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 10,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 11,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 12,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 13,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 14,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 15,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 16,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 1,
+        "station": 17,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 2,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 3,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 4,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 5,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 6,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 7,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 8,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 9,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 10,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 11,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 12,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 13,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 14,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 15,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 16,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 2,
+        "station": 17,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 2,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 3,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 4,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 5,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 6,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 7,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 8,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 9,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 10,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 11,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 12,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 13,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 14,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 15,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 16,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 3,
+        "station": 17,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 2,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 3,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 4,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 5,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 6,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 7,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 8,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 9,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 10,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 11,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 12,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 13,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 14,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 15,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 16,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 4,
+        "station": 17,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 2,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 3,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 4,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 5,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 6,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 7,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 8,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 9,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 10,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 11,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 12,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 13,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 14,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 15,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 16,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 5,
+        "station": 17,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 2,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 3,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 4,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 5,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 6,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 7,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 8,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 9,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 10,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 11,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 12,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 13,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 14,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 15,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 16,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 6,
+        "station": 17,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 2,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 3,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 4,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 5,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 6,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 7,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 8,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 9,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 10,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 11,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 12,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 13,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 14,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 15,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 16,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    },
+    {
+      "a": {
+        "arm": 7,
+        "station": 17,
+        "local": [
+          0,
+          -0.08,
+          0
+        ]
+      },
+      "plane_id": 10,
+      "command": true
+    }
+  ],
+  "hinges": [
+    {
+      "a": {
+        "body_id": 2,
+        "local": [
+          -0.5,
+          0,
+          0
+        ]
+      },
+      "static_point": [
+        1.5,
+        0.5,
+        0
+      ],
+      "axis_a": [
+        0,
+        1,
+        0
+      ],
+      "axis_b": [
+        0,
+        1,
+        0
+      ]
+    }
+  ],
+  "self_contact": true,
+  "objectives": []
+}

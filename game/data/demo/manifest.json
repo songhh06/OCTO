@@ -1,0 +1,159 @@
+{
+  "source": "native-cxx20-cosserat",
+  "playback_only": true,
+  "bio_validated": false,
+  "fixed_dt_s": 0.008333333333333333,
+  "executable_sha256": "7477aea198ae59e7c738f99eabdf1448c7e0bd15271c2cd6e8092cdaafc6d610",
+  "cases": [
+    {
+      "name": "bend",
+      "trace_sha256": "3a0d5b0857986c6bef189f15a1f0dbc76faa9868d103d93e349c0e80a2e8374b",
+      "stats": {
+        "success": true,
+        "tick": 600,
+        "state_fnv1a64": "6854374801766177127",
+        "p50_ms": 4.1097,
+        "p95_ms": 4.7322,
+        "max_volume_error": 2.484580753414203e-16,
+        "max_residual": 1.0267573789107809e-06,
+        "max_newton_iterations_including_retries": 3,
+        "fallback_ticks": 0,
+        "bodies": 25,
+        "elements": 24,
+        "cups": 0,
+        "max_contacts": 0,
+        "max_penetration_m": 0,
+        "last_support_force": [
+          -0.5395057903948848,
+          0,
+          0.16764680567358273
+        ],
+        "last_support_torque": [
+          0,
+          -0.32918964439840165,
+          0
+        ]
+      }
+    },
+    {
+      "name": "extend",
+      "trace_sha256": "c45c55986e1a752bfe86a57901d467ed9dd81d26fb60659eff4fa41ec574fc8d",
+      "stats": {
+        "success": true,
+        "tick": 600,
+        "state_fnv1a64": "7446461351530955586",
+        "p50_ms": 2.1376,
+        "p95_ms": 4.2428,
+        "max_volume_error": 2.484580753414203e-16,
+        "max_residual": 1.072712696809086e-06,
+        "max_newton_iterations_including_retries": 3,
+        "fallback_ticks": 0,
+        "bodies": 25,
+        "elements": 24,
+        "cups": 0,
+        "max_contacts": 0,
+        "max_penetration_m": 0,
+        "last_support_force": [
+          0,
+          0,
+          -1.3828778044455703e-05
+        ],
+        "last_support_torque": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "light",
+      "trace_sha256": "4a525ff4d0b9acf8253b5fb8d085d0b3ce5ef0c51f674071222229af888a605d",
+      "stats": {
+        "success": true,
+        "tick": 600,
+        "state_fnv1a64": "7555479386885158921",
+        "p50_ms": 3.0491,
+        "p95_ms": 24.5813,
+        "max_volume_error": 2.484580753414203e-16,
+        "max_residual": 1.0558054030134902e-06,
+        "max_newton_iterations_including_retries": 18,
+        "fallback_ticks": 0,
+        "bodies": 26,
+        "elements": 24,
+        "cups": 1,
+        "max_contacts": 1,
+        "max_penetration_m": 2.108005903167509e-08,
+        "last_support_force": [
+          0,
+          0,
+          0
+        ],
+        "last_support_torque": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "heavy",
+      "trace_sha256": "a6c99132e1d3b4c3586da9d2f2ad26b128ea0d191c1b4cafc62c1652c847ebcc",
+      "stats": {
+        "success": true,
+        "tick": 600,
+        "state_fnv1a64": "16394992265479625977",
+        "p50_ms": 13.6871,
+        "p95_ms": 25.2053,
+        "max_volume_error": 2.484580753414203e-16,
+        "max_residual": 1.0935861166627703e-06,
+        "max_newton_iterations_including_retries": 17,
+        "fallback_ticks": 0,
+        "bodies": 26,
+        "elements": 24,
+        "cups": 1,
+        "max_contacts": 1,
+        "max_penetration_m": 3.9373663912600776e-08,
+        "last_support_force": [
+          0,
+          0,
+          0
+        ],
+        "last_support_torque": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "eight",
+      "trace_sha256": "a4dfdc9fe9f006cc51e234cf22a15420ddf2d1b285f5217a17cddce7487d8158",
+      "stats": {
+        "success": true,
+        "tick": 360,
+        "state_fnv1a64": "7381975394922464114",
+        "p50_ms": 25.4981,
+        "p95_ms": 33.3445,
+        "max_volume_error": 2.484580753414203e-16,
+        "max_residual": 7.706455501816506e-07,
+        "max_newton_iterations_including_retries": 2,
+        "fallback_ticks": 0,
+        "bodies": 194,
+        "elements": 192,
+        "cups": 128,
+        "max_contacts": 0,
+        "max_penetration_m": 0,
+        "last_support_force": [
+          0,
+          0,
+          0
+        ],
+        "last_support_torque": [
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  ]
+}

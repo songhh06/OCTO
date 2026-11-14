@@ -1,0 +1,141 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "core_build_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scene_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "profile_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "numeric_backend": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cpu_arch": {
+      "type": "string",
+      "minLength": 1
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "fixed_dt": {
+      "const": 0.008333333333333333
+    },
+    "snapshot_version": {
+      "const": 1
+    },
+    "start_tick": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "intents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tick": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 18446744073709551615
+          },
+          "selected": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 7
+          },
+          "target_world": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "reach": {
+            "type": "number",
+            "minimum": -1,
+            "maximum": 1
+          },
+          "twist": {
+            "type": "number",
+            "minimum": -1,
+            "maximum": 1
+          },
+          "suction": {
+            "type": "boolean"
+          },
+          "jet": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "tick",
+          "selected",
+          "target_world",
+          "reach",
+          "twist",
+          "suction",
+          "jet"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tick": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 18446744073709551615
+          },
+          "kind": {
+            "const": "checkpoint"
+          },
+          "state_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "tick",
+          "kind",
+          "state_sha256"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "core_build_id",
+    "scene_sha256",
+    "profile_sha256",
+    "numeric_backend",
+    "cpu_arch",
+    "seed",
+    "fixed_dt",
+    "snapshot_version",
+    "start_tick",
+    "intents",
+    "events"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:octopus:replay:1"
+}

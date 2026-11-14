@@ -1,0 +1,42 @@
+git: installed_provenance_unverified
+git: incomplete version/source/archive SHA256
+git: official archive not materialized for verification
+cmake: installed_provenance_unverified
+cmake: incomplete version/source/archive SHA256
+cmake: official archive not materialized for verification
+ninja: installed_provenance_unverified
+ninja: incomplete version/source/archive SHA256
+ninja: official archive not materialized for verification
+compiler: installed_provenance_unverified
+compiler: incomplete version/source/archive SHA256
+compiler: official archive not materialized for verification
+python: installed_provenance_unverified
+python: incomplete version/source/archive SHA256
+python: official archive not materialized for verification
+godot: installed_provenance_unverified
+godot: incomplete version/source/archive SHA256
+godot: official archive not materialized for verification
+godot_required: unavailable_unverified
+godot_required: incomplete version/source/archive SHA256
+godot_required: official archive not materialized for verification
+godot_cpp: unavailable_unverified
+godot_cpp: incomplete version/source/archive SHA256
+godot_cpp: official archive not materialized for verification
+eigen: unavailable_unverified
+eigen: incomplete version/source/archive SHA256
+eigen: official archive not materialized for verification
+test_framework: unavailable_unverified
+test_framework: incomplete version/source/archive SHA256
+test_framework: official archive not materialized for verification
+blender: unavailable_unverified
+blender: incomplete version/source/archive SHA256
+blender: official archive not materialized for verification
+jsonschema: installed_provenance_unverified
+jsonschema: incomplete version/source/archive SHA256
+jsonschema: official archive not materialized for verification
+clang-format: installed_provenance_unverified
+clang-format: incomplete version/source/archive SHA256
+clang-format: official archive not materialized for verification
+clang-tidy: installed_provenance_unverified
+clang-tidy: incomplete version/source/archive SHA256
+clang-tidy: official archive not materialized for verification

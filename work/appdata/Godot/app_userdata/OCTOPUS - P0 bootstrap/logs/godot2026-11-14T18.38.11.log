@@ -1,0 +1,18 @@
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4060
+
+PREVIEW_READY arms=8 suckers=128 visual_only=true
+LIVE_GODOT_PROCESS_STARTED pid=14420
+LIVE_TICK 0 contacts=0 motion=0.000000
+LIVE_GODOT_READY arms=8 tick=0
+LIVE_CONTROLS_OK drag_target_and_space_pause
+LIVE_TICK 60 contacts=0 motion=0.000000
+LIVE_TICK 120 contacts=0 motion=0.000000
+LIVE_TICK 180 contacts=0 motion=0.000000
+LIVE_TICK 240 contacts=1 motion=0.039820
+LIVE_TICK 300 contacts=3 motion=0.188197
+LIVE_TICK 360 contacts=3 motion=0.328515
+PREVIEW_CAPTURE path=D:/바탕화면/Octopus_Simulator/game/../docs/preview/live_box_contact.png result=0
+LIVE_GODOT_CONTACT_OK tick=360 contacts=4 motion_m=0.328515
+LIVE_TICK 0 contacts=0 motion=0.000000
+LIVE_GODOT_RESET_OK

@@ -1,0 +1,428 @@
+Start testing: Nov 14 17:06 Korea Standard Time
+----------------------------------------------------------
+1/33 Testing: P2.V06_geometry
+1/33 Test: P2.V06_geometry
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_p2_tests.exe" "V06_geometry"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P2.V06_geometry" start time: Nov 14 17:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+geometric_seal_pressure=81844.1 force=13.7703
+V06_geometry passed
+<end of output>
+Test time =   1.00 sec
+----------------------------------------------------------
+Test Passed.
+"P2.V06_geometry" end time: Nov 14 17:06 Korea Standard Time
+"P2.V06_geometry" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/33 Testing: P2.V07
+2/33 Test: P2.V07
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_p2_tests.exe" "V07"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P2.V07" start time: Nov 14 17:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+eccentric_geometric_peeling=true released_ticks=101
+V07 passed
+<end of output>
+Test time =   0.29 sec
+----------------------------------------------------------
+Test Passed.
+"P2.V07" end time: Nov 14 17:06 Korea Standard Time
+"P2.V07" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/33 Testing: P2.V08
+3/33 Test: P2.V08
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_p2_tests.exe" "V08"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P2.V08" start time: Nov 14 17:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+material=1 x=-1.72567e-12 maxpen=1.64345e-09
+material=0.2 x=4.29979 maxpen=1.02291e-08
+V08 passed
+<end of output>
+Test time =   2.28 sec
+----------------------------------------------------------
+Test Passed.
+"P2.V08" end time: Nov 14 17:06 Korea Standard Time
+"P2.V08" time elapsed: 00:00:02
+----------------------------------------------------------
+
+4/33 Testing: P2.door
+4/33 Test: P2.door
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_p2_tests.exe" "door"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P2.door" start time: Nov 14 17:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+door_angle=0.0150873 anchor_error=2.79013e-07
+door passed
+<end of output>
+Test time =   0.27 sec
+----------------------------------------------------------
+Test Passed.
+"P2.door" end time: Nov 14 17:06 Korea Standard Time
+"P2.door" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/33 Testing: P2.ccd
+5/33 Test: P2.ccd
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_p2_tests.exe" "ccd"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P2.ccd" start time: Nov 14 17:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+fast_sphere_z=0.0199987 hits=5
+OBB CCD rod=0
+OBB CCD rod=1
+ccd passed
+<end of output>
+Test time =   1.21 sec
+----------------------------------------------------------
+Test Passed.
+"P2.ccd" end time: Nov 14 17:06 Korea Standard Time
+"P2.ccd" time elapsed: 00:00:01
+----------------------------------------------------------
+
+7/33 Testing: P2.capsules
+7/33 Test: P2.capsules
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_p2_tests.exe" "capsules"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P2.capsules" start time: Nov 14 17:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+capsule_contacts=4 penetration=1.76352e-08
+capsules passed
+<end of output>
+Test time =   9.55 sec
+----------------------------------------------------------
+Test Passed.
+"P2.capsules" end time: Nov 14 17:06 Korea Standard Time
+"P2.capsules" time elapsed: 00:00:09
+----------------------------------------------------------
+
+9/33 Testing: P2.hessian
+9/33 Test: P2.hessian
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_p2_tests.exe" "hessian"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P2.hessian" start time: Nov 14 17:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+hessian_relative_error=1.09087e-10
+hessian passed
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"P2.hessian" end time: Nov 14 17:06 Korea Standard Time
+"P2.hessian" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/33 Testing: physics.math
+10/33 Test: physics.math
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "math"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.math" start time: Nov 14 17:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+max_gradient_error=2.36254e-11
+math passed
+<end of output>
+Test time =   1.13 sec
+----------------------------------------------------------
+Test Passed.
+"physics.math" end time: Nov 14 17:06 Korea Standard Time
+"physics.math" time elapsed: 00:00:01
+----------------------------------------------------------
+
+11/33 Testing: physics.V01
+11/33 Test: physics.V01
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "V01"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.V01" start time: Nov 14 17:06 Korea Standard Time
+Output:
+----------------------------------------------------------
+seconds=10 drift_m=0
+V01 passed
+<end of output>
+Test time =  12.60 sec
+----------------------------------------------------------
+Test Passed.
+"physics.V01" end time: Nov 14 17:07 Korea Standard Time
+"physics.V01" time elapsed: 00:00:12
+----------------------------------------------------------
+
+12/33 Testing: physics.V02
+12/33 Test: physics.V02
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "V02"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.V02" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+static converged=1 residual=1.23387e-08
+static converged=1 residual=9.81654e-08
+deflection=0.00277182 beam=0.00277305 relative_error=0.000445699
+V02 passed
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"physics.V02" end time: Nov 14 17:07 Korea Standard Time
+"physics.V02" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/33 Testing: physics.V06
+16/33 Test: physics.V06
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "V06"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.V06" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+sealed_force_N=6.71194 sealed_pressure_Pa=91829.6 leaked_pressure_Pa=101325
+V06 passed
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"physics.V06" end time: Nov 14 17:07 Korea Standard Time
+"physics.V06" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/33 Testing: physics.V07
+17/33 Test: physics.V07
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "V07"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.V07" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+V07 passed
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"physics.V07" end time: Nov 14 17:07 Korea Standard Time
+"physics.V07" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/33 Testing: physics.V08_model
+18/33 Test: physics.V08_model
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "V08_model"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.V08_model" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+glass_force=6.71194 porous_force=0 (model-only test)
+V08_model passed
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"physics.V08_model" end time: Nov 14 17:07 Korea Standard Time
+"physics.V08_model" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/33 Testing: physics.V09_pair
+19/33 Test: physics.V09_pair
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "V09_pair"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.V09_pair" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+linear_error=2.29438e-08 angular_error=0.00590733 (two rigid bodies, rod case pending)
+V09_pair passed
+<end of output>
+Test time =   1.35 sec
+----------------------------------------------------------
+Test Passed.
+"physics.V09_pair" end time: Nov 14 17:07 Korea Standard Time
+"physics.V09_pair" time elapsed: 00:00:01
+----------------------------------------------------------
+
+22/33 Testing: physics.contact
+22/33 Test: physics.contact
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "contact"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.contact" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+contact passed
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"physics.contact" end time: Nov 14 17:07 Korea Standard Time
+"physics.contact" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/33 Testing: physics.V11
+23/33 Test: physics.V11
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "V11"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.V11" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+terminal_speed=0.790268 analytical=0.790268
+V11 passed
+<end of output>
+Test time =   1.30 sec
+----------------------------------------------------------
+Test Passed.
+"physics.V11" end time: Nov 14 17:07 Korea Standard Time
+"physics.V11" time elapsed: 00:00:01
+----------------------------------------------------------
+
+25/33 Testing: physics.rollback
+25/33 Test: physics.rollback
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "rollback"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.rollback" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+rollback passed
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"physics.rollback" end time: Nov 14 17:07 Korea Standard Time
+"physics.rollback" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/33 Testing: physics.implicit_exact
+26/33 Test: physics.implicit_exact
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "implicit_exact"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.implicit_exact" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+implicit_exact passed
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"physics.implicit_exact" end time: Nov 14 17:07 Korea Standard Time
+"physics.implicit_exact" time elapsed: 00:00:00
+----------------------------------------------------------
+
+27/33 Testing: physics.free_spin
+27/33 Test: physics.free_spin
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_physics_tests.exe" "free_spin"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"physics.free_spin" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+free_spin_angular_momentum_error=0.00198827
+free_spin passed
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"physics.free_spin" end time: Nov 14 17:07 Korea Standard Time
+"physics.free_spin" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/33 Testing: P0.core_contract
+28/33 Test: P0.core_contract
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_core_tests.exe"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P0.core_contract" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+P0 world: tick, dt rejection, atomic restore, determinism, overflow, SI passed
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"P0.core_contract" end time: Nov 14 17:07 Korea Standard Time
+"P0.core_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+29/33 Testing: P0.cli_tick
+29/33 Test: P0.cli_tick
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_cli.exe" "--ticks" "1" "--seed" "42"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P0.cli_tick" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+{"snapshot_version":1,"tick":1,"seed":42,"dynamic_bodies":0}
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=["tick":1]
+"P0.cli_tick" end time: Nov 14 17:07 Korea Standard Time
+"P0.cli_tick" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/33 Testing: P0.cli_reject_negative
+30/33 Test: P0.cli_reject_negative
+Command: "D:/바탕화면/Octopus_Simulator/build/asan/octo_cli.exe" "--ticks" "-1"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P0.cli_reject_negative" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+expected unsigned integer
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"P0.cli_reject_negative" end time: Nov 14 17:07 Korea Standard Time
+"P0.cli_reject_negative" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/33 Testing: P2.schemas
+31/33 Test: P2.schemas
+Command: "C:/Anaconda/python.exe" "D:/바탕화면/Octopus_Simulator/tests/integration/p2_schema_tests.py"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P2.schemas" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+P2 versioned scene/input/replay schemas passed
+<end of output>
+Test time =   0.57 sec
+----------------------------------------------------------
+Test Passed.
+"P2.schemas" end time: Nov 14 17:07 Korea Standard Time
+"P2.schemas" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/33 Testing: P0.schemas
+32/33 Test: P0.schemas
+Command: "C:/Anaconda/python.exe" "D:/바탕화면/Octopus_Simulator/tests/integration/schema_tests.py"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P0.schemas" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.022s
+
+OK
+<end of output>
+Test time =   0.44 sec
+----------------------------------------------------------
+Test Passed.
+"P0.schemas" end time: Nov 14 17:07 Korea Standard Time
+"P0.schemas" time elapsed: 00:00:00
+----------------------------------------------------------
+
+33/33 Testing: P0.core_engine_boundary
+33/33 Test: P0.core_engine_boundary
+Command: "C:/Anaconda/python.exe" "D:/바탕화면/Octopus_Simulator/tools/check_boundary.py"
+Directory: D:/바탕화면/Octopus_Simulator/build/asan
+"P0.core_engine_boundary" start time: Nov 14 17:07 Korea Standard Time
+Output:
+----------------------------------------------------------
+P0 core boundary: passed
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"P0.core_engine_boundary" end time: Nov 14 17:07 Korea Standard Time
+"P0.core_engine_boundary" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 14 17:07 Korea Standard Time

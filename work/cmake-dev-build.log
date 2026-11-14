@@ -1,0 +1,6 @@
+[1/6] Building CXX object CMakeFiles\octo_core.dir\core\src\world.cpp.obj
+[2/6] Linking CXX static library octo_core.lib
+[3/6] Building CXX object CMakeFiles\octo_core_tests.dir\tests\unit\world_tests.cpp.obj
+[4/6] Building CXX object CMakeFiles\octo_cli.dir\core\src\cli.cpp.obj
+[5/6] Linking CXX executable octo_core_tests.exe
+[6/6] Linking CXX executable octo_cli.exe

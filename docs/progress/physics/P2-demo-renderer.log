@@ -1,0 +1,29 @@
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 4060
+
+PREVIEW_READY arms=8 suckers=128 visual_only=true
+PHYSICS_LAB_READY frames=151 arms=1 source=native-cxx20 offline=true
+P2_DEMO_READY case=bend arms=1 frames=151
+PREVIEW_CAPTURE path=D:/바탕화면/Octopus_Simulator/game/../docs/preview/p2_demo_bend.png result=0
+P2_DEMO_CASE_OK bend seek_pause_camera=true
+PREVIEW_READY arms=8 suckers=128 visual_only=true
+PHYSICS_LAB_READY frames=151 arms=1 source=native-cxx20 offline=true
+P2_DEMO_READY case=extend arms=1 frames=151
+PREVIEW_CAPTURE path=D:/바탕화면/Octopus_Simulator/game/../docs/preview/p2_demo_extend.png result=0
+P2_DEMO_CASE_OK extend seek_pause_camera=true
+PREVIEW_READY arms=8 suckers=128 visual_only=true
+PHYSICS_LAB_READY frames=151 arms=1 source=native-cxx20 offline=true
+P2_DEMO_READY case=light arms=1 frames=151
+PREVIEW_CAPTURE path=D:/바탕화면/Octopus_Simulator/game/../docs/preview/p2_demo_light.png result=0
+P2_DEMO_CASE_OK light seek_pause_camera=true
+PREVIEW_READY arms=8 suckers=128 visual_only=true
+PHYSICS_LAB_READY frames=151 arms=1 source=native-cxx20 offline=true
+P2_DEMO_READY case=heavy arms=1 frames=151
+PREVIEW_CAPTURE path=D:/바탕화면/Octopus_Simulator/game/../docs/preview/p2_demo_heavy.png result=0
+P2_DEMO_CASE_OK heavy seek_pause_camera=true
+PREVIEW_READY arms=8 suckers=128 visual_only=true
+PHYSICS_LAB_READY frames=61 arms=8 source=native-cxx20 offline=true
+P2_DEMO_READY case=eight arms=8 frames=61
+PREVIEW_CAPTURE path=D:/바탕화면/Octopus_Simulator/game/../docs/preview/p2_demo_eight.png result=0
+P2_DEMO_CASE_OK eight seek_pause_camera=true
+P2_DEMO_ALL_OK cases=5

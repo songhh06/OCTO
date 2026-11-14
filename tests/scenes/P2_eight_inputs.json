@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "events": [
+    {
+      "tick": 0,
+      "arm": 0,
+      "activation": [
+        0,
+        0,
+        0,
+        0,
+        0.01,
+        0,
+        0
+      ],
+      "suction": true
+    },
+    {
+      "tick": 0,
+      "arm": 1,
+      "activation": [
+        0,
+        0,
+        0,
+        0,
+        0.01,
+        0,
+        0
+      ],
+      "suction": true
+    },
+    {
+      "tick": 0,
+      "arm": 2,
+      "activation": [
+        0,
+        0,
+        0,
+        0,
+        0.01,
+        0,
+        0
+      ],
+      "suction": true
+    },
+    {
+      "tick": 0,
+      "arm": 3,
+      "activation": [
+        0,
+        0,
+        0,
+        0,
+        0.01,
+        0,
+        0
+      ],
+      "suction": true
+    },
+    {
+      "tick": 0,
+      "arm": 4,
+      "activation": [
+        0,
+        0,
+        0,
+        0,
+        0.01,
+        0,
+        0
+      ],
+      "suction": true
+    },
+    {
+      "tick": 0,
+      "arm": 5,
+      "activation": [
+        0,
+        0,
+        0,
+        0,
+        0.01,
+        0,
+        0
+      ],
+      "suction": true
+    },
+    {
+      "tick": 0,
+      "arm": 6,
+      "activation": [
+        0,
+        0,
+        0,
+        0,
+        0.01,
+        0,
+        0
+      ],
+      "suction": true
+    },
+    {
+      "tick": 0,
+      "arm": 7,
+      "activation": [
+        0,
+        0,
+        0,
+        0,
+        0.01,
+        0,
+        0
+      ],
+      "suction": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "tests_passed": {
+    "release": 36,
+    "dev": 27,
+    "asan": 27
+  },
+  "fixture": "tests/scenes/regressions/live_wrap_319.octostate",
+  "fixture_sha256": "63225ff86ac5d71296b59793920fe4a104d9f60dc8d4c6bdb14d633c904b718d",
+  "before": {
+    "converged": false,
+    "outer_iterations": 96,
+    "substeps": 4,
+    "dual_error": 0.0064343
+  },
+  "after": {
+    "converged": true,
+    "outer_iterations": 3,
+    "substeps": 1,
+    "residual": 1.41816e-08,
+    "geometry_error_m": 2.18038e-07,
+    "dual_error": 0.00131088,
+    "unloaded_continuation_ticks": 60
+  },
+  "native_executable_sha256": "a499d9a74df938c36f5dec7227dfd02f12caea3de2993b34eaa278002fa47b67",
+  "diagnostics": "saved before response in absolute work path; Windows wide argv",
+  "godot": "LIVE_GODOT_RESET_OK",
+  "user_exact_input_known": false,
+  "git_HEAD": "4541a5975d62143c3cbf51a2c7a8cdd3adb81aac",
+  "new_commit": null
+}
