@@ -40,8 +40,10 @@ Windows Actions:
 - Subsequent surface-contact and root-attachment changes are exercised in the
   latest PR #2 CI. Do not claim those tests passed until the newer run is green.
 - A small synthetic 193-joint triangle GLB is generated in CI to exercise
-  Skeleton3D import, bone posing and FEM boundary visualization; it must never
-  be confused with visual/physics acceptance of the supplied GameReady artwork.
+  Skeleton3D import, 18-GPU-morph generation, bone posing and FEM boundary
+  visualization. This was successful at commit `0dcbe9c`:
+  https://github.com/songhh06/OCTO/actions/runs/43594758175.
+  **It is not a visual/physics acceptance test of the user's actual GLB.**
 
 ## Missing to meet user requirements
 
@@ -49,10 +51,15 @@ Windows Actions:
    collision surface with material regions, boundary quality, pressure
    stabilization and adaptive timestepping. The current eight tets are
    **only an early physics prototype**.
-2. Volume-preserving skin binding for the GLB's 4,842 body vertices fully
-   controlled by its `Root` bone; they are not deformed by an independent
-   torso-node shader/bind yet. A separate eight-triangle diagnostic overlay
-   shows FEM motion but is not a substitute for high-resolution skin binding.
+2. Production-quality volumetric embedding is not implemented. The Godot
+   adapter now builds 18 GPU relative-blendshape channels from six FEM
+   boundary node translations and applies them to Root-weighted body vertices
+   while preserving mesh materials and 192 arm bones. This directional
+   boundary interpolation is an **engineering approximation**, not a
+   tetrahedral barycentric embedding; deformation error, normal correction
+   and silhouette/contact distances are not yet measured against the actual
+   uploaded art. The separate eight-triangle debug overlay shows the true
+   coarse FEM collision boundary.
 3. A collision-capable deformable octopus arm cross section (rod+cage),
    deformation-dependent sucker rim/normal/pressure, chamber hydraulic
    pressure, beak narrow-gap passability and closed 60 s body contact tests.
